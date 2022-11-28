@@ -72,6 +72,6 @@ public class CustomerController {
 	public String membershipquit(String c_id) { 
 		cms.withdrwalMembership(c_id);
 		return "index";
-}
+	}
 	
 }
