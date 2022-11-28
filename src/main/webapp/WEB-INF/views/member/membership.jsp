@@ -91,14 +91,16 @@
 		
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
+		<input type="hidden" id="curPlan" value="${membershipCode}">
+		
 		<c:if test="${membershipCode != null}">
-			<h4>現在のプラン</h4>
-			<h4>${membershipCode}</h4>
+			<h3>現在のプラン</h3>
+			<h4 id="curPlanName"></h4>
 		</c:if>
 		<div id="msg" class="msg">
 			<p id="errorMsg"></p>
 		</div>
-		<input type="text" name ="c_id" value="${loginId}">
+		<input type="hidden" name ="c_id" value="${loginId}">
 		<select name="m_code" id="planSelect" onchange="selectBoxChange(this.value);" style="width: 300px; height: 50px; font-size: 20px; text-align: center;">
 				<option value="">未選択</option>
 				<c:forEach var="msList" items="${ml}">
@@ -112,6 +114,20 @@
 	</form>
 	<script>
 	
+		var curPlan = document.getElementById("curPlan").value;
+		
+		var curPlanName = document.getElementById("curPlanName");
+	
+		if(curPlan == 'M1'){
+			curPlanName.innerHTML = "ベーシック"
+		}else if(curPlan == 'M2'){
+			curPlanName.innerHTML = "スタンダード"
+		}else if(curPlan == 'M3'){
+			curPlanName.innerHTML = "プレミアム"
+		}else if(curPlan == 'M4'){
+			curPlanName.innerHTML = "オメガ"
+		}
+	
 		var plan = document.getElementById("planSelect").value;
 	
 		var selectBoxChange = function(value){
@@ -121,24 +137,26 @@
 			plan = value;
 			
 			if(plan == "M1"){
-				planComment.innerHTml = "1人プラン、最大画質 720P";
+				planComment.innerHTML = "1人プラン、最大画質 720P";
 			}else if(plan == "M2"){
-				planComment.innerHTml = "2人プラン、最大画質 1080P";
+				planComment.innerHTML = "2人プラン、最大画質 1080P";
 			}else if(plan == "M3"){
-				planComment.innerHTml = "4人プラン、最大画質 1080P";
+				planComment.innerHTML = "4人プラン、最大画質 1080P";
 			}else if(plan == "M4"){
-				planComment.innerHTml = "4人プラン、最大画質 2160P";
+				planComment.innerHTML = "4人プラン、最大画質 2160P";
 			}else if(plan == ''){
-				planComment.innerHTml = "";
+				planComment.innerHTML = "";
 			}
 		}
 
+		
+		
 		function doAction(){
 			
 			var errMsg = document.getElementById("errorMsg");
 			
 			if(plan == ""){
-				errMsg.innerHTml = "Check your plan";
+				errMsg.innerHTML = "Check your plan";
 				return false;
 			}
 			return true;
