@@ -20,8 +20,9 @@ import com.enitec.vo.Membership;
 @RequestMapping("/customer")
 @Controller
 public class CustomerController {
+	
 	@Autowired
-	CustomerService cs;
+	private CustomerService cs;
 	@Autowired
 	private MembershipSerivce ms;
 	@Autowired
@@ -29,7 +30,6 @@ public class CustomerController {
 
 	@GetMapping("/info")
 	public String customerinfo(HttpSession session, Model model) {
-		System.out.println("hey");
 		if (session.getAttribute("c_id") == null) {
 			return "error";
 		}
@@ -62,11 +62,12 @@ public class CustomerController {
 		cms.changeMembership(c_id, m_code);
 		return "index";
 	}
+	
 	@GetMapping("/withdrwal")
 	public String moveToWithdrwalPage(String c_id) {
-		System.out.println("hey");
 		return "member/membershipquit";
 	}
+	
 	@PostMapping("/withdrwal") 
 	public String membershipquit(String c_id) { 
 		cms.withdrwalMembership(c_id);

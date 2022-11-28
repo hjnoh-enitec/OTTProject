@@ -63,7 +63,7 @@
 		<li><a href="<c:url value='/'/>">Home</a></li>
 		<li><a href="<c:url value='/board/list'/>">Board</a></li>
 		<li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-		<li><a href="<c:url value='/register/add'/>">Sign in</a></li>
+		<li><a href="<c:url value='/register/signin'/>">Sign in</a></li>
 		<li><a href=""><i class="fa fa-search"></i></a></li>
 	</ul>
 </div>
@@ -80,7 +80,7 @@
 		<label><input type="checkbox" name="rememberId" value="on" ${empty cookie.c_id.value ? "":"checked"}>IDを保存</label> |
 		<br/><a href="/find/id">IDを忘れた方様</a> |
 		<a href="/find/pwd">パスワードを忘れた方様</a> |
-		<a href="/register/add">新規登録</a>
+		<a href="/register/signup">新規登録</a>
 	</div>
 	<script>
 

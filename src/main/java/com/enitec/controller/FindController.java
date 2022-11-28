@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enitec.Form.FindForm;
 import com.enitec.service.FindService;
-import com.enitec.service.MailService;
-import com.enitec.service.TokenService;
 
 @Controller
 @RequestMapping("/find")
@@ -22,10 +20,6 @@ public class FindController {
 
 	@Autowired
 	private FindService fs;
-	@Autowired
-	private TokenService ts;
-	@Autowired
-	private MailService ms;
 
 	@GetMapping("/id")
 	public String moveFindId() {

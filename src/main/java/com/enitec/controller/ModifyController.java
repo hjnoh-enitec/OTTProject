@@ -16,6 +16,7 @@ import com.enitec.vo.Customer;
 @Controller
 @RequestMapping("/modify")
 public class ModifyController {
+	
 	@Autowired
 	private CustomerService ms;
 
@@ -43,4 +44,5 @@ public class ModifyController {
 		model.addAttribute("customer", customer);
 		return "index";
 	}
+	
 }

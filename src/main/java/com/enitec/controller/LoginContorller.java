@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +16,7 @@ import com.enitec.service.LoginService;
 @Controller
 @RequestMapping("/login")
 public class LoginContorller {
+	
 	@Autowired
 	private LoginService ls;
 
