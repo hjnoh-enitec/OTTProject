@@ -35,7 +35,7 @@ public class FindController {
 	@PostMapping("/id")
 	public String returnId(FindForm findForm, HttpServletRequest request) {
 		List<String> idList = fs.findId(findForm.getC_name(), findForm.getC_birth(), findForm.getC_phone());
-		if (idList == null) {
+		if (idList.size() < 1) {
 			return "redirect:/findId";
 		}
 		String sendId = "";

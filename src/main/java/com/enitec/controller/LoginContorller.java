@@ -52,7 +52,9 @@ public class LoginContorller {
             cookie.setMaxAge(0);
             res.addCookie(cookie);
         }
-		return "redirect:" + toURL;
+        Cookie cookie = new Cookie("toURL",toURL);
+        res.addCookie(cookie);
+		return "redirect:/profile/select";
 	}
 
 	@GetMapping("/logout")

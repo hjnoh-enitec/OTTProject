@@ -9,7 +9,7 @@ tmp/
 *.bak
 *.swp
 *~.nib
-local.properties
+*.properties
 .settings/
 .loadpath
 .recommenders
@@ -94,7 +94,7 @@ hs_err_pid*
 replay_pid*
 
 ### Gradle ###
-.gradle
+*.gradle
 **/build/
 !src/**/build/
 
