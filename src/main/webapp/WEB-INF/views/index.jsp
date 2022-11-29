@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<c:set var="loginId" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}"/>
+ws
 <c:set var="loginOutLink" value="${loginId==null ? '/login/login?toURL=/' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId==null ? 'Login' : 'Logout'}"/>
 <c:set var="customerName" value="${loginId==null ? '' : loginId}"/>
