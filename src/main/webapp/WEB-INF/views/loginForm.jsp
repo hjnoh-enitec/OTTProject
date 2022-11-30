@@ -67,10 +67,10 @@
 		<li><a href=""><i class="fa fa-search"></i></a></li>
 	</ul>
 </div>
-<form:form action="/login/login" method="post" onsubmit="return formCheck(this);">
+<form:form action="/login/login" method="post" onsubmit="return true">
 	<h3 id="title">Login</h3>
 	<div id="msg">
-		${msg}
+		${msg }
 	</div>
 	<input type="text" name="toURL" value="${toURL}"/>
 	<input type="text" name="c_id"  value="${cookie.c_id.value}" placeholder="E-MAIL" autofocus>

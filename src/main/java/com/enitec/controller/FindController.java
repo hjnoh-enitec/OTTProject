@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.enitec.Form.FindForm;
+import com.enitec.form.FindForm;
 import com.enitec.service.FindService;
 import com.enitec.service.MailService;
 import com.enitec.service.TokenService;

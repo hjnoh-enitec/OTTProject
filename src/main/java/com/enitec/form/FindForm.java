@@ -1,4 +1,4 @@
-package com.enitec.Form;
+package com.enitec.form;
 
 
 import lombok.Data;
