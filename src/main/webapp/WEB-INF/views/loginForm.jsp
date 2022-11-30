@@ -82,9 +82,6 @@
 		<a href="/find/pwd">パスワードを忘れた方様</a> |
 		<a href="/register/signup">新規登録</a>
 	</div>
-	<script>
-
-	</script>
 </form:form>
 </body>
 </html>

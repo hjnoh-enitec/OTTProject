@@ -89,7 +89,7 @@ button {
 </head>
 <body>
 	<!-- form action="<c:url value="/register/save"/>" method="POST" onsubmit="return formCheck(this)"-->
-	<form:form action="/register/add" method="post"
+	<form:form action="/register/signup" method="post"
 		onchange="validInsert()" onkeypress="activeBtn()" id="frm">
 		<div class="title">Register</div>
 		<div id="msg" class="msg">

@@ -9,7 +9,7 @@ import com.enitec.vo.Customer;
 @Service
 public class CustomerService {
 	@Autowired
-	CustomerRepository cr;
+	private CustomerRepository cr;
 
 	public Customer getCustomerInfo(String c_id) {
 		return cr.findById(c_id).get();

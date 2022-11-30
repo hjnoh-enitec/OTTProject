@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class LoginContorller {
 	}
 
 	@PostMapping("/login")
-	public String login(String c_id, String c_pwd, String toURL, boolean rememberId, HttpServletRequest request, HttpServletResponse res) {
+	public String login(String c_id, String c_pwd, String toURL, boolean rememberId, HttpServletRequest request, HttpServletResponse res, Model model) {
 		String mailCheck = mailCheck(c_id, c_pwd);
 		if ("F".equals(mailCheck)) {
 			request.setAttribute("c_id", c_id);
@@ -43,6 +44,7 @@ public class LoginContorller {
 		//session生成
 		HttpSession session = request.getSession();
 		session.setAttribute("c_id", c_id);
+		session.setAttribute("c_name", ls.findName(c_id));
 		//cookie生成
         if(rememberId) {
             Cookie cookie = new Cookie("c_id", c_id); 

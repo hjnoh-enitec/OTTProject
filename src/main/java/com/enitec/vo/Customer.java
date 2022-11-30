@@ -1,7 +1,5 @@
 package com.enitec.vo;
 
-
-
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -9,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
-
 
 @Entity(name="customer")
 @Data

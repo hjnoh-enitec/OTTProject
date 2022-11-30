@@ -13,4 +13,8 @@ public class LoginService {
 	public String mailCheck(String c_id, String c_pwd) {
 		return cr.login(c_id, c_pwd);
 	}
+	
+	public String findName(String c_id) {
+		return cr.findName(c_id);
+	}
 }
