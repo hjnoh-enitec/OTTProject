@@ -3,6 +3,7 @@
 <%@ page session="false" %>
 <c:set var="loginId" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}"/>
 <c:set var="name" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_name')}"/>
+<c:set var="m_name" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('m_name')}"/>
 <c:set var="loginOutLink" value="${loginId==null ? '/login/login?toURL=/' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId==null ? 'ログイン' : 'ログアウト'}"/>
 <!DOCTYPE html>
@@ -52,9 +53,10 @@
 	<br><br><br><br><br><br>
 	<c:if test="${loginId != null}">
 		<h1>ようこそ、${name}　様</h1>
+		<h2>現在のメンバーシップ : ${m_name}</h2>
 		<br>
 	</c:if>
-	<h1><a href="/video/contents">動画</a></h1>
+	<h1><a href="/content/main">動画</a></h1>
 	<c:if test="${loginId == null}">
 		<h1><a href="/register/signup">会員登録</a></h1>
 	</c:if>

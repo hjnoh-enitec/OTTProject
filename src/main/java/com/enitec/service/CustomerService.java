@@ -31,7 +31,9 @@ public class CustomerService {
 
 	public String getMembershipCode(String c_id) {
 		return cr.findMembershipCode(c_id);
-
 	}
-
+	
+	public String getAutopay(String c_id) {
+		return "";
+	}
 }

@@ -118,6 +118,7 @@ button {
 			placeholder="例)1990年06月02日 → 19900602">
 		<div class="msg" id="idCheckMsg" style="margin-bottom: 0px">ID中腹チェックをした上に登録してください</div>
 		<button id="submitBtn" disabled>新規登録</button>
+		<a href="/">戻る</a>
 	</form:form>
 
 	<script>

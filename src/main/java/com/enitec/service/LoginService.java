@@ -17,4 +17,5 @@ public class LoginService {
 	public String findName(String c_id) {
 		return cr.findName(c_id);
 	}
+	
 }

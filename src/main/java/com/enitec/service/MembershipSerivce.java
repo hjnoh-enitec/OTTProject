@@ -14,5 +14,9 @@ public class MembershipSerivce {
 	
 	public List<Membership> getMembershipList() {
 		return mr.findAll();
-	}	
+	}
+	
+	public String getMcode(String m_code) {
+		return mr.findMcode(m_code);
+	}
 }

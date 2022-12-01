@@ -32,13 +32,21 @@ p{
 </head>
 <body onmouseover="onVideo(this)" onmouseout="outVideo(this)">
 	<div class="main">
-		<img src="/img/back.png" onclick="location.href='/video/contents'" id="backToMain">
+		<img src="/img/back.png" onclick="location.href='/content/main'" id="backToMain">
 	</div>
 	<div >
-		<video src="${path }" autoplay="autoplay" muted="muted" controls="controls" >
-			</video>
+	<input type="hidden" id="path" value="${path }">
+	<input type="hidden" id="playStartTime" value="#t=00:00:00">
+		<video src="" autoplay="autoplay" muted="muted" controls="controls" id="videoPlayer">
+		</video>
 	</div>
 	<script>
+	
+		var videoPlayer = document.getElementById("videoPlayer");
+		var path = document.getElementById("path").value;
+		var playStartTime = document.getElementById("playStartTime").value;
+		
+		videoPlayer.setAttribute("src", path + playStartTime);
 	
 		var backToMain = document.getElementById("backToMain");
 		

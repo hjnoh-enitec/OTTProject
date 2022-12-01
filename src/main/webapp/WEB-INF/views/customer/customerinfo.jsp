@@ -76,7 +76,7 @@
 			<tr>
 				<td><label for="">メンバーシップ</label></td>
 				<td>
-					<c:if test="${customer.m_code == null}">
+					<c:if test="${customer.m_code == 'M0'}">
 						<input class="input-field" type="text" name="mcode" id="mcode" value="未加入" disabled="disabled" style="margin-left: 10px;">
 					</c:if>
 					<c:if test="${customer.m_code == 'M1'}">
@@ -107,13 +107,13 @@
 			<tr>
 				<td><label for="">引き落とし設定</label></td>
 				<td>
-				<c:if test="${customer.m_autopay == 'F' && customer.m_code == null}">
+				<c:if test="${customer.m_autopay == 'F' && customer.m_code == 'M0'}">
 					<input class="input-field" type="text" name="autopay" id="autopay" value="メンバーシップ未加入" disabled="disabled" style="margin-left: 10px;">
 				</c:if>
 				<c:if test="${customer.m_autopay == 'T'}">
 					<input class="input-field" type="text" name="autopay" id="autopay" value="はい" disabled="disabled" style="margin-left: 10px;">
 				</c:if>
-				<c:if test="${customer.m_autopay == 'F' && customer.m_code != null}">
+				<c:if test="${customer.m_autopay == 'F' && customer.m_code != 'M0'}">
 					<input class="input-field" type="text" name="autopay" id="autopay" value="いいえ" disabled="disabled" style="margin-left: 10px;">
 				</c:if>
 				</td>

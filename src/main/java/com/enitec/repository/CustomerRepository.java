@@ -27,4 +27,6 @@ public interface CustomerRepository extends JpaRepository<Customer, String>{
 	@Query(value="SELECT c_name FROM enitec.customer WHERE c_id=:c_id",nativeQuery = true)
 	public String findName(@Param("c_id") String c_id);
 	
+	@Query(value="SELECT m_autopay FROM enitec.customer WHERE c_id=:c_id",nativeQuery = true)
+	public String findAutopay(@Param("c_id") String c_id);
 }

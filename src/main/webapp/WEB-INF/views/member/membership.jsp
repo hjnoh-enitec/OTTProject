@@ -101,10 +101,13 @@
 			<p id="errorMsg"></p>
 		</div>
 		<input type="hidden" name ="c_id" value="${loginId}">
+		<input type="hidden" name ="toPlayVideo" value="F">
 		<select name="m_code" id="planSelect" onchange="selectBoxChange(this.value);" style="width: 300px; height: 50px; font-size: 20px; text-align: center;">
 			<option value="">未選択</option>
 			<c:forEach var="msList" items="${ml}">
-				<option value="<c:out value="${msList.m_code}" />"><c:out value="${msList.m_name}" /> (<c:out value="毎月 ¥${msList.m_price}" />)</option>
+				<c:if test="${msList.m_code != 'M0'}">
+					<option value="<c:out value="${msList.m_code}" />"><c:out value="${msList.m_name}" /> (<c:out value="毎月 ¥${msList.m_price}" />)</option>
+				</c:if>
 			</c:forEach>
 		</select>
 		<div id="msg" class="msg">
