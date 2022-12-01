@@ -10,11 +10,6 @@ public class VideoController {
 
 	@GetMapping("/get")
 	public String moveToVideoMain() {
-
-
 		return "index";
 	}
-	
-	
-	
 }
