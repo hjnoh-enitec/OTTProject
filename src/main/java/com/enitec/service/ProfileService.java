@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.enitec.form.ProfileForm;
+import com.enitec.form.CreateProfileForm;
 import com.enitec.repository.ProfileRepository;
 import com.enitec.vo.Profile;
 
@@ -15,7 +15,7 @@ public class ProfileService {
 	@Autowired
 	private ProfileRepository pr;
 	
-	public void CreateUpdateProfile(ProfileForm profileForm) {
+	public void CreateUpdateProfile(CreateProfileForm profileForm) {
 		Profile profile = new Profile();
 		profile.setPf_code(profileForm.getPf_code());
 		profile.setC_id(profileForm.getC_id());

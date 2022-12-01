@@ -7,14 +7,13 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Profile {
+public class FakeHistory {
 
 	@Id
+	private String fh_code;
+	
+	private String fh_poster_path;
+	
 	private String pf_code;
 	
-	private String c_id;
-
-	private String pf_name;
-
-	private String pf_path;
 }

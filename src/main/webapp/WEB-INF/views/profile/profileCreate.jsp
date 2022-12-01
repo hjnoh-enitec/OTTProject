@@ -11,7 +11,6 @@
 <script>
 function setProfile(event){
 	 let reader = new FileReader();
-	 
 	 reader.onload = function(event){
 		 let img = document.getElementById("img");
 		 img.setAttribute("src",event.target.result);
@@ -24,9 +23,7 @@ function setProfile(event){
 function createProfile(){
 	$('createProfile').submit();
 }
-function back() {
-	;
-}
+
 </script>
 </head>
 <body>

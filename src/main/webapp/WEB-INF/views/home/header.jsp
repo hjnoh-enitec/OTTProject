@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<c:set var="loginId" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}"/>
+<c:set var="loginOutLink" value="${loginId==null ? '/login/login?toURL=/' : '/login/logout'}"/>
+<c:set var="loginOut" value="${loginId==null ? 'Login' : 'Logout'}"/>
+<c:set var="customerName" value="${loginId==null ? '' : loginId}"/>
+<c:set var="profileSelected" value="${request.getSession(false)==''?'' : pageContext.request.session.getAttribute('pf_code') }"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="menu">
+	<ul>
+	    <li id="logo">OTT</li>
+	    <li><a href="<c:url value='/'/>">Home</a></li>
+	    <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
+	    <c:choose>
+	     	<c:when test="${profileSelected empty }">
+	    		<li><a href="<c:url value='/register/signup'/>">Sign in</a></li>
+	     	</c:when>
+			<c:when test="${profileSelected not empty }">
+				<li>
+					<div class="profileMini">
+						<img sre="">
+					</div>
+				</li>
+			</c:when>	    
+	    </c:choose>
+	   	<li>${loginId}</li>
+	</ul> 
+</div>
+</body>
+</html>

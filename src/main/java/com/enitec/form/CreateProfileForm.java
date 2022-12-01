@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class ProfileForm {
+public class CreateProfileForm {
 	@NotBlank
 	private String pf_code;
 	@NotBlank
