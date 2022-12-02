@@ -80,7 +80,7 @@
 						<input class="input-field" type="text" name="mcode" id="mcode" value="未加入" disabled="disabled" style="margin-left: 10px;">
 					</c:if>
 					<c:if test="${customer.m_code == 'M1'}">
-						<input class="input-field" type="text" name="mcode" id="mcode" value="ペーシック" disabled="disabled" style="margin-left: 10px;">
+						<input class="input-field" type="text" name="mcode" id="mcode" value="べーシック" disabled="disabled" style="margin-left: 10px;">
 					</c:if>
 					<c:if test="${customer.m_code == 'M2'}">
 						<input class="input-field" type="text" name="mcode" id="mcode" value="スタンダード" disabled="disabled" style="margin-left: 10px;">

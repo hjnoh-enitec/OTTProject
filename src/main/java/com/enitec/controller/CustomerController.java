@@ -40,6 +40,7 @@ public class CustomerController {
 	}
 
 	private Customer getCustomerInfo(String c_id) {
+		
 		return cs.getCustomerInfo(c_id);
 	}
 

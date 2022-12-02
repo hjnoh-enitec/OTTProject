@@ -53,7 +53,6 @@
 	<br><br><br><br><br><br>
 	<c:if test="${loginId != null}">
 		<h1>ようこそ、${name}　様</h1>
-		<h2>現在のメンバーシップ : ${m_name}</h2>
 		<br>
 	</c:if>
 	<h1><a href="/content/main">動画</a></h1>

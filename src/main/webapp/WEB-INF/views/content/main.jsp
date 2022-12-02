@@ -127,8 +127,9 @@ button {
 <body>
 	<div id="container"></div>
 	<input type="hidden" value="F" id="showModal">
+	
 	<div id="modal" class="modal-overlay">
-
+		
 		<div class="modal-window">
 			<div class="title" id="modalTitle"></div>
 			<div class="close-area">X</div>
@@ -141,6 +142,12 @@ button {
 				</form:form>
 			</div>
 			<div class="comment" id="comment"></div>
+			<div id="seasonInfo" style="color: white;">
+				
+			</div>
+			<select id="seasonSelect" style="width: 100px; height: 50px; font-size: 17px; text-align: left;">
+				<option value=""></option>
+			</select>
 		</div>
 
 	</div>
@@ -167,9 +174,10 @@ button {
 				<input type="hidden" class="video_code" value="<c:out value="${cList.ct_code}" />">
 				<input type="hidden" class="video_title" value="<c:out value="${cList.ct_title}" />">
 				<input type="hidden" class="video_path" value="<c:out value="${cList.ct_path}" />">
+				<input type="hidden" class="video_g_code" value="<c:out value="${cList.g_code}" />">
 				<input type="hidden" class="video_info" value="<c:out value="${cList.ct_info}" />">
 				<img src="<c:out value="${cList.ct_path_thumbnail}" />" class="thumbnail">
-				<video src="<c:out value="${cList.ct_path}" />" autoplay="autoplay" muted="muted" class="video_video"></video>
+				<video src="<c:out value="/video/${cList.ct_path}" />" autoplay="autoplay" muted="muted" class="video_video"></video>
 				<div style="text-align: center; font-size: 20px;"><c:out value="${cList.ct_title}" /></div>
 			
 			</div>
@@ -181,7 +189,7 @@ button {
 	<script>
 	
 	const loginID = document.getElementById("loginID").value;
-	const modal = document.getElementById("modal")
+	const modal = document.getElementById("modal");
 	
 	const thumbnail = document.querySelectorAll(".thumbnail");
 	const movie = document.querySelectorAll(".movie");
@@ -190,13 +198,15 @@ button {
 	const modalTitle = document.getElementById("modalTitle");
 	const comment = document.getElementById("comment");
 	const contentForm = document.getElementById("contentForm");
+	const seasonInfo = document.getElementById("seasonInfo");
+	const seasonSelect = document.getElementById("seasonSelect");
 	
 	const code = document.querySelectorAll(".video_code");
 	const title = document.querySelectorAll(".video_title");
 	const path = document.querySelectorAll(".video_path");
 	const info = document.querySelectorAll(".video_info");
 	const video = document.querySelectorAll(".video_video");
-	
+	const genre = document.querySelectorAll(".video_g_code");
 	
 	const closeBtn = modal.querySelector(".close-area");
 	closeBtn.addEventListener("click", e => {
@@ -219,7 +229,7 @@ button {
 					contentForm.setAttribute("method", "get");
 					contentForm.innerHTML = 
 						"<input type='hidden' id='ct_code'>" + "<input type='hidden' name='toURL' id='toURL'>" +
-						"<button><video src='" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video></button>";
+						"<button><video src='/video/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video></button>";
 					var contentCode = document.getElementById("ct_code").value;
 					contentCode = code[i].value;
 					
@@ -229,10 +239,16 @@ button {
 					contentForm.setAttribute("method", "get");
 					contentForm.innerHTML = 
 						"<input type='hidden' name='ct_code' id='ct_code'>" + 
-						"<button><video src='" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video></button>";
+						"<button><video src='/video/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video></button>";
 					document.getElementById("ct_code").value = code[i].value;
 				}
 					let num = i+1;
+					
+					if(genre[i].value == "10770"){
+						seasonSelect.style.display = "flex";
+					}else{
+						seasonSelect.style.display = "none";
+					}
 					
 					modal.style.display = "flex"
 					
