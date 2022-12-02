@@ -1,33 +1,40 @@
-var scaling = 1.50;
-//count
-var currentSliderCount = 0;
-var videoCount = $(".slider-container").children().length;
-var showCount = 6;
-var sliderCount = videoCount / showCount;
-var controlsWidth = 40;
-var scollWidth = 0;
+let scaling;                                         //컨텐츠에 마우스 올라갔을 때 배율 조정
+let currentSliderCount;                                 //이전 슬라이드 수
+let videoCount;//비디오 카운트
+let showCount;
+let sliderCount;
+let controlsWidth;
+let scollWidth;
+let frameWidth;			
+let sliderContainer1 = document.getElementById("sc1")
+let sliderContainer2 = document.getElementById("sc2")
 
-$(document).ready(function() {
-	$('.slider-container .slide:nth-last-child(-n+4)').prependTo('.slider-container');
-	init();
+window.onload = function() {
+	this.scaling = 1.50;                                         //컨텐츠에 마우스 올라갔을 때 배율 조정
+	this.currentSliderCount = 0;                                 //이전 슬라이드 수
+	this.videoCount = document.getElementsByClassName("slide s1").length;//비디오 카운트
+	this.showCount = 10;
+	this.sliderCount = videoCount / showCount;
+	this.controlsWidth = 40;
+	this.scollWidth = 0;
 
-});
-$(window).resize(function() {
-	init();
-});
-function init() {
-	// elements
-	var win = $(window);
-	var sliderFrame = $(".slider-frame");
-	var sliderContainer = $(".slider-container");
-	var slide = $(".slide");
+	let win = $(window);
+	let sliderFrame = $(".slider-frame");
+	let sliderContainer = $(".slider-container");
+	let slide = $(".slide");
 	//counts
-	var scollWidth = 0;
+
+	$('.slide.s1:nth-last-child(-n+4)').prependTo('.slider-container.sc1');
+	$('.slide.s2:nth-last-child(-n+4)').prependTo('.slider-container.sc2');
+	//$(window).resize(function() {
+	//	init();
+	//});
+
 
 
 	//sizes
-	var windowWidth = win.width();
-	var frameWidth = win.width() - 80;
+	let windowWidth = win.width();
+	frameWidth = win.width() - 80;
 	if (windowWidth >= 0 && windowWidth <= 414) {
 		showCount = 2;
 	} else if (windowWidth >= 414 && windowWidth <= 768) {
@@ -35,11 +42,11 @@ function init() {
 	} else {
 		showCount = 4;
 	}
-	var videoWidth = 200;
-	var videoHeight = 300;
+	let videoWidth = 200;
+	let videoHeight = 300;
 
-	var videoWidthDiff = (videoWidth * scaling) - videoWidth;
-	var videoHeightDiff = (videoHeight * scaling) - videoHeight;
+	let videoWidthDiff = (videoWidth * scaling) - videoWidth;
+	let videoHeightDiff = (videoHeight * scaling) - videoHeight;
 
 
 
@@ -49,16 +56,16 @@ function init() {
 
 
 	sliderContainer.width((videoWidth * videoCount) + videoWidthDiff);
-	sliderContainer.css("top", (videoHeightDiff / 2-45));
+	sliderContainer.css("top", (videoHeightDiff / 2 - 45));
 	sliderContainer.css("margin-left", (controlsWidth));
 
 	slide.height(videoHeight);
 	slide.width(videoWidth);
 	//hover effect
 	$(".slide").mouseover(function() {
-		$(this).css("width", videoWidth * scaling);
-		$(this).css("height", videoHeight * scaling);
-		$(this).css("top", -(videoHeightDiff / 2));
+		$(this).css("width", videoWidth + 20);
+		$(this).css("height", videoHeight + 20);
+		$(this).css("top", -20);
 		if ($(".slide").index($(this)) == 0 || ($(".slide").index($(this))) % 4 == 0) {
 			// do nothing
 		}
@@ -68,46 +75,44 @@ function init() {
 		else {
 			$(this).parent().css("margin-left", - (videoWidthDiff / 2));
 		}
-		
+
 	}).mouseout(function() {
 		$(this).css("width", videoWidth * 1);
 		$(this).css("height", videoHeight * 1);
-		$(this).css("top", 0);
+		$(this).css("top", 10);
 		$(this).parent().css("margin-left", controlsWidth);
 	});
-
-	// controls
-	controls(frameWidth, scollWidth);
 }
-function controls(frameWidth, scollWidth) {
-	var prev = $(".prev");
-	var next = $(".next");
+function prev(num) {
+	console.log(currentSliderCount);
+	console.log(sliderCount);
+	if (currentSliderCount == 0) {
+		return false;
+	}
+	sliderContainer1.setAttribute("scollWidth", sliderContainer1.getAttribute("scollWidth")-frameWidth);
+	console.log(scollWidth);
+	$('.slider-container.sc'+num).animate({
+		left: - scollWidth
+	}, 300, function() {
 
-	next.on("click", function() {
-		console.log(currentSliderCount);
-		console.log(sliderCount);
-		scollWidth = scollWidth + frameWidth;
-		$('.slider-container').animate({
-			left: - scollWidth
-		}, 300, function() {
-			if (currentSliderCount >= sliderCount - 1) {
-				$(".slider-container").css("left", 0);
-				currentSliderCount = 0;
-				scollWidth = 0;
-			} else {
-				currentSliderCount++;
-			}
-		});
+		currentSliderCount--;
 	});
-	prev.on("click", function() {
-		console.log(currentSliderCount);
-		console.log(sliderCount);
-		scollWidth = scollWidth - frameWidth;
-		$('.slider-container').animate({
-			left: + scollWidth
-		}, 300, function() {
-			currentSliderCount--;
-		});
-		$(".slider-container").css("left", scollWidth);
+	$(".slider-containe.sc"+num).css("left", scollWidth);
+}
+function next(num) {
+	console.log(currentSliderCount);
+	console.log(sliderCount);
+	if (currentSliderCount >= sliderCount) {
+		return false;
+	}
+	scollWidth += frameWidth;
+	
+	$('.slider-container.sc'+num).animate({
+		left: - scollWidth
+	}, 300, function() {
+		console.log(scollWidth);
+		currentSliderCount++;
 	});
-};
+}
+
+

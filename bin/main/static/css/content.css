@@ -3,15 +3,16 @@
 	padding: 0;
 }
 
-.slider-frame {
-	margin: 0 auto;
-	overflow: hidden;
+
+
+.catalog {
+	position: absolute;
+	top: 750px;
 }
 
 h1 {
 	color: white;
 	top: 700px;
-	position: absolute;
 }
 
 body {
@@ -33,12 +34,12 @@ body {
 
 .slider-frame {
 	width: 40px;
-	height: 450px;
-	margin-left: 10px; 
-	background : black;
-	position: absolute;
-	top: 750px;
+	height: 300px;
+	margin-left: 10px;
 	background: black;
+	position: relative;
+	background: black;
+	overflow: hidden;
 }
 
 .slider-container {
