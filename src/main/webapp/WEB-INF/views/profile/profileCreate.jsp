@@ -12,10 +12,8 @@
 function setProfile(event){
 	 let reader = new FileReader();
 	 reader.onload = function(event){
-		 let img = document.getElementById("img");
+		 let img = document.getElementById("fileUpload");
 		 img.setAttribute("src",event.target.result);
-		 let path = document.getElementById("path");
-		 path.setAttribute("value", event.target.result);
 	 };
 	 
 	 reader.readAsDataURL(event.target.files[0]);
@@ -34,8 +32,7 @@ function createProfile(){
 		<label class="profile-name">プロフィール名</label><input type="text" name="pf_name">	
 		<br/>
 		<div class="profile-card" id="profile-image">
-		<img src="/image/basicProfileImage.jpg" id="img"/>
-		<input type="hidden" id="path" name="pf_path" value="">
+		<img src="/image/basicProfileImage.jpg" id="fileUpload"/>
 		</div>
 		<input type="file" name="fileUpload"  accept=".jpg,.png" onchange="setProfile(event);"/>
 		<br/>

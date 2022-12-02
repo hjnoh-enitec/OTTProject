@@ -14,4 +14,6 @@ public class CreateProfileForm {
 	private String pf_name;
 	
 	private String pf_path;
+	
+	private String pf_thumbnail_path;
 }

@@ -21,6 +21,7 @@ public class ProfileService {
 		profile.setC_id(profileForm.getC_id());
 		profile.setPf_name(profileForm.getPf_name());
 		profile.setPf_path(profileForm.getPf_path());
+		profile.setPf_thumbnail_path(profileForm.getPf_thumbnail_path());
 		pr.save(profile);
 	}
 	
@@ -30,5 +31,9 @@ public class ProfileService {
 	
 	public int getProfileCount(String c_id) {
 		return pr.findByProfileCount(c_id);
+	}
+	
+	public Profile findById(String pf_code) {
+		return pr.findById(pf_code).get();
 	}
 }

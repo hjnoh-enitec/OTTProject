@@ -64,7 +64,7 @@
 		padding:5px;
 		border:1px solid white;
 	}
-	img{
+	img.profileSelect{
 		width:150px;
 		height:150px;
 		object-fit:cover;
@@ -73,7 +73,7 @@
 </head>
 <body bgcolor="black">
 	<div>
-		<%@ include file="./../home/header.jsp" %>
+		<%@ include file="/jsp/home/header.jsp" %>
 		<div class="profile-aria">
 			<div>
 				<p class="tv">プロフィールを選択してください。</p>
@@ -82,18 +82,18 @@
 				<ul>
 					<c:forEach items="${profileList }" var="profile" varStatus="status">
 						<li>
-						<form action="/profile/select" method="post" id = "profileForm">
-							<div class="profile" onclick="moveContent()">
-								<input type="hidden" id="toURL" name="toURL" value="${toURL }"/>
-								<input type="hidden" id="pf_code" name="pf_code"  value="${profile.getPf_code() }"/>
-								<input type="hidden" id="pf_name" name="pf_name" value="${profile.getPf_name() }"/>
-								<input type="hidden" id="pf_path" name="pf_path" value="${profile.getPf_path() }"/>
+							<div class="profile" onclick="moveContent(profileForm${status.index})">
+								<form action="/profile/select" method="post" id = "profileForm${status.index }" name="profileForm">
+									<input type="hidden" id="toURL" name="toURL" value="${toURL }"/>
+									<input type="hidden" id="pf_code" name="pf_code"  value="${profile.getPf_code() }"/>
+									<input type="hidden" id="pf_name" name="pf_name" value="${profile.getPf_name() }"/>
+									<input type="hidden" id="pf_path" name="pf_path" value="${profile.getPf_path() }"/>
 								<div class="profile-card">
-									<img src="${profile.getPf_path() }">
+									<img id="profileSelect" src="${profile.getPf_path() }">
 								</div>
-								<p class="profile-card">${profile.getPf_name() }</p>		
+								<p class="profile-card">${profile.getPf_name() }</p>
+								</form>		
 						</div>
-						</form>
 					</li>
 					</c:forEach>				
 				<c:if test="${fn:length(profileList)  < 4}">  
@@ -107,26 +107,26 @@
 				</ul>
 			</div>
 			<div class="button">
-				<div  onclick="location.href='/profile/update'">
+				<div  onclick="openModal()">
 					ProfileSetting
+				</div>
+				<div class="modal fade" id="profileUpdate" tabindex="-1" role="dialog" aria-labelledby="profileUpdate" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content"></div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-		function moveContent(){
-			let form = document.getElementById("profileForm");
-			let pf_code = document.getElementById("pf_code");
-			let pf_name = document.getElementById("pf_name");
-			let pf_path = document.getElementById("pf_path");
-			let toURL = document.getElementById("toURL");
-			form.appendChild(pf_code);
-			form.appendChild(pf_name);
-			form.appendChild(pf_path);
-			form.appendChild(toURL);
-			form.submit();
+		function moveContent(frm){
+			frm.submit();
+
 		}
-		
+		function openModal() {
+			$('#profileUpdate.modal-content').load("profileUpdate");
+			$('#profileUpdate').modal();
+		}
 	</script>
 </body>
 </html>

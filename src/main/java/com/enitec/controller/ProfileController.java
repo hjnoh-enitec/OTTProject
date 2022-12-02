@@ -1,8 +1,8 @@
 package com.enitec.controller;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,7 @@ import com.enitec.form.SelectProfileForm;
 import com.enitec.form.SendProfileHistory;
 import com.enitec.service.FakeHistoryService;
 import com.enitec.service.ProfileService;
+import com.enitec.session.Session;
 import com.enitec.vo.FakeHistory;
 import com.enitec.vo.Profile;
 
@@ -43,7 +44,8 @@ public class ProfileController {
 	private FakeHistoryService fs;
 	
 	String defaultName = "basicProfileImage.jpg";
-	String settingPath = "/image/";
+	String settingProfilePath = "/image/";
+	String settingThumbnailPath = "/thumbnail/";
 
 	@GetMapping("/select")
 	public String moveProfilePage(String toURL, HttpServletRequest request, HttpServletResponse res, Model model) {
@@ -69,20 +71,24 @@ public class ProfileController {
 			fh_poster_pathList.add(fh.getFh_poster_path());
 		}
 		HttpSession session = request.getSession();
-		session.setAttribute("pf_code", pf_code);
+		session.setAttribute(Session.SELECT_PROFILE, ps.findById(pf_code));
 		sfh.setH_code(fh_codeList);
 		sfh.setH_poster_path(fh_poster_pathList);
 		model.addAttribute("history", sfh);
+		System.out.println(session.getAttribute("profile"));
+		System.out.println(session.getAttribute("thumbnail"));
 		return "content";
 	}
 
 	@GetMapping("/update")
 	public String moveProfileUpdatePage() {
+		
+		
 		return "/profile/profileUpdate";
 	}
 
 	@GetMapping("/create")
-	public String moveProfileInsertPage(Model model, HttpServletRequest request) {
+	public String moveProfileInsertPage(Model model, HttpServletRequest request,HttpServletResponse res) {
 		HttpSession session = request.getSession(false);
 		String c_id = session.getAttribute("c_id").toString();
 		if(c_id == null) {
@@ -94,6 +100,8 @@ public class ProfileController {
 			for(Cookie cookie : cookies) {
 				if(cookie.getName().equals("error")) {
 					msg = cookie.getValue().toString();	
+					cookie.setMaxAge(0);
+					res.addCookie(cookie);
 				}
 			}
 		}
@@ -108,43 +116,53 @@ public class ProfileController {
 	@PostMapping("/create")
 	public String createProfile(@Validated CreateProfileForm createProfileForm,Errors errors, HttpServletRequest request, HttpServletResponse res
 			, MultipartFile fileUpload)   {
-		String ProfilePath = createProfileForm.getPf_path();
+		String profileImageName = fileUpload.getOriginalFilename();
+		System.out.println("pf_path : " + profileImageName);
 		if (errors.hasErrors()) {
 			Cookie error = new Cookie("error","プロフィール名を入力してください。");
 			res.addCookie(error);
 			return "redirect:/profile/create";
 		}
-		if(ProfilePath == "") {
-			ProfilePath = defaultName;
+		if(!profileImageName.equals(defaultName)) {
+			boolean uploadStatus = uploadFile(fileUpload,profileImageName);
+			if(!uploadStatus) {
+				Cookie error = new Cookie("error","ファイルアップロードに失敗しました。");
+				res.addCookie(error);
+				return "redirect:/profile/create";
+			}
 		}
-		boolean uploadStatus = uploadFile(fileUpload);
-		if(!uploadStatus) {
-			Cookie error = new Cookie("error","ファイルアップロードに失敗しました。");
-			res.addCookie(error);
-			return "redirect:/profile/create";
-		}
-		ProfilePath = settingPath + fileUpload.getOriginalFilename();
-		createProfileForm.setPf_path(ProfilePath);
+		String profilePath = settingProfilePath + profileImageName;
+		String thumbnailPath = settingThumbnailPath + profileImageName;
+		createProfileForm.setPf_path(profilePath);
+		createProfileForm.setPf_thumbnail_path(thumbnailPath);
 		ps.CreateUpdateProfile(createProfileForm);
 		return "redirect:/profile/select";
 	}
 	
-	public boolean uploadFile(MultipartFile uploadFile) {
-		
-		
+	private boolean uploadFile(MultipartFile uploadFile, String fileName) {
+		String profilePath = "C:/Users/ENITEC/Desktop/TeamOTTProject/OTTProject/src/main/webapp/image/" + fileName;
+		String thumbnailPath = "C:/Users/ENITEC/Desktop/TeamOTTProject/OTTProject/src/main/webapp/thumbnail/"+ fileName;
 		try {
 		InputStream in = uploadFile.getInputStream();
 		BufferedImage originImage = ImageIO.read(in);
-		BufferedImage thumbImage = new BufferedImage(150,150,BufferedImage.TYPE_INT_BGR);
-		Graphics2D g = thumbImage.createGraphics();
-		g.setBackground(Color.WHITE);
-		g.drawImage(originImage,0,0,150,150,null);
-		g.dispose();
+		int type = originImage.getType();
+		BufferedImage profileImage = resizeImage(originImage,type,150,150);
+		BufferedImage thumbnailImage = resizeImage(originImage,type,25,25);
+		ImageIO.write(profileImage, "jpg", new File(profilePath));
+		ImageIO.write(thumbnailImage, "jpg", new File(thumbnailPath));
 		in.close();
 		}
 		catch(Exception e) {
 			return false;
 		}
 		return true;
+	}
+	private BufferedImage resizeImage(BufferedImage originalImage, int type,int width,int height) {
+		BufferedImage resizedImage = new BufferedImage(width,height,type);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(originalImage,0,0,width,height,null);
+		g.dispose();
+		
+		return resizedImage;
 	}
 }

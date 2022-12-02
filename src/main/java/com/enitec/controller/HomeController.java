@@ -1,7 +1,6 @@
 package com.enitec.controller;
 
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,6 @@ public class HomeController {
 		if(selectProfile == null) {
 			return "redirect:/profile/select";
 		}
-		return "";
+		return "content";
 	}
 }

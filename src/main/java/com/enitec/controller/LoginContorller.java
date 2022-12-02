@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enitec.service.LoginService;
+import com.enitec.session.Session;
 
 @Controller
 @RequestMapping("/login")
@@ -42,7 +43,7 @@ public class LoginContorller {
 		}
 		//session生成
 		HttpSession session = request.getSession();
-		session.setAttribute("c_id", c_id);
+		session.setAttribute(Session.LOGIN_CUSTOMER, c_id);
 		//cookie生成
         if(rememberId) {
             Cookie cookie = new Cookie("c_id", c_id); 
