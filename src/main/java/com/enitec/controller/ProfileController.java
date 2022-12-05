@@ -75,15 +75,17 @@ public class ProfileController {
 		sfh.setH_code(fh_codeList);
 		sfh.setH_poster_path(fh_poster_pathList);
 		model.addAttribute("history", sfh);
-		System.out.println(session.getAttribute("profile"));
-		System.out.println(session.getAttribute("thumbnail"));
 		return "content";
 	}
 
 	@GetMapping("/update")
-	public String moveProfileUpdatePage() {
-		
-		
+	public String moveProfileUpdatePage(HttpSession session,Model model) {
+		Object c_id = session.getAttribute(Session.LOGIN_CUSTOMER);
+		if(c_id == null) {
+			return "index";
+		}
+		List<Profile> profileList = ps.getProfileDataBase(c_id.toString());
+		model.addAttribute("profileList", profileList);
 		return "/profile/profileUpdate";
 	}
 

@@ -33,7 +33,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.5'
 	
 	//Devtools
-	implementation group: 'org.springframework.boot', name: 'spring-boot-devtools'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.7.1'
 	 
 	 //validation
 	 implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.2'

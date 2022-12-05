@@ -10,6 +10,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/board/modal.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
 	body{
@@ -110,11 +116,6 @@
 				<div  onclick="openModal()">
 					ProfileSetting
 				</div>
-				<div class="modal fade" id="profileUpdate" tabindex="-1" role="dialog" aria-labelledby="profileUpdate" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content"></div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -124,8 +125,7 @@
 
 		}
 		function openModal() {
-			$('#profileUpdate.modal-content').load("profileUpdate");
-			$('#profileUpdate').modal();
+			location.href='/profile/update';
 		}
 	</script>
 </body>
