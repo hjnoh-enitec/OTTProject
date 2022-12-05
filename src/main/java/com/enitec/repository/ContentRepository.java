@@ -11,6 +11,6 @@ import com.enitec.vo.Content;
 public interface ContentRepository extends JpaRepository<Content, String>{
 
 	@Query(value="SELECT ct_path FROM enitec.content WHERE ct_code=:ct_code",nativeQuery = true)
-	public String findCtcode(@Param("ct_code") String ct_code);
+	public String findCtpath(@Param("ct_code") String ct_code);
 	
 }

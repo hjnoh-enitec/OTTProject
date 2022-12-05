@@ -9,6 +9,11 @@
 <meta charset="UTF-8">
 <title>OTT - Watch Video</title>
 <style>
+.season_video{
+	width:150px;
+	height: 100px;
+}
+
 .movies{
 	justify-content: center;
 	align-items: center;
@@ -50,7 +55,7 @@
 	margin: auto;
 }
 
-button {
+#contentBtn {
 	background: black;
 	width: 400px;
 }
@@ -83,7 +88,7 @@ button {
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
 	width: 500px;
-	height: 650px;
+	height: 100%;
 	position: relative;
 	/*top: 100px;*/
 	padding: 10px;
@@ -125,6 +130,7 @@ button {
 </style>
 </head>
 <body>
+
 	<div id="container"></div>
 	<input type="hidden" value="F" id="showModal">
 	
@@ -136,7 +142,7 @@ button {
 			<!-- <iframe src="popup.jsp">TEST TEST TEST TEST TEST TEST </iframe> -->
 			<div class="content">
 				<form:form id="contentForm">
-					<button>
+					<button id="contentBtn">
 						<video src='" + path[i].value + "' autoplay='autoplay' muted='muted' class='mvFile' id='mvFile' ></video>
 					</button>
 				</form:form>
@@ -145,9 +151,14 @@ button {
 			<div id="seasonInfo" style="color: white;">
 				
 			</div>
-			<select id="seasonSelect" style="width: 100px; height: 50px; font-size: 17px; text-align: left;">
-				<option value=""></option>
-			</select>
+			<div>
+				<select id="seasonSelect" style="width: 200px; height: 50px; font-size: 17px; text-align: left;" onchange="changeValue(this)">
+					
+				</select>
+			</div>
+			<div id="append">
+			
+			</div>
 		</div>
 
 	</div>
@@ -170,22 +181,25 @@ button {
 	<div class="movies">
 		<c:forEach var="cList" items="${contentList}">
 			<div class="movie">
-			
-				<input type="hidden" class="video_code" value="<c:out value="${cList.ct_code}" />">
-				<input type="hidden" class="video_title" value="<c:out value="${cList.ct_title}" />">
-				<input type="hidden" class="video_path" value="<c:out value="${cList.ct_path}" />">
-				<input type="hidden" class="video_g_code" value="<c:out value="${cList.g_code}" />">
-				<input type="hidden" class="video_info" value="<c:out value="${cList.ct_info}" />">
-				<img src="<c:out value="${cList.ct_path_thumbnail}" />" class="thumbnail">
-				<video src="<c:out value="/video/${cList.ct_path}" />" autoplay="autoplay" muted="muted" class="video_video"></video>
-				<div style="text-align: center; font-size: 20px;"><c:out value="${cList.ct_title}" /></div>
-			
+				<!-- <form action="/content/popup" method="get">-->
+					
+					<input type="hidden" class="video_code" name="ct_code" id="ct_code" value="<c:out value="${cList.ct_code}" />">
+					<input type="hidden" class="video_title" value="<c:out value="${cList.ct_title}" />">
+					<input type="hidden" class="video_path" value="<c:out value="${cList.ct_path}" />">
+					<input type="hidden" class="video_g_code" value="<c:out value="${cList.g_code}" />">
+					<input type="hidden" class="video_info" value="<c:out value="${cList.ct_info}" />">
+					<img src="<c:out value="${cList.ct_path_thumbnail}" />" class="thumbnail">
+					<video src="<c:out value="/video/${cList.ct_path}" />" autoplay="autoplay" muted="muted" class="video_video"></video>
+					<div style="text-align: center; font-size: 20px;"><c:out value="${cList.ct_title}" /></div>	
+				<!--</form>-->
 			</div>
 		</c:forEach>
 		<!--
 		 https://www.youtube.com/embed/3WUw9thZR4k?autoplay=1&mute=1&controls=0&rel=0&disablekb=1&Loop=1-->
 	</div>
 	
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script>
 	
 	const loginID = document.getElementById("loginID").value;
@@ -200,6 +214,9 @@ button {
 	const contentForm = document.getElementById("contentForm");
 	const seasonInfo = document.getElementById("seasonInfo");
 	const seasonSelect = document.getElementById("seasonSelect");
+	const ctCode = document.getElementById("ct_code").value;
+	
+	const append = document.getElementById("append");
 	
 	const code = document.querySelectorAll(".video_code");
 	const title = document.querySelectorAll(".video_title");
@@ -252,6 +269,44 @@ button {
 					
 					modal.style.display = "flex"
 					
+						$.ajax({
+							type : "GET",
+							url : "http://localhost:8000/content/searchSeasonByCcode?ct_code=" + ctCode,
+							contentType : "application/json",
+							dataType : "json",
+							success : function (data, status) {
+								//alert(status);
+								str = '';
+				                $.each(data , function(i){
+				                    str += "<option value='" + data[i].s_code + "'>" + data[i].s_name +  "</option>";
+				                });
+				                seasonSelect.innerHTML = str;
+				                
+				                append.innerHTML = "";
+				        		$.ajax({
+				        			type : "GET",
+				        			url : "http://localhost:8000/content/searchEpiBySeason?s_code=" + seasonSelect.value,
+				        			contentType : "application/json",
+				        			dataType : "json",
+				        			success : function (data, status) {
+				        				str = '';
+				                        $.each(data , function(i){
+				                            str += "<div style='color: white;'><video src='/video/" + data[i].e_path + "' class='season_video'></video>" + data[i].e_name + "</div>";
+				                        });
+				                        append.innerHTML = str;
+				        			},
+				        			error : function(status){
+				        				alert(status + "error!");
+				        			}
+				        		});
+							},
+							error : function(status){
+								alert(status + "error!");
+							}
+						});	
+						
+					
+					
 					//if(code[i].value.indexOf("YT") == 0){
 					//	contentForm.innerHTML = "<iframe width='300' height='200' src='" + path[i].value + "' class='video_video' id='mvFile'></iframe>";
 					//}else{
@@ -279,6 +334,26 @@ button {
 			thumbnail[i].style.display = "flex";
 			//movie[i].style.width = "300px";
 			//movie[i].style.height = "200px";
+		});
+	}
+	
+	function changeValue(target){
+		append.innerHTML = "";
+		$.ajax({
+			type : "GET",
+			url : "http://localhost:8000/content/searchEpiBySeason?s_code=" + target.value,
+			contentType : "application/json",
+			dataType : "json",
+			success : function (data, status) {
+				str = '';
+                $.each(data , function(i){
+                    str += "<div style='color: white;'><video src='/video/" + data[i].e_path + "' class='season_video'></video>" + data[i].e_name + "</div>";
+                });
+                append.innerHTML = str;
+			},
+			error : function(status){
+				alert(status + "error!");
+			}
 		});
 	}
 	
