@@ -175,7 +175,6 @@ button {
 	  	$.ajax({
 			type :'post',
 			url : "http://localhost:8000/checkId",
-
 			async : false,
 			data : {
 				"customer" : c_id.value

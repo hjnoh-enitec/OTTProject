@@ -32,7 +32,7 @@ function createProfile(){
 		<label class="profile-name">プロフィール名</label><input type="text" name="pf_name">	
 		<br/>
 		<div class="profile-card" id="profile-image">
-		<img src="/image/basicProfileImage.jpg" id="fileUpload"/>
+		<img src="/image/baseImage/basicProfileImage.jpg" id="fileUpload"/>
 		</div>
 		<input type="file" name="fileUpload"  accept=".jpg,.png" onchange="setProfile(event);"/>
 		<br/>

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.enitec.form.CreateProfileForm;
 import com.enitec.repository.ProfileRepository;
 import com.enitec.vo.Profile;
 
@@ -15,13 +14,7 @@ public class ProfileService {
 	@Autowired
 	private ProfileRepository pr;
 	
-	public void CreateUpdateProfile(CreateProfileForm profileForm) {
-		Profile profile = new Profile();
-		profile.setPf_code(profileForm.getPf_code());
-		profile.setC_id(profileForm.getC_id());
-		profile.setPf_name(profileForm.getPf_name());
-		profile.setPf_path(profileForm.getPf_path());
-		profile.setPf_thumbnail_path(profileForm.getPf_thumbnail_path());
+	public void CreateUpdateProfile(Profile profile) {
 		pr.save(profile);
 	}
 	
@@ -35,5 +28,14 @@ public class ProfileService {
 	
 	public Profile findById(String pf_code) {
 		return pr.findById(pf_code).get();
+	}
+	
+	public boolean deleteById(String pf_code) {
+		Profile profile = pr.findById(pf_code).get();
+		if(profile!=null) {
+			pr.delete(profile);
+			return true;
+		}
+		return false;
 	}
 }

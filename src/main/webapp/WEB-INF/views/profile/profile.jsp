@@ -105,7 +105,7 @@
 				<c:if test="${fn:length(profileList)  < 4}">  
 					<li>
 						<div class="profile" onclick="location.href='/profile/create'">
-							<div class="profile-card"><img src="/image/addProfileImage.jpg"/></div>
+							<div class="profile-card"><img src="/image/baseImage/addProfileImage.jpg"/></div>
 							<p class="profile-card">プロフィール追加</p>
 						</div>
 					</li>

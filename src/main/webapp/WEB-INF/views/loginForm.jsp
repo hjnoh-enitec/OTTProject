@@ -62,7 +62,7 @@
 	<div id="msg">
 		${msg }
 	</div>
-	<input type="text" name="toURL" value="${toURL}"/>
+	<input type="hidden" name="toURL" value="${toURL}"/>
 	<input type="text" name="c_id"  value="${cookie.c_id.value}" placeholder="E-MAIL" autofocus>
 	<input type="password" name="c_pwd" placeholder="パスワード">
 	<button>ログイン</button>

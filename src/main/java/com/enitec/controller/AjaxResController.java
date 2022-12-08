@@ -11,6 +11,7 @@ import com.enitec.service.RegisterService;
 public class AjaxResController {
 	@Autowired
 	RegisterService rs;
+	
 	@ResponseBody
 	@PostMapping("/checkId")
 	public int checkIdDuplicated(String customer) {
@@ -18,4 +19,6 @@ public class AjaxResController {
 	    int result = rs.checkIdDuplicated(customer);
 	    return result;
 	}
+	
+	 
 }

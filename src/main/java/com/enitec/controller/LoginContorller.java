@@ -7,11 +7,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.enitec.service.CustomerService;
 import com.enitec.service.LoginService;
 import com.enitec.session.Session;
 
@@ -20,6 +20,9 @@ import com.enitec.session.Session;
 public class LoginContorller {
 	@Autowired
 	private LoginService ls;
+	
+	@Autowired
+	private CustomerService cs;
 
 	@GetMapping("/login")
 	public String moveToPage(HttpServletRequest req,String toURL) {
@@ -41,9 +44,7 @@ public class LoginContorller {
 			request.setAttribute("msg", msg);
 			return "loginForm";
 		}
-		//session生成
-		HttpSession session = request.getSession();
-		session.setAttribute(Session.LOGIN_CUSTOMER, c_id);
+		
 		//cookie生成
         if(rememberId) {
             Cookie cookie = new Cookie("c_id", c_id); 
@@ -55,6 +56,12 @@ public class LoginContorller {
         }
         Cookie cookie = new Cookie("toURL",toURL);
         res.addCookie(cookie);
+        
+        String m_code = cs.getCustomerInfo(c_id).getM_code();
+        //session生成
+        HttpSession session = request.getSession();
+      	session.setAttribute(Session.LOGIN_CUSTOMER, c_id);
+      	session.setAttribute(Session.MEMBER_SHIP, m_code);
 		return "redirect:/profile/select";
 	}
 
