@@ -8,8 +8,12 @@ import org.springframework.stereotype.Service;
 import com.enitec.repository.ContentRepository;
 import com.enitec.repository.SeasonRepository;
 import com.enitec.repository.EpisodeRepository;
+import com.enitec.repository.ProfileRepository;
+import com.enitec.repository.RatingRepository;
 import com.enitec.vo.Content;
 import com.enitec.vo.Episode;
+import com.enitec.vo.Profile;
+import com.enitec.vo.Rating;
 import com.enitec.vo.Season;
 
 @Service
@@ -24,13 +28,20 @@ public class ContentService {
 	@Autowired
 	private EpisodeRepository episodeRepo;
 	
+	@Autowired
+	private RatingRepository ratingRepo;
+	
 	public List<Content> findAll() {
 		return contentRepo.findAll();
 	}
 	
+//	public String findCtpath(String ct_code) {
+//		return contentRepo.findCtpath(ct_code);
+//	}
+	
 	// 컨텐츠 경로
-	public String findCtpath(String ct_code) {
-		return contentRepo.findCtpath(ct_code);
+	public String findEpath(String e_code) {
+		return episodeRepo.findEpath(e_code);
 	}
 	
 	// 컨텐츠별 시즌명 찾기
@@ -48,4 +59,8 @@ public class ContentService {
 		return episodeRepo.findEpiCodeAndNameByScode(s_code);
 	}	
 	
+	// 평점 계산
+	public double calcRatingByCtcode(String ct_code) {
+		return ratingRepo.calcRatingByCtcode(ct_code);
+	}
 }

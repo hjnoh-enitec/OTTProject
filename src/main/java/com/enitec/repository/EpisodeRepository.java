@@ -18,4 +18,7 @@ public interface EpisodeRepository extends JpaRepository<Episode, String>{
 	
 	@Query(value="SELECT E_PATH, E_CODE, E_NAME, E_RELEASE_DATE, e.CT_CODE, e.S_CODE FROM episode e INNER JOIN (SELECT * FROM season s INNER JOIN content c ON s.ct_code = c.ct_code) j ON e.s_code = j.s_code", nativeQuery = true)
 	public List<Episode> findEpisode();
+	
+	@Query(value="SELECT e_path FROM enitec.episode WHERE e_code=:e_code",nativeQuery = true)
+	public String findEpath(@Param("e_code") String e_code);
 }

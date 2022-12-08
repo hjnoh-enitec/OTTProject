@@ -55,7 +55,7 @@
 		<h1>ようこそ、${name}　様</h1>
 		<br>
 	</c:if>
-	<h1><a href="/content/main">動画</a></h1>
+	<h1><a href="/content/main" onclick="">動画</a></h1>
 	<c:if test="${loginId == null}">
 		<h1><a href="/register/signup">会員登録</a></h1>
 	</c:if>
@@ -65,5 +65,8 @@
 	
 	<h1><a href='${loginOutLink }'>${loginOut }</a></h1>
 </div>
+
+	<script src="js/index.js"></script>
+	
 </body>
 </html>
