@@ -1,6 +1,5 @@
 package com.enitec.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -20,12 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.enitec.form.CreateProfileForm;
 import com.enitec.form.SelectProfileForm;
-import com.enitec.form.SendProfileHistory;
 import com.enitec.service.FakeHistoryService;
 import com.enitec.service.FileSaveService;
 import com.enitec.service.ProfileService;
 import com.enitec.session.Session;
-import com.enitec.vo.FakeHistory;
 import com.enitec.vo.Profile;
 
 @Controller
@@ -48,27 +45,18 @@ public class ProfileController {
 		if(c_id == null) {
 			return "index";
 		}
-		List<Profile> profileList = ps.getProfileDataBase(c_id.toString());
-		request.setAttribute("profile", profileList);
-		model.addAttribute("c_id", c_id.toString());
+		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute("c_id").toString());
+		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, profileList);
 		return "profile/profile";
 	}
 
 	@PostMapping("/select")
-	public String selectedCustomerProfile(SelectProfileForm spf,SendProfileHistory sfh, HttpServletRequest request, HttpServletResponse res,Model model) {
-		String pf_code = spf.getPf_code();
-		List<FakeHistory> fakeHistoryList = fs.findByHistory(pf_code);
-		List<String> fh_codeList = new ArrayList<String>();
-		List<String> fh_poster_pathList = new ArrayList<String>();
-		for(FakeHistory fh : fakeHistoryList) {
-			fh_codeList.add(fh.getFh_code());
-			fh_poster_pathList.add(fh.getFh_poster_path());
+	public String selectedCustomerProfile(SelectProfileForm spf,HttpSession session, HttpServletResponse res,Model model) {
+		if(!Session.checkLogin(session)) {
+			return "index";
 		}
-		HttpSession session = request.getSession();
-		session.setAttribute(Session.SELECT_PROFILE, ps.findById(pf_code));
-		sfh.setH_code(fh_codeList);
-		sfh.setH_poster_path(fh_poster_pathList);
-		model.addAttribute("history", sfh);
+		Profile profile = ps.findById(spf.getPf_code());
+		session.setAttribute(Session.SELECT_PROFILE, profile);
 		return "content";
 	}
 
@@ -112,7 +100,7 @@ public class ProfileController {
 	@PostMapping("/create")
 	public String createProfile(@Validated CreateProfileForm createProfileForm,Errors errors, HttpSession session, HttpServletResponse res
 			, MultipartFile fileUpload)   {
-		Profile profile = new Profile();
+		Profile profile= new Profile();
 		String profilePath = "";
 		String thumbnailPath = "";
 		if (errors.hasErrors()) {
@@ -124,7 +112,6 @@ public class ProfileController {
 		profile.setPf_code(createProfileForm.getPf_code());
 		profile.setC_id(createProfileForm.getC_id());
 		profile.setPf_name(createProfileForm.getPf_name());
-		
 		if(fileUpload.isEmpty()) {
 			profilePath =  fss.base + fss.defaultProfileImageName;
 			thumbnailPath =  fss.base + fss.defaultThumbnailImageName;

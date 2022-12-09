@@ -19,7 +19,7 @@ function setProfile(event){
 	 reader.readAsDataURL(event.target.files[0]);
 }
 function createProfile(){
-	$('createProfile').submit();
+	$('#createProfile').submit();
 }
 
 </script>
