@@ -13,22 +13,23 @@
 	border: 1px solid black;
 	margin: 15px;
 	width: 22%;
-	height: 250px;
+	height: 220px;
 	float: left;
 	justify-content: center;
 	align-items: center;
 }
 
 .thumbnail {
-	width: 80%;
-	height: 80%;
-	display: flex;
+	width: 100%;
 	margin: auto;
+	border: 0;
+	outline: 0;
+	display: flex;
 }
 
 .video_video {
-	width: 80%;
-	height: 80%;
+	width: 100%;
+	height: 100%;
 	margin: auto;
 	border: 0;
 	outline: 0;

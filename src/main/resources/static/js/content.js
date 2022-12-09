@@ -36,8 +36,6 @@ modal.addEventListener("click", e => {
 	}
 });
 
-
-
 for (let i = 0; i < movie.length; i++) {
 	
 	movie[i].addEventListener("click", function() {
@@ -48,23 +46,12 @@ for (let i = 0; i < movie.length; i++) {
 
 		// 로그인, 멤버십 여부에 따라 각기 다른 페이지로 이동함
 		if (loginID === 'Guest') {
-			contentForm.setAttribute("action", "/login/login");
-			contentForm.setAttribute("method", "get");
 			contentForm.innerHTML =
-				//"<input type='hidden' id='e_code'>" + "<input type='hidden' name='toURL' id='toURL'>" +
-				"<button><video src='/video/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video></button>";
-			//var contentCode = document.getElementById("e_code").value;
-			//contentCode = code[i].value;
-
-			//document.getElementById("toURL").value = "/content/watch?e_code=" + contentCode;
+				"<video src='/video/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video>";
 		} else {
-			contentForm.setAttribute("action", "/content/watch");
-			contentForm.setAttribute("method", "get");
 			contentForm.innerHTML =
-				//"<input type='hidden' name='e_code' id='e_code'>" +
 				"<input type='hidden' name='pf_code' id='currentProfile' value='s45511071G_PF01'>" +
-				"<button><video src='/video/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video></button>";
-			//document.getElementById("e_code").value = code[i].value;
+				"<video src='/video/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video>";
 		}
 
 		// 시즌 선택창 표시 여부 (테스트용으로 특정 장르일 시에 시즌이 나오게 해 둠)
@@ -73,8 +60,6 @@ for (let i = 0; i < movie.length; i++) {
 		} else {
 			seasonSelect.style.display = "none";
 		}
-		
-		
 		
 		// 처음 모달창 클릭 시 컨텐츠 코드로 시즌 정보를 가져옴
 		// http://localhost:8000/content/컨트롤러 매핑 이름?보낼 인자가 들어간 input태그의 name=보낼 값
@@ -124,7 +109,7 @@ for (let i = 0; i < movie.length; i++) {
 								document.getElementById("quitSec").value = data;
 							},
 							error: function(){
-								alert("ERROR!");
+								
 							}	
 						});
 					},
@@ -137,8 +122,6 @@ for (let i = 0; i < movie.length; i++) {
 				alert(status + "error!");
 			}
 		});
-		
-		
 		
 		// 컨텐츠 별 평점 가져오기
 		$.ajax({
@@ -179,7 +162,8 @@ for (let i = 0; i < movie.length; i++) {
 	});
 }
 
-function changeValue(target) {
+// 시즌제 컨텐츠에서 시즌 바꿀 시
+function changeSeason(target) {
 	append.innerHTML = "";
 	$.ajax({
 		type: "GET",

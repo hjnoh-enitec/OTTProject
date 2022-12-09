@@ -24,10 +24,8 @@
 			<div class="close-area">X</div>
 			
 			<!-- 미리보기 -->
-			<div class="content">
-				<form:form id="contentForm">
-					
-				</form:form>
+			<div class="content" id="contentForm">
+			
 			</div>
 			
 			<!-- 평점 -->
@@ -38,7 +36,7 @@
 			
 			<!-- 시즌이 있을 경우에 시즌을 고를 수 있는 선택창 -->
 			<div>
-				<select id="seasonSelect" style="width: 200px; height: 50px; font-size: 17px; text-align: left;" onchange="changeValue(this)">
+				<select id="seasonSelect" style="width: 200px; height: 50px; font-size: 17px; text-align: left;" onchange="changeSeason(this)">
 				</select>
 			</div>
 			
@@ -75,8 +73,10 @@
 				<input type="hidden" class="video_path" value="<c:out value="${cList.ct_path}" />">
 				<input type="hidden" class="video_g_code" value="<c:out value="${cList.g_code}" />">
 				<input type="hidden" class="video_info" value="<c:out value="${cList.ct_info}" />">
-				<img src="<c:out value="${cList.ct_path_thumbnail}" />" class="thumbnail">
-				<video src="<c:out value="/video/${cList.ct_path}" />" autoplay="autoplay" muted="muted" class="video_video"></video>
+				<div>
+					<img src="<c:out value="${cList.ct_path_thumbnail}" />" class="thumbnail">
+					<video src="<c:out value="/video/${cList.ct_path}" />" autoplay="autoplay" muted="muted" class="video_video"></video>
+				</div>
 				<div style="text-align: center; font-size: 20px;"><c:out value="${cList.ct_title}" /></div>
 			</div>
 		</c:forEach>

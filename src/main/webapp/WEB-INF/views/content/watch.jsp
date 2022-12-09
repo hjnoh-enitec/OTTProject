@@ -7,9 +7,8 @@
 <link rel="stylesheet" href="/css/watch.css">
 <title>OTT - Watch Video</title>
 </head>
-<!-- <body onmouseover="onVideo()" onmouseout="outVideo()">  -->
-<body>
-	<div class="main" >
+<body onload="beforePlayVideo()" onmouseover="onVideo()" onmouseout="outVideo()">
+	<div class="main" id="header">
 		<form action="quitVideo" method="get">
 			<input type="hidden" id="e_path" value="${path }">
 			<input type="hidden" name="e_code" id="e_code" value="${e_code }">
@@ -24,8 +23,6 @@
 		<p id="title" style="color: white;"></p>
 	</div>
 	<div id="video_div">
-		
-		
 		<video controls autoplay id="videoPlayer">
 		</video>
 	</div>

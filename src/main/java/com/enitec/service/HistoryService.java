@@ -20,7 +20,6 @@ public class HistoryService {
 	}
 	
 	public History quitVideo(History history) {
-		System.out.println("History Test : " + history.getHistory_key());
 		history.setH_close_at(LocalTime.now());
 		history.setH_date(LocalDate.now());
 		return historyRepo.save(history);

@@ -36,6 +36,7 @@ public class ContentController {
 	public String moveToVideoMain(Model model, HttpSession session, String pf_code) {
 		
 		try {
+			// null일때 제어하자
 			String c_id = session.getAttribute("c_id").toString();
 			if(c_id != null) {
 				model.addAttribute("loginID", c_id);
@@ -77,14 +78,7 @@ public class ContentController {
 		return String.format("%.2f", contentServ.calcRatingByCtcode(ct_code));
 	}
 	
-	// 컨텐츠 코드로 해당 컨텐츠를 찾아 평점을 계산 후 불러옴
-	@GetMapping("saveCloseTime")
-	@ResponseBody
-	public String saveCloseTime(String ct_code){
-		return String.format("%.2f", contentServ.calcRatingByCtcode(ct_code));
-	}
-	
-	// 시청기록 가져오기
+	// 영상 마지막 종료 시점(초) 가져오기
 	@GetMapping("findSecByPfcodeAndEcode")
 	@ResponseBody
 	public String findSecByPfcodeAndEcode(String pf_code, String e_code){
@@ -116,11 +110,13 @@ public class ContentController {
 			String guest = "Guest";
 			String noMembership = "M0";
 			String c_id = session.getAttribute("c_id").toString();
+			// 세션이 널인지 아닌지 봐야
 			String membership = customerServ.getMembershipCode(c_id);
 			pf_code = "s45511071G_PF01";
 			
 			// 로그인 안 돼있음 -> 로그인 페이지로
-			if(c_id.equals(guest)) {
+			//if(c_id.equals(guest)) {
+			if(session.equals(null)) {
 				return "redirect:/login/login?toURL=/content/watch?e_code=" + e_code;
 				// 로그인은 돼있으나 멤버십 미가입 -> 멤버십 신청/변경 페이지로
 			} else if(!c_id.equals(guest) && membership.equals(noMembership)) {
