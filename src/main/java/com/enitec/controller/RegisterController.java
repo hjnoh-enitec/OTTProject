@@ -25,6 +25,7 @@ public class RegisterController {
 	@PostMapping("/signup")
 	public String saveCustomer(Customer customer) {
 		customer = rs.insertCustomer(customer);
+		System.out.println("hy");
 		return "redirect:/token/signUp?c_id=" + customer.getC_id();
 	}
 

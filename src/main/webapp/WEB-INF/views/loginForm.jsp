@@ -67,7 +67,7 @@
 		<li><a href=""><i class="fa fa-search"></i></a></li>
 	</ul>
 </div>
-<form:form action="/login/login" method="post" onsubmit="return formCheck(this);">
+<form action ="<c:url value="/login/login"/>" method="post" onsubmit="return formCheck(this);">
 	<h3 id="title">Login</h3>
 	<div id="msg">
 		${msg}
@@ -85,6 +85,6 @@
 	<script>
 
 	</script>
-</form:form>
+</form>
 </body>
 </html>

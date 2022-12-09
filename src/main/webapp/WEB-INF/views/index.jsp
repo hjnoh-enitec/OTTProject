@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
-ws
+<c:set var="loginId"
+	value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}" />
 <c:set var="loginOutLink"
 	value="${loginId==null ? '/login/login?toURL=/' : '/login/logout'}" />
 <c:set var="loginOut" value="${loginId==null ? 'Login' : 'Logout'}" />
@@ -37,8 +38,12 @@ ws
 		</h1>
 		<h1>
 			<a href="/customer/info">info</a>
+
 		</h1>
-		<h1>${loginId}</h1>
+
+		<h1>
+			<a href="/content/main">content</a>
+		</h1>
 		<button onclick="location.href='/video/main'">動画</button>
 	</div>
 </body>
