@@ -47,11 +47,11 @@ for (let i = 0; i < movie.length; i++) {
 		// 로그인, 멤버십 여부에 따라 각기 다른 페이지로 이동함
 		if (loginID === 'Guest') {
 			contentForm.innerHTML =
-				"<video src='/video/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video>";
+				"<video src='/video/M1/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video>";
 		} else {
 			contentForm.innerHTML =
 				"<input type='hidden' name='pf_code' id='currentProfile' value='s45511071G_PF01'>" +
-				"<video src='/video/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video>";
+				"<video src='/video/M1/" + path[i].value + "'autoplay='autoplay' muted='muted' class='mvFile' id='mvFile'></video>";
 		}
 
 		// 시즌 선택창 표시 여부 (테스트용으로 특정 장르일 시에 시즌이 나오게 해 둠)
@@ -89,9 +89,9 @@ for (let i = 0; i < movie.length; i++) {
 							str += "<div style='color: white;'>";
 							str += "<form action='/content/watch', method='get'>";
 							str += "<input type='hidden' name='e_code' id='epicode' value='"+ data[i].e_code +"'>";
-							str += "<input type='hidden' name='e_close_sec' id='quitSec'>";
+							str += "<input type='hidden' name='h_close_at' id='h_close_at'>";
 							str += "<button>"
-							str += "<video src='/video/" + data[i].e_path + "' class='season_video'></video>" + data[i].e_name;
+							str += "<video src='/video/M1/" + data[i].e_path + "' class='season_video'></video>" + data[i].e_name;
 							str += "</button></form></div>";
 						});
 						append.innerHTML = str;
@@ -106,7 +106,7 @@ for (let i = 0; i < movie.length; i++) {
 							dataType: "json",
 							success: function(data){
 								console.log("TEST : " + data);
-								document.getElementById("quitSec").value = data;
+								document.getElementById("h_close_at").value = data;
 							},
 							error: function(){
 								
@@ -173,7 +173,7 @@ function changeSeason(target) {
 		success: function(data) {
 			str = '';
 			$.each(data, function(i) {
-				str += "<div style='color: white;'><video src='/video/" + data[i].e_path + "' class='season_video'></video>" + data[i].e_name + "</div>";
+				str += "<div style='color: white;'><video src='/video/M1/" + data[i].e_path + "' class='season_video'></video>" + data[i].e_name + "</div>";
 			});
 			append.innerHTML = str;
 		},

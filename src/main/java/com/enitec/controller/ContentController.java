@@ -84,7 +84,9 @@ public class ContentController {
 	public String findSecByPfcodeAndEcode(String pf_code, String e_code){
 		String closedAt = "";
 		try {
-			closedAt = historyServ.findSecByPfcodeAndEcode(pf_code + "_" + e_code);
+			System.out.println("findSecByPfcodeAndEcode : " + pf_code);
+			System.out.println("findSecByPfcodeAndEcode : " + e_code);
+			closedAt = historyServ.findSecByPfcodeAndEcode(pf_code, e_code);
 		} catch (Exception e) {
 			
 		}
@@ -101,7 +103,7 @@ public class ContentController {
 	}
 	
 	@GetMapping("/watch")
-	public String watchVideo(String e_code, String e_close_sec, String pf_code, String toURL, Model model, HttpSession session) {
+	public String watchVideo(String e_code, String h_close_at, String pf_code, String toURL, Model model, HttpSession session) {
 		
 		// url로 바로 접속 시
 		// 세션이 있음 -> 멤버십 가입 돼있으면 재생 페이지로 / 안 돼있으면 멤버십 가입 페이지로
@@ -112,7 +114,7 @@ public class ContentController {
 			String c_id = session.getAttribute("c_id").toString();
 			// 세션이 널인지 아닌지 봐야
 			String membership = customerServ.getMembershipCode(c_id);
-			pf_code = "s45511071G_PF01";
+			
 			
 			// 로그인 안 돼있음 -> 로그인 페이지로
 			//if(c_id.equals(guest)) {
@@ -134,10 +136,12 @@ public class ContentController {
 		Episode episode = new Episode();
 		episode.setE_code(e_code);
 		String e_path = contentServ.findEpath(e_code);
+		String ct_code = contentServ.findCtcode(e_code);
 		model.addAttribute("path", e_path);
 		model.addAttribute("e_code", e_code);
-		System.out.println("CLOSE : " + e_close_sec);
-		model.addAttribute("e_close_sec", e_close_sec);
+		model.addAttribute("ct_code", ct_code);
+		System.out.println("CLOSE : " + h_close_at);
+		model.addAttribute("h_close_at", h_close_at);
 		return "content/watch";
 	}
 	

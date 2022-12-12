@@ -35,13 +35,14 @@ public class ContentService {
 		return contentRepo.findAll();
 	}
 	
-//	public String findCtpath(String ct_code) {
-//		return contentRepo.findCtpath(ct_code);
-//	}
-	
 	// 컨텐츠 경로
 	public String findEpath(String e_code) {
 		return episodeRepo.findEpath(e_code);
+	}
+	
+	// 컨텐츠코드 찾기
+	public String findCtcode(String e_code) {
+		return episodeRepo.findCtcode(e_code);
 	}
 	
 	// 컨텐츠별 시즌명 찾기

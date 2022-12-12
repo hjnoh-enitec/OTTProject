@@ -21,4 +21,7 @@ public interface EpisodeRepository extends JpaRepository<Episode, String>{
 	
 	@Query(value="SELECT e_path FROM enitec.episode WHERE e_code=:e_code",nativeQuery = true)
 	public String findEpath(@Param("e_code") String e_code);
+	
+	@Query(value="SELECT ct_code FROM enitec.episode WHERE e_code=:e_code",nativeQuery = true)
+	public String findCtcode(@Param("e_code") String e_code);
 }

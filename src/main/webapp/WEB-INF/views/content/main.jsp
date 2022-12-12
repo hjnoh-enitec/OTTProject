@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <%@ page import="java.net.URLDecoder"%>
+<c:set var="profile" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('profile')}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,16 +51,14 @@
 	<div id="menu">
 		<ul>
 			<c:if test="${loginID != null}">
-				<li>${loginID } 님</li>
+				<li>${loginID } 様</li>
+				<li>${profile.pf_name }</li>
 				<input type="hidden" value="${loginID }" id="loginID">
 				<input type="hidden" value="${membership }" id="membership">
-				<input type="hidden" value="s45511071G_PF01" id="pf_code">
+				<input type="hidden" value="${profile.pf_code }" id="pf_code">
 			</c:if>
-			<li id="logo">OTT</li>
-			<li><a href="<c:url value='/'/>">Home</a></li>
-			<li><a href="<c:url value='/board/list'/>">Board</a></li>
-			<li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-			<li><a href="<c:url value='register/signup'/>">Sign in</a></li>
+			<li><a href="<c:url value='/profile/select'/>">プロフィール選択</a></li>
+			<li><a href="<c:url value='/login/logout'/>">ログアウト</a></li>
 			<li><a href=""><i class="fa fa-search"></i></a></li>
 		</ul>
 	</div>
@@ -75,7 +74,7 @@
 				<input type="hidden" class="video_info" value="<c:out value="${cList.ct_info}" />">
 				<div>
 					<img src="<c:out value="${cList.ct_path_thumbnail}" />" class="thumbnail">
-					<video src="<c:out value="/video/${cList.ct_path}" />" autoplay="autoplay" muted="muted" class="video_video"></video>
+					<video src="<c:out value="/video/M1/${cList.ct_path}" />" autoplay="autoplay" muted="muted" class="video_video"></video>
 				</div>
 				<div style="text-align: center; font-size: 20px;"><c:out value="${cList.ct_title}" /></div>
 			</div>

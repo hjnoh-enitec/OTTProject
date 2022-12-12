@@ -44,6 +44,7 @@
 		</c:if>
 		<c:if test="${loginId != null}">
 			<li>${loginId}</li>
+			<li><a href="<c:url value='/profile/select'/>">プロフィール選択</a></li>
 		</c:if>
 	   	
 	</ul> 

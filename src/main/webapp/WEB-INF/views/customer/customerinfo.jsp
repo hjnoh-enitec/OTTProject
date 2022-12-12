@@ -140,7 +140,7 @@
 		</form>
 	</div>
 		<c:if test="${customer != null}">
-			<a class="nav-link" href="/customer/logout">${customer.c_id} 로그아웃</a>
+			<a class="nav-link" href="/login/logout">${customer.c_id} 로그아웃</a>
 		</c:if>
 	<script>
 	
