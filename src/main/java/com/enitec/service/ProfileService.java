@@ -32,10 +32,14 @@ public class ProfileService {
 	
 	public boolean deleteById(String pf_code) {
 		Profile profile = pr.findById(pf_code).get();
-		if(profile!=null) {
-			pr.delete(profile);
-			return true;
+		if(profile ==null) {
+			return false; 
 		}
-		return false;
+		pr.delete(profile);
+		return true;
+	}
+	
+	public int nextVal(String c_id) {
+		return pr.nextVal(c_id) + 1 ;
 	}
 }

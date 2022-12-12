@@ -44,6 +44,12 @@ dependencies {
 	
 	//thumbnailator
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.1'
+	
+	// JSON
+	implementation 'org.json:json:20220924'
+	
+	// https://mvnrepository.com/artifact/org.webjars.npm/node-sass
+	implementation 'org.webjars.npm:node-sass:4.14.1'
 }
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'

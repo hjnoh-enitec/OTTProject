@@ -10,11 +10,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-body {
+body#profilebody {
 	color: white;
+	background-color: black;
 }
 
-p.logo {
+p#logo {
 	background: transparent;
 	color: blue;
 	text-align: left;
@@ -23,78 +24,82 @@ p.logo {
 	margin-left: 10px;
 }
 
-div.profile-aria {
+div#profile-aria {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%)
 }
 
-p.tv {
+p#tv {
 	width: 100%;
 	text-align: center;
 	font-size: 48px;
 	margin-bottom: 10px;
 	margin-left: 25px;
 }
+ul#profilrselect{
+}
 
-li {
+li#profilrselect {
 	float: left;
 	list-style: none;
 	margin: 10px;
 	display: block;
 }
 
-div.profile {
+div#profile {
 	width: 150px;
 	height: 200px;
 	background: transparent;
 }
 
-div.profile-card {
+div#profile-card {
 	width: 150px;
 	height: 150px;
 	background: white;
 }
 
-p.profile-card {
+p#profile-card {
 	color: white;
 	text-align: center;
 }
 
-div.button {
+div#button {
 	width: 120px;
 	height: 30px;
 	margin-left: 45%;
 	margin-top: 30%;
-	text-align: center;
+	position : relative;
 	padding: 5px;
 	border: 1px solid white;
 }
 
-img.profileSelect {
+img#profileSelect {
 	width: 150px;
 	height: 150px;
 	object-fit: cover;
 }
-
-div.modal-content {
-	display: flex;
+button#settingbtn{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%)
 }
 </style>
 </head>
-<body bgcolor="black">
+<body id="profilebody">
 	<div>
 		<%@ include file="/jsp/home/header.jsp"%>
-		<div class="profile-aria">
+		<div id="profile-aria">
 			<div>
-				<p class="tv">プロフィールを選択してください。</p>
+				<p id="tv">プロフィールを選択してください。</p>
 			</div>
 			<div>
-				<ul>
+				<ul id="profilrselect">
 					<c:forEach items="${profileList }" var="profile" varStatus="status">
-						<li>
-							<div class="profile"
+						<li id="profilrselect">
+							<div id="profile"
 								onclick="moveContent(profileForm${status.index})">
 								<form action="/profile/select" method="post"
 									id="profileForm${status.index }" name="profileForm">
@@ -104,28 +109,28 @@ div.modal-content {
 										id="pf_name" name="pf_name" value="${profile.getPf_name() }" />
 									<input type="hidden" id="pf_path" name="pf_path"
 										value="${profile.getPf_path() }" />
-									<div class="profile-card">
+									<div id="profile-card">
 										<img id="profileSelect" src="${profile.getPf_path() }">
 									</div>
-									<p class="profile-card">${profile.getPf_name() }</p>
+									<p id="profile-card">${profile.getPf_name() }</p>
 								</form>
 							</div>
 						</li>
 					</c:forEach>
 					<c:if test="${fn:length(profileList)  < 4}">
 						<li>
-							<div class="profile" onclick="location.href='/profile/create'">
-								<div class="profile-card">
+							<div id="profile" onclick="location.href='/profile/create'">
+								<div id="profile-card">
 									<img src="/image/baseImage/addProfileImage.jpg" />
 								</div>
-								<p class="profile-card">プロフィール追加</p>
+								<p id="profile-card">プロフィール追加</p>
 							</div>
 						</li>
 					</c:if>
 				</ul>
 			</div>
-			<div class="button">
-				<div onclick="openModal()">ProfileSetting</div>
+			<div id="button">
+				<button id="settingbtn" onclick="openModal()">ProfileSetting</button>
 			</div>
 		</div>
 	</div>

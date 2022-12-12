@@ -55,7 +55,7 @@ public class FindController {
 	@PostMapping("/sendCheckedMail")
 	public String sendPasswordUpdate(FindForm findForm) {
 		if (fs.findCustomer(findForm.getC_id()) == null) {
-			return "error";
+			return "redirect:/pwd";
 		}
 		return "redirect:/token/findPwd?c_id="+findForm.getC_id();
 	}

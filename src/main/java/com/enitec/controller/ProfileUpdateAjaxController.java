@@ -60,13 +60,14 @@ public class ProfileUpdateAjaxController {
 	@PostMapping("/delete")
 	@ResponseBody
 	public int deleteProfile(@RequestParam("pf_code")String pf_code,HttpSession session) {
-		if(ps.deleteById(pf_code)) {
-			int profileCount = ps.getProfileCount(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
-			if(profileCount == 0) {
-				return 1;
+			boolean check = ps.deleteById(pf_code);
+			if(check) {
+				int profileCount = ps.getProfileCount(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
+				if(profileCount == 0) {
+					return 1;
+				}
+				return 0;
 			}
-			return 0;
-		}
-		return 2;
+			return -1;
 	}
 }

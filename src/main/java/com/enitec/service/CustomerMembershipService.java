@@ -14,29 +14,18 @@ public class CustomerMembershipService {
 	@Autowired
 	CustomerRepository cr;
 	
-
-	public void membershipPlanUpdate(Customer customer) {
-		customer.setM_start_date(LocalDate.now());
-		customer.setM_end_date(LocalDate.now().plusMonths(1));
-		customer.setM_autopay("T");
-		cr.save(customer);
-	}
-	
-	public void membershipPlanQuit(Customer customer) {
-		customer.setM_autopay("F");
-		cr.save(customer);
-	}
 	public void changeMembership(String c_id, String m_code) {
 		Customer customer = cr.findById(c_id).get();
 		customer.setM_code(m_code);
-		customer.setM_autopay("T");
 		customer.setM_start_date(LocalDate.now());
 		customer.setM_end_date(LocalDate.now().plusMonths(1));
 		cr.save(customer);
 	}
+	
 	public void withdrwalMembership(String c_id) {
 		Customer customer = cr.findById(c_id).get();
-		customer.setM_autopay("F");
 		cr.save(customer);
+		
 	}
+	
 }

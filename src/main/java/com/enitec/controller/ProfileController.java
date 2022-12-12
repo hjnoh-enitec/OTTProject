@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.enitec.form.CreateProfileForm;
 import com.enitec.form.SelectProfileForm;
-import com.enitec.service.FakeHistoryService;
 import com.enitec.service.FileSaveService;
 import com.enitec.service.ProfileService;
 import com.enitec.session.Session;
@@ -33,8 +32,7 @@ public class ProfileController {
 	private ProfileService ps;
 	//@Autowired
 	//private HistoryService hs;
-	@Autowired
-	private FakeHistoryService fs;
+
 	@Autowired
 	private FileSaveService fss;
 
@@ -42,7 +40,7 @@ public class ProfileController {
 	public String moveProfilePage(String toURL, HttpServletRequest request, HttpServletResponse res, Model model) {
 		HttpSession session = request.getSession();
 		Object c_id = session.getAttribute("c_id");
-		if(c_id == null) {
+		if (c_id == null) {
 			return "index";
 		}
 		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute("c_id").toString());
@@ -51,46 +49,53 @@ public class ProfileController {
 	}
 
 	@PostMapping("/select")
-	public String selectedCustomerProfile(SelectProfileForm spf,HttpSession session, HttpServletResponse res,Model model) {
-		if(!Session.checkLogin(session)) {
+	public String selectedCustomerProfile(SelectProfileForm spf, HttpSession session, HttpServletResponse res,
+			Model model) {
+		if (!Session.checkLogin(session)) {
 			return "index";
 		}
 		Profile profile = ps.findById(spf.getPf_code());
 		session.setAttribute(Session.SELECT_PROFILE, profile);
-		return "content";
+		return "content/content";
 	}
 
 	@GetMapping("/update")
-	public String moveProfileUpdatePage(HttpSession session,Model model) {
+	public String moveProfileUpdatePage(HttpSession session, Model model) {
 		Object c_id = session.getAttribute(Session.LOGIN_CUSTOMER);
-		if(c_id == null) {
+		if (c_id == null) {
 			return "index";
 		}
 		List<Profile> profileList = ps.getProfileDataBase(c_id.toString());
 		model.addAttribute("profileList", profileList);
 		return "/profile/profileUpdate";
 	}
-	
+
 	@GetMapping("/create")
-	public String moveProfileInsertPage(Model model, HttpServletRequest request,HttpServletResponse res) {
+	public String moveProfileInsertPage(Model model, HttpServletRequest request, HttpServletResponse res) {
 		HttpSession session = request.getSession(false);
 		String c_id = session.getAttribute("c_id").toString();
-		if(c_id == null) {
+		if (c_id == null) {
 			return "index";
 		}
 		Cookie[] cookies = request.getCookies();
 		String msg = "";
-		if(cookies != null) {
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("error")) {
-					msg = cookie.getValue().toString();	
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("error")) {
+					msg = cookie.getValue().toString();
 					cookie.setMaxAge(0);
 					res.addCookie(cookie);
 				}
 			}
 		}
-		int nextProfileCount = ps.getProfileCount(c_id) + 1;
-		String pf_code = "pf" + nextProfileCount + c_id;
+		String pf_code = "pf";
+		if (ps.getProfileCount(c_id) == 0) {
+			pf_code += 1;
+			pf_code += c_id;
+		} else {
+			pf_code += ps.nextVal(c_id);
+			pf_code += c_id;
+		}
 		model.addAttribute("c_id", c_id);
 		model.addAttribute("pf_code", pf_code);
 		model.addAttribute("msg", msg);
@@ -98,29 +103,28 @@ public class ProfileController {
 	}
 
 	@PostMapping("/create")
-	public String createProfile(@Validated CreateProfileForm createProfileForm,Errors errors, HttpSession session, HttpServletResponse res
-			, MultipartFile fileUpload)   {
-		Profile profile= new Profile();
+	public String createProfile(@Validated CreateProfileForm createProfileForm, Errors errors, HttpSession session,
+			HttpServletResponse res, MultipartFile fileUpload) {
+		Profile profile = new Profile();
 		String profilePath = "";
 		String thumbnailPath = "";
 		if (errors.hasErrors()) {
-			Cookie error = new Cookie("error","プロフィール名を入力してください。");
+			Cookie error = new Cookie("error", "プロフィール名を入力してください。");
 			res.addCookie(error);
 			return "redirect:/profile/create";
 		}
-		
+
 		profile.setPf_code(createProfileForm.getPf_code());
 		profile.setC_id(createProfileForm.getC_id());
 		profile.setPf_name(createProfileForm.getPf_name());
-		if(fileUpload.isEmpty()) {
-			profilePath =  fss.base + fss.defaultProfileImageName;
-			thumbnailPath =  fss.base + fss.defaultThumbnailImageName;
-		}
-		else {
+		if (fileUpload.isEmpty()) {
+			profilePath = fss.base + fss.defaultProfileImageName;
+			thumbnailPath = fss.base + fss.defaultThumbnailImageName;
+		} else {
 			String fileName = fileUpload.getOriginalFilename();
-			boolean uploadStatus = fss.uploadFile(fileUpload,fileName);
-			if(!uploadStatus) {
-				Cookie error = new Cookie("error","ファイルアップロードに失敗しました。");
+			boolean uploadStatus = fss.uploadFile(fileUpload, fileName);
+			if (!uploadStatus) {
+				Cookie error = new Cookie("error", "ファイルアップロードに失敗しました。");
 				res.addCookie(error);
 				return "redirect:/profile/create";
 			}
@@ -132,7 +136,5 @@ public class ProfileController {
 		ps.CreateUpdateProfile(profile);
 		return "redirect:/profile/select";
 	}
-	
-	
-	
+
 }

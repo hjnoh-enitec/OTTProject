@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,14 +55,13 @@ public class LoginContorller {
             cookie.setMaxAge(0);
             res.addCookie(cookie);
         }
-        Cookie cookie = new Cookie("toURL",toURL);
-        res.addCookie(cookie);
-        
         String m_code = cs.getCustomerInfo(c_id).getM_code();
         //session生成
         HttpSession session = request.getSession();
       	session.setAttribute(Session.LOGIN_CUSTOMER, c_id);
       	session.setAttribute(Session.MEMBER_SHIP, m_code);
+      	
+      	request.setAttribute("toURL", toURL);
 		return "redirect:/profile/select";
 	}
 

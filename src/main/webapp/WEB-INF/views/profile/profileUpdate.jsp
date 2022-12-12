@@ -143,7 +143,7 @@ img.profileImg {
 					<div class="txtSpace">
 						<input type="text" class="profileName" name="name"
 							id="name${status.index }" value="${profile.pf_name }"
-							readonly="readonly">
+							readonly="readonly" onkeypress="enterkey(${status.index},event)">
 					</div>
 					<div class="btnSpace">
 						<button class="nameChangebtn" id="nameChange${status.index }"
@@ -163,7 +163,7 @@ img.profileImg {
 						onclick="deleteProfile(${status.index})">削除</button>
 				</div>
 				<form method="POST" enctype="multipart/form-data"
-					id="fileUpload${status.index }">
+					id="fileUploadform${status.index }">
 					<input type="file" class="fileUpload"
 						id="fileUpload${status.index }" name="fileUpload"
 						accept=".jpg,.png"
@@ -178,6 +178,16 @@ img.profileImg {
 		<button class="goBackBtn" id="goBack" onclick="returnProfile()">戻る</button>
 	</div>
 	<script>
+	
+	function enterkey(index,e) {
+		let txt = document.getElementById("name" + index);
+		let code = e.code;
+		if(!txt.readOnly){
+			if(code == 'Enter'){
+				accept(index);
+			}
+		}
+	}
 		function returnProfile(){
 			location.href='/profile/select';
 		}
@@ -257,7 +267,7 @@ img.profileImg {
 			let updatebtn = document.getElementById("profileUpdateBtn"+index);
 			let deletebtn = document.getElementById("profileDeleteBtn"+index);
 			if(window.confirm("変更事項を保存しますか？")){
-				let form = document.getElementById("fileUpload"+index);
+				let form = document.getElementById("fileUploadform"+index);
 				let data = new FormData(form);
 				$.ajax({
 					type:'POST',
