@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -245,7 +246,7 @@ img.profileImg {
 			
 		}
 		function imgChange(index) {
-			let file = document.querySelector('form > input[onchange]');
+			let file = document.getElementById("fileUpload"+index);
 			file.click();
 			
 		}

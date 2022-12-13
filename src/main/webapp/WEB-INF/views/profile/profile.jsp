@@ -118,7 +118,7 @@ button#settingbtn{
 						</li>
 					</c:forEach>
 					<c:if test="${fn:length(profileList)  < 4}">
-						<li>
+						<li id="profilrselect">
 							<div id="profile" onclick="location.href='/profile/create'">
 								<div id="profile-card">
 									<img src="/image/baseImage/addProfileImage.jpg" />

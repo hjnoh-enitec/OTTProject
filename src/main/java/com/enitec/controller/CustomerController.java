@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.enitec.service.CustomerMembershipService;
 import com.enitec.service.CustomerService;
 import com.enitec.service.MembershipSerivce;
+import com.enitec.session.Session;
 import com.enitec.vo.Customer;
 import com.enitec.vo.Membership;
 
@@ -30,7 +31,7 @@ public class CustomerController {
 	@GetMapping("/info")
 	public String customerinfo(HttpSession session, Model model) {
 		System.out.println("hey");
-		if (session.getAttribute("c_id") == null) {
+		if (Session.checkLogin(session)) {
 			return "error";
 		}
 		String c_id = session.getAttribute("c_id").toString();
@@ -45,7 +46,7 @@ public class CustomerController {
 
 	@GetMapping("/modifyMembership")
 	public String membership(HttpSession session, String toURL, Model model) {
-		if (session.getAttribute("c_id") == null) {
+		if (Session.checkLogin(session)) {
 			return "redirect:/login/login?toURL=" + toURL;
 		}
 		List<Membership> ml = ms.getMembershipList();

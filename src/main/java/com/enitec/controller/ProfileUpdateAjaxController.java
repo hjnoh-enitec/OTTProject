@@ -1,6 +1,7 @@
 package com.enitec.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -63,8 +64,14 @@ public class ProfileUpdateAjaxController {
 			boolean check = ps.deleteById(pf_code);
 			if(check) {
 				int profileCount = ps.getProfileCount(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
+				session.setAttribute(Session.CUSTOMER_PROFILE_LIST, ps.getProfileDataBase(Session.LOGIN_CUSTOMER).toString());
 				if(profileCount == 0) {
 					return 1;
+				}
+				List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
+				boolean profile = profileList.contains(session.getAttribute(Session.SELECT_PROFILE));
+				if(!profile) {
+					session.removeAttribute(Session.SELECT_PROFILE);
 				}
 				return 0;
 			}

@@ -27,6 +27,6 @@ button {
 </div>
 <br>
 <br>
-<button onclick="location.href='/login'">戻る</button>
+<button onclick="location.href='/login/login'">戻る</button>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/jsp/home/header.jsp"%>
+	<%@ include file="/jsp/home/header.jsp" %>
 </body>
 </html>

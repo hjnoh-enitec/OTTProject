@@ -22,8 +22,8 @@ public class FindService {
 		return idList;
 	}
 
-	public Customer findCustomer(String id) {
-		Customer customer = cr.findById(id).get();
+	public Customer findCustomer(String c_id) {
+		Customer customer = cr.findById(c_id).orElse(null);
 		return customer;
 	}
 

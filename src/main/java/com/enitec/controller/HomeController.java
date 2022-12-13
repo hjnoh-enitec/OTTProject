@@ -7,19 +7,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.enitec.session.Session;
+
 @Controller
 public class HomeController {
 	@GetMapping("/")
 	public String home(HttpSession session,HttpServletRequest request) {
-		Object loginCustomer = session.getAttribute("c_id");
-		Object selectProfile = session.getAttribute("pf_code");
-		if(loginCustomer == null) {
+		if(!Session.checkLogin(session)) {
 			return "index";	
 		}
-		if(selectProfile == null) {
+		if(!Session.checkSelectedProfile(session)) {
 			return "redirect:/profile/select";
 		}
 		request.setAttribute("toURL", "/");
-		return "content";
+		return "content/content";
 	}
 }
