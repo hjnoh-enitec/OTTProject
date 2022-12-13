@@ -1,74 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page session="false"%>
+<%@ page import="java.net.URLDecoder"%>
+<c:set var="profile"
+	value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('profile')}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">
-#video_div{
-	text-align: center;
-}
-body{
-	background-color: black;
-}
-video{
-	margin : 0 auto;
-	width: 1400px; 
-	height: 650px;
-}
-#backToMain{
-	width: 50px;
-	height: 40px;
-	display: none;
-}
-</style>
+<link rel="stylesheet" href="/css/watch.css">
 <title>OTT - Watch Video</title>
 </head>
-<body onmouseover="onVideo(this)" onmouseout="outVideo(this)">
-	<div class="main" >
-		<img src="/img/back.png" onclick="location.href='/content/main'" id="backToMain">
+<body onload="beforePlayVideo()" onmouseover="onVideo()"
+	onmouseout="outVideo()">
+	<div class="main" id="header">
+		<form action="<c:url value="/quitVideo"/>" method="get">
+			<input type="hidden" id="e_path" value="${path }"> <input
+				type="hidden" name="e_code" id="e_code" value="${e_code }">
+			<input type="hidden" name="ct_code" id="ct_code" value="${ct_code}">
+			<input type="hidden" id="membership" value="${membership }">
+			<input type="hidden" id="start_sec" value="${h_close_at}"> <input
+				type="hidden" name="h_close_at" id="h_close_at" value=""> <input
+				type="hidden" name="pf_code" id="pf_code"
+				value="${profile.pf_code }">
+			<button onclick="setVideoTime()">
+				<img src="/img/back.png" id="backToMain">
+			</button>
+		</form>
+
 		<p id="title" style="color: white;"></p>
 	</div>
 	<div id="video_div">
-		
-		<input type="hidden" id="path" value="${path }">
-		<input type="hidden" id="playStartTime" value="#t=00:00:00">
-		<input type="hidden" id="membership" value="${membership }">
 		<video controls autoplay id="videoPlayer">
 		</video>
 	</div>
-	<script>
-		
-		var videoPlayer = document.getElementById("videoPlayer");
-		var path = document.getElementById("path").value;
-		var playStartTime = document.getElementById("playStartTime").value;
-		var membership = document.getElementById("membership").value;
-		
-		// from session
-		if(membership == "M1"){ 
-			document.getElementById("title").innerHTML = "720p";
-		// standard, premium
-		}else if(membership == "M2" || membership == "M3"){
-			path = "(fhd)" + path;
-			document.getElementById("title").innerHTML = "1080p";
-		// omega
-		}else if(membership == "M4"){
-			path = "(uhd)" + path;
-			document.getElementById("title").innerHTML = "2160p";
-		}
-		
-		videoPlayer.setAttribute("src", path + playStartTime);
-	
-		var backToMain = document.getElementById("backToMain");
-		
-		// 뒤로가기 버튼
-		function onVideo(video){
-			backToMain.style.display = "flex";
-		}
-		function outVideo(video){
-			backToMain.style.display = "none";
-		}
-		
-	</script>
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/watch.js"></script>
 </body>
 </html>

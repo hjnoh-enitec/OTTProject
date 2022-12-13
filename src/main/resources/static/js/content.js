@@ -17,6 +17,7 @@ let playBtn;
 let seasonSel;
 let episodes;
 let contentId;
+let s_num;
 
 window.onload = function() {
 	//modal
@@ -131,7 +132,6 @@ let baseURL;
 function clickImg(img, isTv) {
 	window.scroll(0, 0);
 	contentId = img.id;
-
 	if (isTv === "true") {
 		baseURL = "https://api.themoviedb.org/3/tv/"
 	} else {
@@ -251,6 +251,7 @@ function setSeason(seasonInfo) {
 		}
 		seasonSel.appendChild(option);
 	}
+	s_num = seasonSel.value;
 }
 function setEpisonde(seasonNum) {
 	$.ajax({
@@ -270,6 +271,8 @@ function setEpisonde(seasonNum) {
 				let tumbNail = document.createElement("img");
 				tumbNail.style.marginLeft = "20px";
 				tumbNail.setAttribute("src", "https://image.tmdb.org/t/p/w200/" + episodesData[i].still_path);
+				tumbNail.setAttribute("onclick","watchVideo(this)");
+				tumbNail.setAttribute("id",episodesData[0].episode_number);
 				let discription = document.createElement("h4");
 				discription.innerHTML=
 				episode.appendChild(title);
@@ -285,10 +288,14 @@ function setEpisonde(seasonNum) {
 }
 
 function changeSeason() {
-	const season = seasonSel.value;
+	s_num = seasonSel.value;
 	episodes.innerHTML = "";
-	setEpisonde(parseInt(season));
+	setEpisonde(parseInt(s_num));
 }
-function watchVideo(){
-	location.href = "http://localhost:8000/content/watch"
+function watchVideo(episodes){
+	let e_number = "";
+	if(episodes!==null){
+		e_number = episodes.id;
+	}
+	location.href = "http://localhost:8000/content/watch?ct_code="+contentId+"&e_number="+e_number+"&s_num="+s_num;
 }

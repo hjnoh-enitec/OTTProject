@@ -16,7 +16,6 @@ public class RegisterService {
 	
 	public Customer insertCustomer(Customer customer) {
 		customer.setC_mailcheck("F");
-		System.out.println(customer);
 		return cr.save(customer);
 	}
 	public void updateMailCheck(String c_id) {
@@ -24,10 +23,8 @@ public class RegisterService {
 		customer = cr.findById(c_id).get();
 		customer.setC_mailcheck("T");
 		cr.save(customer);
-		System.out.println("mailCheck save");
 	}
 	public String login(Customer customer) {
-		System.out.println(customer);
 		String c_id = cr.login(customer.getC_id(), customer.getC_pwd());
 		return c_id;
 	}

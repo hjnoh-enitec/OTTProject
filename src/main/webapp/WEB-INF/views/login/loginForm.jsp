@@ -10,8 +10,6 @@
 <title>Login</title>
 <link rel="stylesheet" href="/css/login.css?ver=1">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-
-
 </head>
 <body>
 	

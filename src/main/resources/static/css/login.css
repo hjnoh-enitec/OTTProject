@@ -4,7 +4,6 @@
 	url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@200;600&display=swap')
 	;
 
-
 h2 {
 	color: black;
 }
@@ -110,6 +109,15 @@ input[type="submit"] {
 	font-size: 20px;
 }
 
+button {
+	font-weight: 600;
+	font-size: 20px;
+	background-color: #e50913;
+	color: white;
+	text-align: center;
+	font-size: 20px;
+}
+
 input[id="infoCk"] {
 	display: none;
 }
@@ -206,4 +214,23 @@ input[type="checkbox"]:checked+label:before {
 #detail {
 	display: none;
 	color: #737373;
+}
+
+.msg {
+	font-size: 16px;
+	color: red;
+	width: 300px;
+}
+
+.form .idDupl {
+	display: flex;
+	margin-left: 0px;
+	height: 40px;
+}
+
+.form .idDupl .idDuplMsg {
+	color: red;
+	margin-top: 15px;
+	margin-left: 10px;
+	font-size: 16px;
 }

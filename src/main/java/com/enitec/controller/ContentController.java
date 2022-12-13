@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enitec.service.ContentService;
+import com.enitec.vo.History;
 import com.enitec.vo.Image;
 
 @Controller
@@ -26,8 +27,9 @@ public class ContentController {
 
 	@GetMapping("/main")
 	public String moveToContentPage(Model model, HttpServletRequest request) {
-
-		//ArrayList<Image> playedList = cts.getPlayedList(profileCode);
+		
+		ArrayList<History> playedList = cts.getPlayedList("p01");
+		model.addAttribute("playedList",playedList);
 		ArrayList<Image> movieList = cts.getImgList(movieURL , jasonName,requestPage);
 		model.addAttribute("topRated", movieList);
 		ArrayList<Image> tvList = cts.getImgList(tvURL,jasonName, requestPage);

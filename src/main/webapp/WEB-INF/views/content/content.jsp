@@ -53,14 +53,14 @@
 			frameborder="0"></iframe>
 		<div class="catalog">
 			<h1 class="slideTitle">Ted様が観ていた物</h1>
-			<div class="slider-frame sf1">
-				<div class="btn prev bp1" onclick="prev(1)"></div>
-				<div class="btn next bn1" onclick="next(1)"></div>
-				<div class="slider-container sc1" id="sc1">
-					<c:forEach items="${playedList}" var="content">
-						<img class="slide s1" id="${content.ct_code}"
+			<div class="slider-frame sf3">
+				<div class="btn prev bp3" onclick="prev(3)"></div>
+				<div class="btn next bn3" onclick="next(3)"></div>
+				<div class="slider-container sc3" id="sc1">
+					<c:forEach items="${playedList}" var="playedList">
+						<img class="slide s3" id="${playedList.ct_code}"
 							onclick="clickImg(this,'false')"
-							src="https://image.tmdb.org/t/p/w200${content.thumbnail}">
+							src="https://image.tmdb.org/t/p/w200${playedList.imgPath}">
 					</c:forEach>
 				</div>
 			</div>
@@ -69,10 +69,10 @@
 				<div class="btn prev bp1" onclick="prev(1)"></div>
 				<div class="btn next bn1" onclick="next(1)"></div>
 				<div class="slider-container sc1" id="sc1">
-					<c:forEach items="${topRated}" var="content">
-						<img class="slide s1" id="${content.ct_code}"
+					<c:forEach items="${topRated}" var="topRated">
+						<img class="slide s1" id="${topRated.ct_code}"
 							onclick="clickImg(this,'false')"
-							src="https://image.tmdb.org/t/p/w200${content.thumbnail}">
+							src="https://image.tmdb.org/t/p/w200${topRated.thumbnail}">
 					</c:forEach>
 				</div>
 			</div>
@@ -81,10 +81,10 @@
 				<div class="btn prev bp2" onclick="prev(2)"></div>
 				<div class="btn next bn2" onclick="next(2)"></div>
 				<div class="slider-container sc2" id="sc2">
-					<c:forEach items="${myList}" var="content">
-						<img class="slide s2" id="${content.ct_code}"
+					<c:forEach items="${myList}" var="myList">
+						<img class="slide s2" id="${myList.ct_code}"
 							onclick="clickImg(this,'true')"
-							src="https://image.tmdb.org/t/p/w200${content.thumbnail}">
+							src="https://image.tmdb.org/t/p/w200${myList.thumbnail}">
 					</c:forEach>
 				</div>
 			</div>
