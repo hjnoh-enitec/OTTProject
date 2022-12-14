@@ -39,11 +39,10 @@ public class ProfileController {
 	@GetMapping("/select")
 	public String moveProfilePage(String toURL, HttpServletRequest request, HttpServletResponse res, Model model) {
 		HttpSession session = request.getSession();
-		Object c_id = session.getAttribute("c_id");
-		if (c_id == null) {
-			return "index";
+		if (!Session.checkLogin(session)) {
+			return "redirect:/";
 		}
-		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute("c_id").toString());
+		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
 		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, profileList);
 		return "profile/profile";
 	}
@@ -61,11 +60,10 @@ public class ProfileController {
 
 	@GetMapping("/update")
 	public String moveProfileUpdatePage(HttpSession session, Model model) {
-		Object c_id = session.getAttribute(Session.LOGIN_CUSTOMER);
 		if (!Session.checkLogin(session)) {
 			return "redirect:/";
 		}
-		List<Profile> profileList = ps.getProfileDataBase(c_id.toString());
+		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
 		model.addAttribute("profileList", profileList);
 		return "/profile/profileUpdate";
 	}
@@ -74,7 +72,7 @@ public class ProfileController {
 	public String moveProfileInsertPage(Model model, HttpServletRequest request, HttpServletResponse res) {
 		HttpSession session = request.getSession(false);
 		String c_id = session.getAttribute("c_id").toString();
-		if (Session.checkLogin(session)) {
+		if (!Session.checkLogin(session)) {
 			return "redirect:/";
 		}
 		Cookie[] cookies = request.getCookies();

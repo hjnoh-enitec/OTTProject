@@ -58,7 +58,7 @@ public class ContentController {
 	@GetMapping("/test")
 	public String setContent() {
 		cts.setContent(movieURL, tvURL, jasonName, requestPage);
-		return "index";
+		return "redirect:/";
 	}
 
 	// 영상 종료 시 history 테이블에 종료 시간 저장

@@ -22,6 +22,7 @@ public class MailController {
 		subject = "「OTT」新規登録のメールをご確認ください。";
 		ms.sendMail(t_id,c_id,url,subject);
 		model.addAttribute("c_id",c_id);
+		model.addAttribute("status", "sign");
 		return "notifyMailCheck";
 	}
 	@GetMapping("/findPwd")
@@ -29,6 +30,7 @@ public class MailController {
 		url ="/find/confirm?c_id="+c_id+"&";
 		subject = "「OTT」パスワードの変更をご案内いたします";
 		ms.sendMail(t_id, c_id,url,subject);
+		model.addAttribute("status", "find");
 		return "notifyMailCheck";
 	}
 	

@@ -13,8 +13,7 @@
 <meta charset="utf-8">
 <title>contentPage</title>
 </head>
-<body id="content">
-
+<body>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/js/content.js"></script>
@@ -60,7 +59,7 @@
 			<h1 class="slideTitle">${profile.pf_name }様が観ていた物</h1>
 			<input type="hidden" id="pf_code" name="pf_code" value="${profile.pf_code }">
 			<div class="slider-frame sf3">
-				<div class="btn prev bp3" id="viewBtn" onclick="prev(3)"></div>
+				<div class="btn prev bp3" onclick="prev(3)"></div>
 				<div class="btn next bn3" onclick="next(3)"></div>
 				<div class="slider-container sc3" id="sc1">
 					<c:forEach items="${playedList}" var="playedList">
@@ -97,7 +96,5 @@
 		</div>
 
 	</div>
-
-
 </body>
 </html>
