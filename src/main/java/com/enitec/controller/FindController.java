@@ -36,7 +36,7 @@ public class FindController {
 	public String returnId(FindForm findForm, HttpServletRequest request) {
 		List<String> idList = fs.findId(findForm.getC_name(), findForm.getC_birth(), findForm.getC_phone());
 		if (idList.size() < 1) {
-			return "redirect:/findId";
+			return "redirect:/find/id";
 		}
 		String sendId = "";
 		for (String id : idList) {
@@ -44,9 +44,12 @@ public class FindController {
 			sendId += id;
 		}
 		request.setAttribute("sendId", sendId);
+		return "redirect:/find/idList";
+	}
+	@GetMapping("/idList")
+	public String moveIdList() {
 		return "customer/idList";
 	}
-
 	@GetMapping("/pwd")
 	public String moveFindPassword() {
 		return "customer/findPassword";
@@ -69,7 +72,7 @@ public class FindController {
 	@PostMapping("/pwd")
 	public String PasswordUpdate(FindForm findForm) {
 		fs.updatePassword(findForm.getC_pwd(), findForm.getC_id());
-		return "index";
+		return "redirect:/";
 	}
 
 }

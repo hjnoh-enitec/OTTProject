@@ -38,7 +38,7 @@ public class LoginContorller {
 		} else if (mailCheck == null) {
 			String msg = "IDまたはパスワードが一致しません";
 			request.setAttribute("msg", msg);
-			return "login/loginForm";
+			return "redirect:/login/login";
 		}
 		//session生成
 		HttpSession session = request.getSession();
@@ -59,7 +59,7 @@ public class LoginContorller {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "index";
+		return "redirect:/";
 	}
 
 	private String mailCheck(String c_id, String c_pwd) {

@@ -68,9 +68,5 @@ public class ContentController {
 		return "redirect:/content/main";
 	}
 	
-	private boolean loginCheck(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		return session != null && session.getAttribute("c_id") != null;
-	}
 
 }

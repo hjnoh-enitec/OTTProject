@@ -52,18 +52,18 @@ public class ProfileController {
 	public String selectedCustomerProfile(SelectProfileForm spf, HttpSession session, HttpServletResponse res,
 			Model model) {
 		if (!Session.checkLogin(session)) {
-			return "index";
+			return "redirect:/";
 		}
 		Profile profile = ps.findById(spf.getPf_code());
 		session.setAttribute(Session.SELECT_PROFILE, profile);
-		return "content/content";
+		return "redirect:/";
 	}
 
 	@GetMapping("/update")
 	public String moveProfileUpdatePage(HttpSession session, Model model) {
 		Object c_id = session.getAttribute(Session.LOGIN_CUSTOMER);
-		if (c_id == null) {
-			return "index";
+		if (!Session.checkLogin(session)) {
+			return "redirect:/";
 		}
 		List<Profile> profileList = ps.getProfileDataBase(c_id.toString());
 		model.addAttribute("profileList", profileList);
@@ -74,8 +74,8 @@ public class ProfileController {
 	public String moveProfileInsertPage(Model model, HttpServletRequest request, HttpServletResponse res) {
 		HttpSession session = request.getSession(false);
 		String c_id = session.getAttribute("c_id").toString();
-		if (c_id == null) {
-			return "index";
+		if (Session.checkLogin(session)) {
+			return "redirect:/";
 		}
 		Cookie[] cookies = request.getCookies();
 		String msg = "";
