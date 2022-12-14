@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enitec.form.FindForm;
 import com.enitec.service.FindService;
+import com.enitec.service.MailService;
+import com.enitec.service.TokenService;
 
 @Controller
 @RequestMapping("/find")
@@ -20,6 +22,10 @@ public class FindController {
 
 	@Autowired
 	private FindService fs;
+	@Autowired
+	private TokenService ts;
+	@Autowired
+	private MailService ms;
 
 	@GetMapping("/id")
 	public String moveFindId() {
@@ -29,7 +35,7 @@ public class FindController {
 	@PostMapping("/id")
 	public String returnId(FindForm findForm, HttpServletRequest request) {
 		List<String> idList = fs.findId(findForm.getC_name(), findForm.getC_birth(), findForm.getC_phone());
-		if (idList == null) {
+		if (idList.size() < 1) {
 			return "redirect:/findId";
 		}
 		String sendId = "";
@@ -49,7 +55,7 @@ public class FindController {
 	@PostMapping("/sendCheckedMail")
 	public String sendPasswordUpdate(FindForm findForm) {
 		if (fs.findCustomer(findForm.getC_id()) == null) {
-			return "error";
+			return "redirect:/find/pwd";
 		}
 		return "redirect:/token/findPwd?c_id="+findForm.getC_id();
 	}

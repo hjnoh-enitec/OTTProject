@@ -1,6 +1,7 @@
 package com.enitec.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,6 @@ import com.enitec.service.ProfileService;
 import com.enitec.session.Session;
 import com.enitec.vo.Profile;
 
-// profile 업데이트/삭제 담당하는 ajax
 @RestController
 public class ProfileUpdateAjaxController {
 
@@ -27,7 +27,7 @@ public class ProfileUpdateAjaxController {
 	
 	@PostMapping("/update")
 	@ResponseBody
-	public int updateProfile(@RequestParam("fileUpload") MultipartFile uploadfile,@RequestParam("pf_code")String pf_code,@RequestParam("pf_name")String pf_name){
+	public int updateProfile(@RequestParam("fileUpload") MultipartFile uploadfile,@RequestParam("pf_code")String pf_code,@RequestParam("pf_name")String pf_name,HttpSession session){
 		Profile profile = ps.findById(pf_code);
 		profile.setPf_name(pf_name);
 		if(!uploadfile.isEmpty()) {
@@ -47,27 +47,36 @@ public class ProfileUpdateAjaxController {
 				if(beforeThumbnail.exists()) {
 					if(beforeThumbnail.delete()) {
 						System.out.println("delete before thumbnail");
+					}else {
+						return 1;	
 					}
-					return 1;
 				}
 				profile.setPf_path(fss.profile+fileName);
 				profile.setPf_thumbnail_path(fss.thumbnail+fileName);
 			}
 		}
 		ps.CreateUpdateProfile(profile);
+		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, ps.getProfileDataBase(Session.LOGIN_CUSTOMER).toString());
 		return 0;
 	}
 	
 	@PostMapping("/delete")
 	@ResponseBody
 	public int deleteProfile(@RequestParam("pf_code")String pf_code,HttpSession session) {
-		if(ps.deleteById(pf_code)) {
-			int profileCount = ps.getProfileCount(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
-			if(profileCount == 0) {
-				return 1;
+			boolean check = ps.deleteById(pf_code);
+			if(check) {
+				int profileCount = ps.getProfileCount(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
+				session.setAttribute(Session.CUSTOMER_PROFILE_LIST, ps.getProfileDataBase(Session.LOGIN_CUSTOMER).toString());
+				if(profileCount == 0) {
+					return 1;
+				}
+				List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
+				boolean profile = profileList.contains(session.getAttribute(Session.SELECT_PROFILE));
+				if(!profile) {
+					session.removeAttribute(Session.SELECT_PROFILE);
+				}
+				return 0;
 			}
-			return 0;
-		}
-		return 2;
+			return -1;
 	}
 }

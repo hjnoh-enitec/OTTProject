@@ -31,9 +31,6 @@ public class ContentController {
 	
 	@GetMapping("/main")
 	public String moveToContentPage(Model model, HttpServletRequest request) {
-		
-		
-		
 		ArrayList<History> playedList = cts.getPlayedList("p01");
 		model.addAttribute("playedList",playedList);
 		ArrayList<Image> movieList = cts.getImgList(movieURL , jasonName,requestPage);
