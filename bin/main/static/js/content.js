@@ -163,7 +163,7 @@ function clickImg(img, isTv) {
 			modalContentTitle.innerHTML = title;
 			modalContentAvg.innerHTML = "&nbsp" + data["vote_average"] + "点&nbsp";
 
-			setPreview(data.id, data.poster_path);
+			setPreview(data.id, data.poster_path, isTv);
 			modal.style.display = "flex";
 		},
 		error: function(request, error) {
@@ -172,7 +172,7 @@ function clickImg(img, isTv) {
 		}
 	})
 }
-function setPreview(id, posterPath) {
+function setPreview(id, posterPath, isTv) {
 	$.ajax({
 		type: 'get',
 		url: baseURL + id + "/videos?api_key=638aa1b1cb8fa91819a382dabe206684&language=ja",
@@ -191,9 +191,11 @@ function setPreview(id, posterPath) {
 				iframe.setAttribute("frameborder", "0");
 				iframe.setAttribute("class", "contentPreviewVideo");
 				modalWindow.style.top = "0px";
+				modalContentPreview.appendChild(iframe);
+			}
+			if (isTv!=="true") {
 				modalContent.setAttribute("onmouseover", "displayPlayBtn()");
 				modalContent.setAttribute("onmouseout", "hidePlayBtn()");
-				modalContentPreview.appendChild(iframe);
 			}
 		},
 		error: function(request, error) {
@@ -266,16 +268,16 @@ function setEpisonde(seasonNum) {
 				episode.setAttribute("class", "episode");
 				let title = document.createElement("h4");
 				title.setAttribute("class", "episodeTitle");
-				title.innerHTML = episodesData[i].name+"("+episodesData[i].vote_average+")";
+				title.innerHTML = episodesData[i].name + "(" + episodesData[i].vote_average + ")";
 				title.style.paddingTop = "20px";
 				let tumbNail = document.createElement("img");
 				tumbNail.style.marginLeft = "20px";
 				tumbNail.setAttribute("src", "https://image.tmdb.org/t/p/w200/" + episodesData[i].still_path);
-				tumbNail.setAttribute("onclick","watchVideo(this)");
-				tumbNail.setAttribute("id",episodesData[0].episode_number);
+				tumbNail.setAttribute("onclick", "watchVideo(this)");
+				tumbNail.setAttribute("id", episodesData[0].episode_number);
 				let discription = document.createElement("h4");
-				discription.innerHTML=
-				episode.appendChild(title);
+				discription.innerHTML =
+					episode.appendChild(title);
 				episode.appendChild(tumbNail);
 				episodes.appendChild(episode);
 			}
@@ -292,10 +294,13 @@ function changeSeason() {
 	episodes.innerHTML = "";
 	setEpisonde(parseInt(s_num));
 }
-function watchVideo(episodes){
+function watchVideo(episodes) {
 	let e_number = "";
-	if(episodes!==null){
+	if (episodes !== undefined) {
 		e_number = episodes.id;
+		hidePlayBtn();
+ 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_number + "&s_num=" + s_num;
+	}else{
+		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId;
 	}
-	location.href = "http://localhost:8000/content/watch?ct_code="+contentId+"&e_number="+e_number+"&s_num="+s_num;
 }

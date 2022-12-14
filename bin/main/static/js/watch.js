@@ -52,7 +52,7 @@ function setVideoTime() {
 }
 $(window).on('beforeunload', function() {
 	let endSec = videoPlayer.currentTime;
-	console.log("http://localhost:8000/quitVideo" + urlParam + "pf_code=p01&h_close_at=" + endSec);
+	console.log("http://localhost:8000/quitVideo" + urlParam + "&pf_code=p01&h_close_at=" + endSec);
 	$.ajax({
 		type: "GET",
 		url: "http://localhost:8000/quitVideo" + urlParam + "&pf_code=p01&h_close_at=" + endSec,

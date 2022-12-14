@@ -20,10 +20,10 @@
 		<!-- 모달 컨텐츠 -->
 		<div class="modal-window" id="modalWindow">
 			<!-- 예고편 - 클릭하면 재생화면으로 넘어간다. -->
-			<div class="content" id="content" onclick="watchVideo()">
+			<div class="content" id="content">
 				<!-- 컨텐츠 제목 -->
 				<div class="discription" id="discription">
-					<button class="play" id="play"></button>
+					<button class="play" id="play" onclick="watchVideo()"></button>
 					<div class="title">
 						<h1 id="contentTitle"></h1>
 						<h1 id=avg></h1>
