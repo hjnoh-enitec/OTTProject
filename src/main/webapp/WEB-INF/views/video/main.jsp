@@ -16,24 +16,9 @@
 		<li><a href="<c:url value='/register/signin'/>">Sign in</a></li>
 		<li><a href=""><i class="fa fa-search"></i></a></li>
 	</ul>
-	<div>
-		<table>
-			<tr>
-				<td>
-					<video width="360" height="202" controls autoplay="autoplay">
-						<source src="/video/test1.mp4" type="video/mp4">
-					</video>
-				</td>
-				<td>
-					<video width="360" height="202" controls autoplay="autoplay">
-						<source src="/video/test2.mp4" type="video/mp4">
-					</video>
-				</td>
-			</tr>
-		</table>
-		
-	</div>
-	
+	<video width="640" height="320" controls autoplay="autoplay">
+		<source src="/video/test1.mp4" type="video/mp4">
+	</video>
 </div>
 </body>
 </html>

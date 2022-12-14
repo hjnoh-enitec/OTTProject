@@ -23,9 +23,9 @@ public class Customer {
 	private String c_birth;
 	private String c_phone;
 	private String m_code;
-	private String m_autopay;
 	private LocalDate m_start_date;
 	private LocalDate m_end_date;
+	private String m_autopay;
 	public void compleMailCheck() {
 		c_mailcheck="T";
 	}

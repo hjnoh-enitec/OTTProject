@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/video")
 public class VideoController {
 
-	@GetMapping("/main")
+	@GetMapping("/get")
 	public String moveToVideoMain() {
-		return "video/main";
+		return "index";
 	}
-	
-	
-	
 }

@@ -26,7 +26,7 @@ public class LoginContorller {
 			toURL="/";
 		}
 		req.setAttribute("toURL", toURL);
-		return "loginForm";
+		return "login/loginForm";
 	}
 
 	@PostMapping("/login")
@@ -38,7 +38,7 @@ public class LoginContorller {
 		} else if (mailCheck == null) {
 			String msg = "IDまたはパスワードが一致しません";
 			request.setAttribute("msg", msg);
-			return "loginForm";
+			return "login/loginForm";
 		}
 		//session生成
 		HttpSession session = request.getSession();
@@ -52,7 +52,8 @@ public class LoginContorller {
             cookie.setMaxAge(0);
             res.addCookie(cookie);
         }
-		return "redirect:" + toURL;
+		//return "redirect:" + toURL;
+		return "redirect:/profile/select";
 	}
 
 	@GetMapping("/logout")

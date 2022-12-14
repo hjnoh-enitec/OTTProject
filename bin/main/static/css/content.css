@@ -1,0 +1,209 @@
+.catalog {
+	position: absolute;
+	top: 600px;
+}
+
+.slideTitle {
+	color: white;
+	margin-bottom: -10px;
+	margin-left: 60px;
+}
+
+.contentTitle {
+	color: white;
+	align-content: center;
+}
+
+body#content{
+	background: black;
+}
+
+.s2 {
+	top: 2000px;
+}
+
+.btn {
+	width: 40px;
+	height: 40%;
+	background: red;
+	position: absolute;
+	top: 80px;
+	z-index: 1;
+}
+
+.slider-frame {
+	width: 40px;
+	height: 300px;
+	margin-left: 50px;
+	position: relative;
+	overflow: hidden;
+}
+
+.slider-container {
+	height: 300px;
+}
+
+.slider-frame .btn.prev {
+	left: 0px;
+}
+
+.slider-frame .btn.next {
+	right: 50px;
+}
+
+.slider-frame .slider-container {
+	transition: margin-left 0.2s ease, left 0.5s ease;
+	position: absolute;
+	left: 0;
+}
+
+.slider-frame .slider-container .slide {
+	float: left;
+	position: relative;
+	top: 0;
+	transition: width 0.2s ease, height 0.2s ease, top 0.2s ease;
+}
+
+.slideTitle {
+	font-weight: bolder;
+}
+/* modal */
+#modal.modal-overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255, 255, 255, 0.25);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(1.5px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	z-index: 10
+}
+
+#modal .modal-window {
+	/*background: rgba( 69, 139, 197, 0.70 );*/
+	background: black;
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(13.5px);
+	-webkit-backdrop-filter: blur(13.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	width: 1000px;
+	height: 500px;
+	position: relative;
+	/*top: 100px;*/
+	padding: 10px;
+	justify-content: center;
+	top: 120px;
+}
+
+#modal .discription {
+	text-shadow: 1px 1px 2px gray;
+	color: white;
+	position: absolute;
+	left: 30px;
+	top: 200px;
+	z-index: 1000;
+	top: 200px;
+}
+
+.title {
+	display: flex;
+}
+
+#avg {
+	border-style: solid;
+	border-width: 3px;
+	border-color: white;
+	margin-left: 10px;
+}
+
+#modal .discription h2 {
+	display: inline;
+}
+
+#modal .close-area {
+	display: inline;
+	width: 15px;
+	height: 20px;
+	float: right;
+	padding-right: 10px;
+	cursor: pointer;
+	text-shadow: 1px 1px 2px gray;
+	color: white;
+	z-index: 1000000px;
+	right: 0px;
+	position: absolute;
+	float: right;
+	top: 0px;
+	font-weight: 900px;
+}
+
+#modal .content {
+	text-shadow: 1px 1px 2px gray;
+	color: white;
+}
+
+#modal .comment {
+	color: white;
+	height: 55px;
+	width: 600px;
+	margin-top: -20px;
+	margin-left: -10px;
+	font-size: 18px;
+	text-align: left;
+	font-weight: bolder
+}
+
+.seasonSelect {
+	display: none;
+}
+
+.contentPreviewImg {
+	margin-left: -11px;
+	width: 1022px;
+	height: 500px;
+	object-fit : fill;
+	margin-top: -53px;
+}
+
+.contentPreviewVideo {
+	margin-left: -11px;
+	width: 1021px;
+	height: 600px;
+	margin-top: -53px;
+}
+
+.play {
+	width: 84px;
+	height: 84px;
+	margin-left: 460px;
+	border-color: transparent transparent transparent white;
+	border-style: solid solid solid solid;
+	border-width: 43px 0 43px 84px;
+	background-color: transparent;
+	display: none;
+}
+
+.episodes {
+	width: 1000px;
+	height: 300px;
+	overflow: auto;
+}
+
+.episode {
+	display: flex;
+	padding : 10px;
+}
+.episodeTitle{
+	color : white;
+	width : 150px;
+	text-align: center;
+}
