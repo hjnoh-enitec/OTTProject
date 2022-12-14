@@ -18,14 +18,8 @@ public class HistoryService {
 		return historyRepo.findSecByPfcodeAndEcode(pf_code, e_code);
 	}
 	
-	public void quitVideo(History history) {
-		try {
-			history.setH_date(LocalDate.now());
-			historyRepo.save(history);
-		}catch(Exception e) {
-	
-		}
-		
-		
+	public History quitVideo(History history) {
+		history.setH_date(LocalDate.now());
+		return historyRepo.save(history);
 	}
 }

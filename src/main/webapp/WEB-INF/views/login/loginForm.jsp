@@ -22,7 +22,7 @@
 			</div>
 			<div class="form">
 				<form action="/login/login" method="post" id="f">
-					<input type="text" name="toURL" value="${toURL}"/>
+					<input type="hidden" name="toURL" value="${toURL}"/>
 					<p>
 					<input type="text" name="c_id"  value="${cookie.c_id.value}" placeholder="E-MAIL" autofocus>
 					</p>

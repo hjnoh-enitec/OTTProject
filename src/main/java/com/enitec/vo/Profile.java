@@ -12,4 +12,6 @@ public class Profile {
 	private String pf_code;
 	private String c_id;
 	private String pf_name;
+	private String pf_path;
+	private String pf_thumbnail_path;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enitec.service.ContentService;
+import com.enitec.service.HistoryService;
 import com.enitec.vo.History;
 import com.enitec.vo.Image;
 
@@ -25,8 +26,13 @@ public class ContentController {
 	String jasonName = "results";
 	String requestPage = "1";
 
+	@Autowired
+	private HistoryService historyServ;
+	
 	@GetMapping("/main")
 	public String moveToContentPage(Model model, HttpServletRequest request) {
+		
+		
 		
 		ArrayList<History> playedList = cts.getPlayedList("p01");
 		model.addAttribute("playedList",playedList);
@@ -41,7 +47,7 @@ public class ContentController {
 	public String watchVideo(Model model) {
 		try {
 			model.addAttribute("membership", "M1");
-			model.addAttribute("path", "/video/m1/video.mp4");
+			model.addAttribute("path", "/video/M1/video.mp4");
 			return "content/watch";
 		} catch (Exception e) {
 			System.out.println(e);
@@ -55,6 +61,13 @@ public class ContentController {
 		return "index";
 	}
 
+	// 영상 종료 시 history 테이블에 종료 시간 저장
+	@GetMapping("quitVideo")
+	public String quitVideo(History history) {
+		history = historyServ.quitVideo(history);
+		return "redirect:/content/main";
+	}
+	
 	private boolean loginCheck(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		return session != null && session.getAttribute("c_id") != null;

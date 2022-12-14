@@ -1,16 +1,20 @@
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <%@ page import="java.net.URLDecoder"%>
+<%@ include file="/jsp/home/header.jsp" %>
+<c:set var="profile" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('profile')}"/>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="/css/content.css">
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <title>contentPage</title>
 </head>
-<body>
+<body id="content">
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/js/content.js"></script>
@@ -20,10 +24,10 @@
 		<!-- 모달 컨텐츠 -->
 		<div class="modal-window" id="modalWindow">
 			<!-- 예고편 - 클릭하면 재생화면으로 넘어간다. -->
-			<div class="content" id="content" onclick="watchVideo()">
+			<div class="content" id="content">
 				<!-- 컨텐츠 제목 -->
 				<div class="discription" id="discription">
-					<button class="play" id="play"></button>
+					<button class="play" id="play" onclick="watchVideo()"></button>
 					<div class="title">
 						<h1 id="contentTitle"></h1>
 						<h1 id=avg></h1>
@@ -48,13 +52,15 @@
 		</div>
 	</div>
 	<div>
+		
 		<iframe width="1900px" height="1100px" id="mainPreview"
 			src="https://www.youtube.com/embed/jk7QSGwupPA?enablejsapi=1&controls=0&autoplay=1&mute=1"
 			frameborder="0"></iframe>
 		<div class="catalog">
-			<h1 class="slideTitle">Ted様が観ていた物</h1>
+			<h1 class="slideTitle">${profile.pf_name }様が観ていた物</h1>
+			<input type="hidden" id="pf_code" name="pf_code" value="${profile.pf_code }">
 			<div class="slider-frame sf3">
-				<div class="btn prev bp3" onclick="prev(3)"></div>
+				<div class="btn prev bp3" id="viewBtn" onclick="prev(3)"></div>
 				<div class="btn next bn3" onclick="next(3)"></div>
 				<div class="slider-container sc3" id="sc1">
 					<c:forEach items="${playedList}" var="playedList">

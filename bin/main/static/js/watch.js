@@ -7,6 +7,7 @@ let h_close_at = document.getElementById("h_close_at");
 let pfCode = document.getElementById("pf_code");
 let epicode = document.getElementById("e_code");
 let historyKey = document.getElementById("history_key");
+let e_code = document.getElementById("e_code");
 const urlParam = window.location.search;
 const basic = "M1";
 const standard = "M2";
@@ -52,10 +53,11 @@ function setVideoTime() {
 }
 $(window).on('beforeunload', function() {
 	let endSec = videoPlayer.currentTime;
-	console.log("http://localhost:8000/quitVideo" + urlParam + "pf_code=p01&h_close_at=" + endSec);
+	//console.log("http://localhost:8000/quitVideo" + urlParam + "&pf_code=" + pfCode + "&h_close_at=" + endSec);
+	console.log("http://localhost:8000/e_code=" + e_code + "&pf_code=" + pfCode + "&h_close_at=" + endSec);
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8000/quitVideo" + urlParam + "&pf_code=p01&h_close_at=" + endSec,
+		url: "http://localhost:8000/e_code=" + e_code + "&pf_code=" + pfCode + "&h_close_at=" + endSec,
 		contentType: "application/json",
 		dataType: "json",
 		success: function() {

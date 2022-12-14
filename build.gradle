@@ -37,6 +37,16 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.webjars.npm/node-sass
 implementation 'org.webjars.npm:node-sass:4.14.1'
 	
+	//devtool
+	implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.7.1'
+	
+	//validation
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.2'
+	
+	//imageUpload
+	implementation 'commons-io:commons-io:2.8.0'
+	implementation 'commons-fileupload:commons-fileupload:1.4'
+	
 }
 
 tasks.named('test') {

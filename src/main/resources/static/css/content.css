@@ -14,7 +14,7 @@
 	align-content: center;
 }
 
-body {
+body#content{
 	background: black;
 }
 
