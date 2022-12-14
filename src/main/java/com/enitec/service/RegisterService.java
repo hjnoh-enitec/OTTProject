@@ -16,6 +16,7 @@ public class RegisterService {
 	
 	public Customer insertCustomer(Customer customer) {
 		customer.setC_mailcheck("F");
+		customer.setM_code("M0");
 		return cr.save(customer);
 	}
 	public void updateMailCheck(String c_id) {

@@ -46,7 +46,7 @@ public class CustomerController {
 
 	@GetMapping("/modifyMembership")
 	public String membership(HttpSession session, String toURL, Model model) {
-		if (Session.checkLogin(session)) {
+		if (!Session.checkLogin(session)) {
 			return "redirect:/login/login?toURL=" + toURL;
 		}
 		List<Membership> ml = ms.getMembershipList();
