@@ -14,5 +14,9 @@ public class MembershipSerivce {
 	
 	public List<Membership> getMembershipList() {
 		return mr.findAll();
-	}	
+	}
+	
+	public List<String> findByIds(){
+		return mr.findByM_codes();
+	}
 }
