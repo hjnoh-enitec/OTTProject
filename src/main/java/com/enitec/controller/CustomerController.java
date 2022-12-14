@@ -46,7 +46,7 @@ public class CustomerController {
 
 	@GetMapping("/modifyMembership")
 	public String membership(HttpSession session, String toURL, Model model) {
-		if (Session.checkLogin(session)) {
+		if (!Session.checkLogin(session)) {
 			return "redirect:/login/login?toURL=" + toURL;
 		}
 		List<Membership> ml = ms.getMembershipList();
@@ -61,7 +61,7 @@ public class CustomerController {
 	@PostMapping("/membershipSuccess")
 	public String changeMembership(String c_id, String m_code) {
 		cms.changeMembership(c_id, m_code);
-		return "index";
+		return "redirect:/";
 	}
 	@GetMapping("/withdrwal")
 	public String moveToWithdrwalPage(String c_id) {
@@ -71,7 +71,7 @@ public class CustomerController {
 	@PostMapping("/withdrwal") 
 	public String membershipquit(String c_id) { 
 		cms.withdrwalMembership(c_id);
-		return "index";
+		return "redirect:/";
 }
 	
 }

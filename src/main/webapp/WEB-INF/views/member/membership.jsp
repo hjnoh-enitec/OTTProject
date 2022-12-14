@@ -69,16 +69,7 @@
 	</style>
 </head>
 <body>
-<div id="menu">
-	<ul>
-		<li id="logo">OTT</li>
-		<li><a href="<c:url value='/'/>">Home</a></li>
-		<li><a href="<c:url value='/board/list'/>">Board</a></li>
-		<li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-		<li><a href="<c:url value='/register/add'/>">Sign in</a></li>
-		<li><a href=""><i class="fa fa-search"></i></a></li>
-	</ul>
-</div>
+
 	<form action="/customer/membershipSuccess" onsubmit="return doAction()" method="post">
 	
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -104,7 +95,9 @@
 		<select name="m_code" id="planSelect" onchange="selectBoxChange(this.value);" style="width: 300px; height: 50px; font-size: 20px; text-align: center;">
 			<option value="">未選択</option>
 			<c:forEach var="msList" items="${ml}">
+				<c:if test="${msList.m_code != 'M0'}">
 				<option value="<c:out value="${msList.m_code}" />"><c:out value="${msList.m_name}" /> (<c:out value="毎月 ¥${msList.m_price}" />)</option>
+				</c:if>
 			</c:forEach>
 		</select>
 		<div id="msg" class="msg">
@@ -112,6 +105,7 @@
 		</div>		
 		<button>申込</button>
 	</form>
+	<button onclick="location.href='/content/main'">戻る</button>
 	<script>
 	
 		var curPlan = document.getElementById("curPlan").value;

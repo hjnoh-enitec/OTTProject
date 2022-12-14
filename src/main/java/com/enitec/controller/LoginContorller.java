@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.enitec.service.CustomerService;
 import com.enitec.service.LoginService;
 
 @Controller
@@ -20,6 +21,9 @@ public class LoginContorller {
 	@Autowired
 	private LoginService ls;
 
+	@Autowired
+	private CustomerService customerServ;
+	
 	@GetMapping("/login")
 	public String moveToPage(HttpServletRequest req,String toURL) {
 		if(toURL==null) {
@@ -38,7 +42,7 @@ public class LoginContorller {
 		} else if (mailCheck == null) {
 			String msg = "IDまたはパスワードが一致しません";
 			request.setAttribute("msg", msg);
-			return "login/loginForm";
+			return "redirect:/login/login";
 		}
 		//session生成
 		HttpSession session = request.getSession();
@@ -52,14 +56,19 @@ public class LoginContorller {
             cookie.setMaxAge(0);
             res.addCookie(cookie);
         }
-		//return "redirect:" + toURL;
+        
+		String membership = customerServ.getMembershipCode(c_id);
+		String noMembership = "M0";
+        if(membership.equals(noMembership)) {
+        	return "redirect:/customer/modifyMembership?c_id=" + c_id;
+        }
 		return "redirect:/profile/select";
 	}
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "index";
+		return "redirect:/";
 	}
 
 	private String mailCheck(String c_id, String c_pwd) {

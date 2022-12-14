@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enitec.service.ContentService;
+import com.enitec.service.CustomerService;
 import com.enitec.service.HistoryService;
 import com.enitec.vo.History;
 import com.enitec.vo.Image;
@@ -25,7 +26,10 @@ public class ContentController {
 	String tvURL = "/tv/popular?";
 	String jasonName = "results";
 	String requestPage = "1";
-
+	
+	@Autowired
+	private CustomerService customerServ;
+	
 	@Autowired
 	private HistoryService historyServ;
 	
@@ -41,13 +45,31 @@ public class ContentController {
 	}
 
 	@GetMapping("/watch")
-	public String watchVideo(Model model) {
+	public String watchVideo(String e_code, String h_close_at, String pf_code, String toURL, Model model, HttpSession session) {
 		try {
-			model.addAttribute("membership", "M1");
-			model.addAttribute("path", "/video/M1/video.mp4");
-			return "content/watch";
+			String guest = "Guest";
+			String noMembership = "M0";
+			String c_id = session.getAttribute("c_id").toString();
+			// 세션이 널인지 아닌지 봐야
+			String membership = customerServ.getMembershipCode(c_id);
+			
+			System.out.println(c_id);
+			System.out.println(membership);
+			
+			// 로그인 안 돼있음 -> 로그인 페이지로
+			if(session.equals(null)) {
+				return "redirect:/login/login?toURL=/content/watch?e_code=" + e_code;
+				// 로그인은 돼있으나 멤버십 미가입 -> 멤버십 신청/변경 페이지로
+			} else if(!c_id.equals(guest) && membership.equals(noMembership)) {
+				return "redirect:/customer/modifyMembership?c_id=" + c_id;
+			}
+			
+			model.addAttribute("membership", membership);
+			model.addAttribute("pf_code", pf_code);
+			
 		} catch (Exception e) {
 			System.out.println(e);
+			return "redirect:/login/login?toURL=/content/watch?e_code=" + e_code;
 		}
 		return "content/watch";
 	}
@@ -65,9 +87,5 @@ public class ContentController {
 		return "redirect:/content/main";
 	}
 	
-	private boolean loginCheck(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		return session != null && session.getAttribute("c_id") != null;
-	}
 
 }
