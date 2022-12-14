@@ -80,7 +80,6 @@
 											</form>
 										</c:if>
 									</c:forEach>
-
 									<li><c:if test="${fn:length(profileList)  < 4}">
 											<a class="dropdown-item"
 												href="<c:url value='/profile/create'/>">プロフィール追加</a>
@@ -88,6 +87,8 @@
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item"
 										href="<c:url value='/profile/select'/>">プロフィール</a></li>
+									<li><a class="dropdown-item"
+										href="<c:url value='/customer/info'/>">ユーザー登録情報</a></li>	
 									<li><a class="dropdown-item"
 										href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
 								</ul></li>

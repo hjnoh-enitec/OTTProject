@@ -57,9 +57,19 @@
 <body>
 <form action="<c:url value="/find/sendCheckedMail"/>" method="post" onsubmit="return formCheck(this);">
 	<h3 id="title">Login</h3>
-	<input type="text" name="c_id" value="${cookie.id.value}" placeholder="E-MAIL" autofocus>
+	<input type="text" id="c_id" name="c_id" value="" placeholder="E-MAIL" autofocus>
 	<input type="hidden" name="toURL" value="${param.toURL}">
 	<button>認証メール送る</button>
 </form>
+<script>
+	function formCheck(frm) {
+		let c_id = document.getElementById("c_id");
+		if(c_id.value == ""){
+			alert('メールを入力してください。');
+			return false;
+		}
+		return true;
+	}
+</script>
 </body>
 </html>
