@@ -14,5 +14,7 @@ public class MembershipSerivce {
 	
 	public List<Membership> getMembershipList() {
 		return mr.findAll();
-	}	
+	}
+	
+
 }

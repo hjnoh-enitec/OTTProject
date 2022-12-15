@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,7 +63,9 @@ public class ContentService {
 				middleURL = "/tv/"+historyArr.get(i).getCt_code()+"?";
 			}
 			JSONObject object = getJsonObject(middleURL, "1");
+			if(object!=null) {
 			historyArr.get(i).setImgPath(object.get("poster_path").toString());
+			}
 		}
 		return historyArr;
 	}
@@ -108,7 +111,6 @@ public class ContentService {
 				output += outputTmp;
 			}
 			JSONObject jsonObject = new JSONObject(output);
-
 			return jsonObject;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -249,6 +251,10 @@ public class ContentService {
 		for (int i = 0; i < target.size(); i++) {
 			er.save(target.get(i));
 		}
+	}
+	
+	public List<Content> search(String keyword){
+		return ctr.findByCt_titleContaining(keyword);
 	}
 	
 }

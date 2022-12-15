@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.enitec.service.ContentService;
 import com.enitec.service.CustomerService;
 import com.enitec.service.HistoryService;
+import com.enitec.session.Session;
 import com.enitec.vo.History;
 import com.enitec.vo.Image;
+import com.enitec.vo.Profile;
 
 @Controller
 @RequestMapping("/content")
@@ -35,13 +37,34 @@ public class ContentController {
 	
 	@GetMapping("/main")
 	public String moveToContentPage(Model model, HttpServletRequest request) {
-		ArrayList<History> playedList = cts.getPlayedList("p01");
-		model.addAttribute("playedList",playedList);
+
+		HttpSession session = request.getSession(false);
+		/*
+		 * ArrayList<History> playedList = cts.getPlayedList("p01");
+		 * model.addAttribute("playedList",playedList); ArrayList<Image> movieList =
+		 * cts.getImgList(movieURL , jasonName,requestPage);
+		 * model.addAttribute("topRated", movieList); ArrayList<Image> tvList =
+		 * cts.getImgList(tvURL,jasonName, requestPage); model.addAttribute("myList",
+		 * tvList); return "content/content";
+		 */
 		ArrayList<Image> movieList = cts.getImgList(movieURL , jasonName,requestPage);
 		model.addAttribute("topRated", movieList);
 		ArrayList<Image> tvList = cts.getImgList(tvURL,jasonName, requestPage);
 		model.addAttribute("myList", tvList);
+		if(Session.checkLogin(session)) {
+			if(Session.isNoPayCustomer(session)) {
+			return "redirect:/customer/modifyMembership?c_id=" + session.getAttribute("c_id");
+			}else if(!Session.checkSelectedProfile(session)) {
+				return "redirect:/profile/select";
+			}
+			String pf_code= ((Profile)session.getAttribute(Session.SELECT_PROFILE)).getPf_code();
+			ArrayList<History> playedList = cts.getPlayedList(pf_code);
+			model.addAttribute("playedList",playedList);
+
+			return "content/content";
+		}
 		return "content/content";
+
 	}
 
 	@GetMapping("/watch")
@@ -79,7 +102,7 @@ public class ContentController {
 	@GetMapping("/test")
 	public String setContent() {
 		cts.setContent(movieURL, tvURL, jasonName, requestPage);
-		return "index";
+		return "redirect:/";
 	}
 
 	// 영상 종료 시 history 테이블에 종료 시간 저장

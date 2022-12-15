@@ -1,8 +1,10 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page session="false" %>
 <%@ page import="java.net.URLDecoder"%>
+<%@ include file="/jsp/home/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,21 +39,17 @@ button{
 </style>
 </head>
 <body>
-	<div id="menu">
-	<ul>
-		<li id="logo">OTT</li>
-		<li><a href="<c:url value='/'/>">Home</a></li>
-		<li><a href="<c:url value='/board/list'/>">Board</a></li>
-		<li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-		<li><a href="<c:url value='/register/add'/>">Sign in</a></li>
-		<li><a href=""><i class="fa fa-search"></i></a></li>
-	</ul>
 	<div class="content">
+	<c:if test="${status eq 'sign'}">
 	<h1>登録はまた終わっていません</h1>
 	<h2><b>${c_id}</b>にメールを送りました<br/>メールを確認して新規登録を終えてください。</h2>
 	<button type="button" onclick="location.href='/token/signUp?c_id=${c_id}'">メール再送</button>
 	<button type="button" onclick="location.href='/login/login'">ログイン</button>
+	</c:if>
+	<c:if test="${status eq 'find' }">
+	<h1>メールを送信しました。</h1>
+	<button type="button" onclick="location.href='/'">戻る</button>
+	</c:if>
 	</div>
-</div>
 </body>
 </html>

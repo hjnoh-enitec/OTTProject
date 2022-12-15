@@ -60,7 +60,7 @@ public class CustomerController {
 	}
 
 	@PostMapping("/membershipSuccess")
-	public String changeMembership(String c_id, String m_code) {
+	public String changeMembership(String c_id, String m_code,HttpSession session) {
 		cms.changeMembership(c_id, m_code);
 		return "redirect:/";
 	}

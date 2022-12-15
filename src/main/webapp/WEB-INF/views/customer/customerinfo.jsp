@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -50,13 +51,12 @@
 	</style>
 </head>
 <body>
+<%@ include file="/jsp/home/header.jsp"%>
 	<div id="main">
 		<div class="title"><h2></h2></div>
-		
 		<form id="csForm">
 		<input type="hidden" name="c_id" value="${customer.c_id}">
 		<table>
-			
 			<tr>
 				<td><label for="">ID</label></td>
 				<td><input class="input-field" type="text" name="id" id="id" value="${customer.c_id }" disabled="disabled" style="margin-left: 10px;"></td>
@@ -139,7 +139,10 @@
 		
 		</form>
 	</div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d41d0b8970b2e1a13645286caf455454177809b2
 	<script>
 	
 	</script>

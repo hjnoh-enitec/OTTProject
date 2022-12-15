@@ -41,22 +41,21 @@ public class ProfileController {
 	@GetMapping("/select")
 	public String moveProfilePage(String toURL, HttpServletRequest request, HttpServletResponse res, Model model) {
 		HttpSession session = request.getSession();
-		Object c_id = session.getAttribute("c_id");
-		if (c_id == null) {
-			return "index";
+		if (!Session.checkLogin(session)) {
+			return "redirect:/";
 		}
-		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute("c_id").toString());
+		String c_id = session.getAttribute(Session.LOGIN_CUSTOMER).toString();
+		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
 		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, profileList);
-		
 		String pf_code = "pf";
-		if (ps.getProfileCount(c_id.toString()) == 0) {
+		if (ps.getProfileCount(c_id) == 0) {
 			pf_code += 1;
 			pf_code += c_id;
 		} else {
-			pf_code += ps.nextVal(c_id.toString());
+			pf_code += ps.nextVal(c_id);
 			pf_code += c_id;
 		}
-		model.addAttribute("c_id", c_id.toString());
+		model.addAttribute(Session.LOGIN_CUSTOMER, c_id);
 		model.addAttribute("pf_code", pf_code);
 		model.addAttribute("profileList", profileList);
 		// 유저의 멤버십 코드가 M0 (미가입상태)면 멤버십 가입 페이지로, 가입 되어있으면 프로필 선택 페이지로
@@ -76,9 +75,49 @@ public class ProfileController {
 		}
 		Profile profile = ps.findById(spf.getPf_code());
 		session.setAttribute(Session.SELECT_PROFILE, profile);
-
 		return "redirect:/";
+	}
 
+	@GetMapping("/update")
+	public String moveProfileUpdatePage(HttpSession session, Model model) {
+		if (!Session.checkLogin(session)) {
+			return "redirect:/";
+		}
+		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
+		model.addAttribute("profileList", profileList);
+		return "/profile/profileUpdate";
+	}
+
+	@GetMapping("/create")
+	public String moveProfileInsertPage(Model model, HttpServletRequest request, HttpServletResponse res) {
+		HttpSession session = request.getSession(false);
+		String c_id = session.getAttribute("c_id").toString();
+		if (!Session.checkLogin(session)) {
+			return "redirect:/";
+		}
+		Cookie[] cookies = request.getCookies();
+		String msg = "";
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("error")) {
+					msg = cookie.getValue().toString();
+					cookie.setMaxAge(0);
+					res.addCookie(cookie);
+				}
+			}
+		}
+		String pf_code = "pf";
+		if (ps.getProfileCount(c_id) == 0) {
+			pf_code += 1;
+			pf_code += c_id;
+		} else {
+			pf_code += ps.nextVal(c_id);
+			pf_code += c_id;
+		}
+		model.addAttribute("c_id", c_id);
+		model.addAttribute("pf_code", pf_code);
+		model.addAttribute("msg", msg);
+		return "";
 	}
 
 	@PostMapping("/create")
