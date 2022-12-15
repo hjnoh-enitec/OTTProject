@@ -19,18 +19,18 @@
 	<section class="LoginSection">
 		<div class="LoginDiv">
 			<div class="title">
-			<h1>Register</h1>
+				<h1>Register</h1>
 			</div>
-				<div class="form">
+			<div class="form">
 				<form:form action="/register/signup" method="post"
 					onchange="validInsert()" onkeypress="activeBtn()" id="f">
 					<input type="hidden" name="M_CODE" value="M0">
 					<div class=idDupl>
-					<button id="checkDuplBtn" type="button" onclick="idCheck()">IDチェック</button>
-					<h5 class="idDuplMsg" id="idDuplMsg" style="color:red;"></h5>
+						<button id="checkDuplBtn" type="button" onclick="idCheck()">IDチェック</button>
+						<h5 class="idDuplMsg" id="idDuplMsg" style="color: red;"></h5>
 					</div>
 					<input class="input-field" type="text" id="c_id" name="c_id"
-						placeholder="E-MAIL形式">
+						placeholder="E-MAIL">
 					<input class="input-field" type="password" name="c_pwd"
 						placeholder="パスワード">
 					<input class="input-field" type="password" name="c_pwd2"
@@ -41,13 +41,18 @@
 						placeholder="`-`なし　例）09012345678">
 					<input class="input-field" type="text" name="c_birth"
 						placeholder="例)1990年06月02日 → 19900602">
-					<div class="msg" id="idCheckMsg" style="margin-bottom: 0px,width: 300px;">IDチェックをした上に登録してください</div>
-					<button id="submitBtn" disabled>新規登録</button>
+					<div class="msg" id="idCheckMsg"
+						style="margin-bottom: 0px, width: 300px;">IDチェックをした上に登録してください</div>
+					<button type="submit" id="submitBtn" disabled>新規登録</button>
+					<button type="button" id="backPage" onclick="gomain()">メインページへ</button>
 				</form:form>
-				</div>
 			</div>
-			</section>
-		<script>
+		</div>
+	</section>
+	<script>
+		function gomain() {
+			location.href='/';
+		}
 	const submitBtn = document.getElementById("submitBtn");
 	const checkDuplBtn = document.getElementById("checkDuplBtn");
 	const f = document.getElementById("f");
@@ -66,6 +71,7 @@
 		   submitBtn.style.backgroundColor='rgb(126, 126, 126)';
 	   }
    }
+	
    function validInsert() {
 	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	   
 	   if(f.c_id.value.match(emailCheck) == null){
@@ -99,33 +105,40 @@
   
   function idCheck() {
 		const c_id = document.getElementById("c_id");
-	  	$.ajax({
-			type :'post',
-			url : "http://localhost:8000/checkId",
+		let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		if(c_id.value.match(regex) != null){
+			$.ajax({
+				type :'post',
+				url : "http://localhost:8000/checkId",
 
-			async : false,
-			data : {
-				"customer" : c_id.value
-			},
-			success : function(data) {
-				if(data == 1)
-				{
-					document.getElementById("idDuplMsg").innerHTML='このIDは使えません';
+				async : false,
+				data : {
+					"customer" : c_id.value
+				},
+				success : function(data) {
+					if(data == 1)
+					{
+						document.getElementById("idDuplMsg").innerHTML='このIDは使えません';
+					}
+				else
+					{
+					document.getElementById("idDuplMsg").innerHTML='このIDは使えます';
+					checkDuplBtn.disabled=true;
+					checkDuplBtn.style.backgroundColor='rgb(126, 126, 126)';
+					document.getElementById("c_id").readOnly=true;
+					document.getElementById("idCheckMsg").style.display = "none";
+					}
+				},
+				error : function(request, status, error) {
+					alert("code:" + request.status + "\n" + "message:"
+							+ request.responseText + "\n" + "error:" + error);
 				}
-			else
-				{
-				document.getElementById("idDuplMsg").innerHTML='このIDは使えます';
-				checkDuplBtn.disabled=true;
-				checkDuplBtn.style.backgroundColor='rgb(126, 126, 126)';
-				document.getElementById("c_id").readOnly=true;
-				document.getElementById("idCheckMsg").style.display = "none";
-				}
-			},
-			error : function(request, status, error) {
-				alert("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
-			}
-		})
+			})	
+		}
+		else{
+			document.getElementById("idDuplMsg").innerHTML='メールアドレスを入力してください。';
+		}
+	  	
 	activeBtn();
   }
 

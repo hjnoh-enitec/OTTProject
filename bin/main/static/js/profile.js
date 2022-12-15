@@ -1,186 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false"%>
-<!DOCTYPE html>
-<html>
-<head>
-﻿
-<meta charset="UTF-8">
-<title></title>
-<style>
-div.container {
-	
+const modalAdd = document.getElementById("modal-add");
+const modalModify = document.getElementById("modal-modify");
+const modalTitle = document.getElementById("modalTitle");
+const contentForm = document.getElementById("contentForm");
+const buttonInForm = document.getElementById("buttonInForm");
+
+function moveContent(frm) {
+	frm.submit();
+}
+function openModalWithSetting() {
+	modalModify.style.display = "flex";
 }
 
-div.profileList {
-	width: 600px;
-	height: 200px;
+function openModalWithAddProfile() {
+	modalAdd.style.display = "flex";
 }
 
-div.profileImg {
-	width: 150px;
-	height: 150px;
-	float: left;
+function closeModal() {
+	modalAdd.style.display = "none";
+	modalModify.style.display = "none";
 }
 
-div.profileName {
-	width: 200px;
-	height: 150px;
-	float: left;
+function setProfile(event) {
+	let reader = new FileReader();
+	reader.onload = function(event) {
+		let img = document.getElementById("fileUpload");
+		img.setAttribute("src", event.target.result);
+	};
+
+	reader.readAsDataURL(event.target.files[0]);
 }
 
-div.profileUpdateDelete {
-	width: 150px;
-	height: 150px;
-	float: left;
-	text-align: center;
-	line-height: 150px;
-	position: relative;
+function createProfile() {
+	$('#createProfile').submit();
 }
 
-div.txtSpace {
-	width: 130px;
-	height: 150px;
-	float: left;
-	text-align: center;
-	line-height: 150px;
-}
+/////////////////////////////////////////////////////////////////
 
-div.btnSpace {
-	width: 70px;
-	height: 150px;
-	float: left;
-	position: relative;
-}
-
-input.profileName {
-	width: 100px;
-	outline: none;
-	border: 0;
-}
-
-input.fileUpload {
-	visibility: hidden;
-}
-
-button.nameChangebtn {
-	outline: none;
-	border: 0;
-	width: 25px;
-	height: 25px;
-	background-color: transparent;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-}
-
-button.acceptbtn {
-	outline: none;
-	border: 0;
-	width: 25px;
-	height: 25px;
-	display: none;
-	background-color: transparent;
-}
-
-button.cancelbtn {
-	outline: none;
-	border: 0;
-	width: 25px;
-	height: 25px;
-	display: none;
-	background-color: transparent;
-}
-
-button.update {
-	outline: none;
-	border: 0;
-	width: 25px;
-	height: 25px;
-	background-color: transparent;
-	display: none;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-}
-
-button.delete {
-	outline: none;
-	border: 0;
-	width: 25px;
-	height: 25px;
-	background-color: transparent;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-}
-
-img.profileImg {
-	width: 150px;
-	height: 150px;
-	object-fit: cover;
-}
-</style>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-</head>
-<body>
-	<div class="container">
-		<c:forEach var="profile" items="${profileList }" varStatus="status">
-			<div class="profileList" id="profileList${status.index }">
-				<div class="profileImg" id="profileImg${status.index }">
-					<img src="${ profile.pf_path }" class="profileImg"
-						id="profileImg-card${status.index }"
-						onclick="imgChange(${status.index })">
-				</div>
-				<div class="profileName">
-					<div class="txtSpace">
-						<input type="text" class="profileName" name="name"
-							id="name${status.index }" value="${profile.pf_name }"
-							readonly="readonly" onkeypress="enterkey(${status.index},event)">
-					</div>
-					<div class="btnSpace">
-						<button class="nameChangebtn" id="nameChange${status.index }"
-							onclick="nameChange(${status.index})">
-							<img src="/image/baseImage/modifyPan.jpg">
-						</button>
-						<button class="cancelbtn" id="cancel${status.index }"
-							onclick="cancel(${status.index})">x</button>
-						<button class="acceptbtn" id="changeAccept${status.index }"
-							onclick="accept(${status.index})">o</button>
-					</div>
-				</div>
-				<div class="profileUpdateDelete">
-					<button class="update" id="profileUpdateBtn${status.index }"
-						onclick="updateProfile(${status.index})">確認</button>
-					<button class="delete" id="profileDeleteBtn${status.index }"
-						onclick="deleteProfile(${status.index})">削除</button>
-				</div>
-				<form method="POST" enctype="multipart/form-data"
-					id="fileUploadform${status.index }">
-					<input type="file" class="fileUpload"
-						id="fileUpload${status.index }" name="fileUpload"
-						accept=".jpg,.png"
-						onchange="changeProfileImg(event,${status.index })" /> <input
-						type="hidden" id="pf_code${status.index }" name="pf_code"
-						value="${profile.pf_code }"> <input type="hidden"
-						id="pf_name${status.index }" name="pf_name"
-						value="${profile.pf_name }">
-				</form>
-			</div>
-		</c:forEach>
-		<button class="goBackBtn" id="goBack" onclick="returnProfile()">戻る</button>
-	</div>
-	<script>
-	
-	function enterkey(index,e) {
+function enterkey(index,e) {
 		let txt = document.getElementById("name" + index);
 		let code = e.code;
 		if(!txt.readOnly){
@@ -319,6 +175,3 @@ img.profileImg {
 					})
 				}
 			}
-	</script>
-</body>
-</html>

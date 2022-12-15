@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enitec.service.CustomerService;
 import com.enitec.service.LoginService;
+import com.enitec.session.Session;
 
 @Controller
 @RequestMapping("/login")
@@ -46,7 +47,7 @@ public class LoginContorller {
 		}
 		//session生成
 		HttpSession session = request.getSession();
-		session.setAttribute("c_id", c_id);
+		session.setAttribute(Session.LOGIN_CUSTOMER, c_id);
 		//cookie生成
         if(rememberId) {
             Cookie cookie = new Cookie("c_id", c_id); 
@@ -57,10 +58,12 @@ public class LoginContorller {
             res.addCookie(cookie);
         }
         
+        // 유저의 멤버십 코드가 M0 (미가입상태)면 멤버십 가입 페이지로, 가입 되어있으면 프로필 선택 페이지로
 		String membership = customerServ.getMembershipCode(c_id);
 		String noMembership = "M0";
+
         if(membership.equals(noMembership)) {
-        	return "redirect:/customer/modifyMembership?c_id=" + c_id;
+        	return "redirect:/customer/modifyMembership?c_id=" + c_id + "&isFromLogin=true";
         }
 		return "redirect:/profile/select";
 	}

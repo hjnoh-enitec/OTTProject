@@ -37,7 +37,8 @@ public class ContentController {
 	private HistoryService historyServ;
 	@GetMapping("/main")
 	public String moveToContentPage(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
+
+		HttpSession session = request.getSession(false);
 		if(Session.checkLogin(session)) {
 			if(Session.isNoPayCustomer(session)) {
 			return "redirect:/customer/modifyMembership?c_id=" + session.getAttribute("c_id");
@@ -91,6 +92,8 @@ public class ContentController {
 	}
 	
 
+	
+	// 에피소드에 있는거 싹다 지우고 새로 등록하는 코드
 	@GetMapping("/test")
 	public String setContent() {
 		cts.setContent(movieURL, tvURL, jasonName, requestPage);

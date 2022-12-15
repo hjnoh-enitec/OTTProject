@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -288,5 +289,11 @@ public class ContentService {
 			er.save(target.get(i));
 		}
 	}
+
+	
+	public List<Content> search(String keyword){
+		return ctr.findByCt_titleContaining(keyword);
+	}
+	
 
 }

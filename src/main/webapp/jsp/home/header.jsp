@@ -9,6 +9,8 @@
 	value="${request.getSession(false)==''?'' : pageContext.request.session.getAttribute('profile')}" />
 <c:set var="profileList"
 	value="${request.getSession(false) == '' ? '' : pageContext.request.session.getAttribute('profileList') }" />
+<c:set var="membership"
+	value="${request.getSession(false) == '' ? '' : pageContext.request.session.getAttribute('m_code') }" />
 <c:set var="loginOutLink"
 	value="${loginId==null ? '/login/login?toURL=/' : '/login/logout'}" />
 <c:set var="loginOut" value="${loginId==null ? 'Login' : 'Logout'}" />
@@ -28,7 +30,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
-<title>Insert title here</title>
+<title>OTTProject</title>
 <style type="text/css">
 </style>
 </head>
@@ -57,8 +59,12 @@
 						<c:when test="${empty profile }">
 							<li class="nav-item"><a class="nav-link"
 								href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
+								<li class="nav-item"><a class="nav-link"
+								href="<c:url value='/customer/info'/>">User</a></li>
 						</c:when>
 						<c:when test="${not empty profile }">
+								<li class="nav-item"><a class="nav-link"
+								href="<c:url value='/customer/info'/>">User</a></li>
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="#" role="button"
 								data-bs-toggle="dropdown" aria-expanded="false"> <img
@@ -80,25 +86,19 @@
 											</form>
 										</c:if>
 									</c:forEach>
-									<li><c:if test="${fn:length(profileList)  < 4}">
-											<a class="dropdown-item"
-												href="<c:url value='/profile/create'/>">プロフィール追加</a>
-										</c:if></li>
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/profile/select'/>">プロフィール</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/customer/info'/>">ユーザー登録情報</a></li>	
+										href="<c:url value='/profile/select'/>">プロフィール選択</a></li>	
+
 									<li><a class="dropdown-item"
 										href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
 								</ul></li>
 						</c:when>
 					</c:choose>
 				</ul>
-				<form class="d-flex" role="search" action="/search/search">
+				<form class="d-flex" role="search" action="/search" id = "searchForm">
 					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search" id="search" name="search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+						aria-label="Search" id="search" name="keyword" onkeypress="enterSearch(event)">
 				</form>
 			</div>
 		</div>
@@ -108,7 +108,13 @@
 			let frm = document.getElementById("headerform"+index);
 			frm.submit();
 		}
-		
+		function enterSearch(event) {
+			let frm = document.getElemnetById("searchForm");
+			let code = e.code;
+			if(code == 'Enter'){
+				frm.submit();
+			}
+		}
 	</script>
 </body>
 </html>

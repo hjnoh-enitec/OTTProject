@@ -347,7 +347,7 @@ function watchVideo(episodes) {
 	if (contentId.startsWith('CT')) {
 
 	} else if(contentId.startsWith('T')) {
-		location.href = "http://localhost:8000/content/watch?ct_path=" + episodes.value+"&ct_code=" + contentId+ "&ct_path="+ ct_path;
+		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
 	}
 	else if (episodes !== undefined) {
 		e_value = episodes.id;
@@ -358,5 +358,6 @@ function watchVideo(episodes) {
 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
 	} else {
 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
+
 	}
 }

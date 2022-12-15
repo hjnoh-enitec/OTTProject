@@ -13,7 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FileSaveService {
 	
-	public String root = "C:/LeeTJ/WorkSpace_lee_Spring - コピー/OTTProject/src/main/resources/static";
+	public String root = "C:/Users/ENITEC/Desktop/OTTProject/OTTProject/src/main/resources/static";
+
 	public String thumbnail = "/img/thumbnail/";
 	public String profile = "/img/profile/";
 	public String base = "/img/baseImage/";

@@ -32,17 +32,16 @@ public class ModifyController {
 	public String moveToModyfyPage(@ModelAttribute Customer customer, Model model) {
 		customer = ms.pwCheck(customer.getC_id(), customer.getC_pwd());
 		if (customer == null) {
-			return "redirect:/customer/modify";
+			return "redirect:/modify/pwCheck";
 		}
 		model.addAttribute("customer", customer);
 		return "modifyForm";
 	}
 
 	@PostMapping("/save")
-	public String modifySaveUser(Customer customer, Model model) {
+	public String modifySaveUser(Customer customer) {
 		customer = ms.modifyUser(customer);
-		model.addAttribute("customer", customer);
-		return "index";
+		return "redirect:/";
 	}
 	
 }
