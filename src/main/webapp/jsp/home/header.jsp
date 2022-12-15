@@ -28,7 +28,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
-<title>Insert title here</title>
+<title>OTTProject</title>
 <style type="text/css">
 </style>
 </head>
@@ -80,15 +80,9 @@
 											</form>
 										</c:if>
 									</c:forEach>
-									<li><c:if test="${fn:length(profileList)  < 4}">
-											<a class="dropdown-item"
-												href="<c:url value='/profile/create'/>">プロフィール追加</a>
-										</c:if></li>
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/profile/select'/>">プロフィール</a></li>
-									<li><a class="dropdown-item"
-										href="<c:url value='/customer/info'/>">ユーザー登録情報</a></li>	
+										href="<c:url value='/profile/select'/>">プロフィール選択</a></li>	
 									<li><a class="dropdown-item"
 										href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
 								</ul></li>

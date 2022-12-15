@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.enitec.form.CreateProfileForm;
 import com.enitec.form.SelectProfileForm;
+import com.enitec.service.CustomerService;
 import com.enitec.service.FileSaveService;
 import com.enitec.service.ProfileService;
 import com.enitec.session.Session;
@@ -33,6 +34,9 @@ public class ProfileController {
 
 	@Autowired
 	private FileSaveService fss;
+	
+	@Autowired
+	private CustomerService customerServ;
 
 	@GetMapping("/select")
 	public String moveProfilePage(String toURL, HttpServletRequest request, HttpServletResponse res, Model model) {
@@ -55,6 +59,12 @@ public class ProfileController {
 		model.addAttribute("c_id", c_id.toString());
 		model.addAttribute("pf_code", pf_code);
 		model.addAttribute("profileList", profileList);
+		// 유저의 멤버십 코드가 M0 (미가입상태)면 멤버십 가입 페이지로, 가입 되어있으면 프로필 선택 페이지로
+		String membership = customerServ.getMembershipCode(c_id.toString());
+		String noMembership = "M0";
+        if(membership.equals(noMembership)) {
+        	return "redirect:/customer/modifyMembership?c_id=" + c_id + "&isFromLogin=true";
+        }		
 		return "profile/profile";
 	}
 

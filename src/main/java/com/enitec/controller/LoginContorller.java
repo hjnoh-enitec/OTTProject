@@ -61,7 +61,7 @@ public class LoginContorller {
 		String membership = customerServ.getMembershipCode(c_id);
 		String noMembership = "M0";
         if(membership.equals(noMembership)) {
-        	return "redirect:/customer/modifyMembership?c_id=" + c_id;
+        	return "redirect:/customer/modifyMembership?c_id=" + c_id + "&isFromLogin=true";
         }
 		return "redirect:/profile/select";
 	}

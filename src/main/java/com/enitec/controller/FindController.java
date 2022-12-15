@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enitec.form.FindForm;
 import com.enitec.service.FindService;
@@ -26,39 +27,25 @@ public class FindController {
 	private TokenService ts;
 	@Autowired
 	private MailService ms;
-
-	@GetMapping("/id")
-	public String moveFindId() {
-		return "customer/findId";
+	
+	@PostMapping("id")
+	@ResponseBody
+	public List<String> returnId(FindForm findForm, HttpServletRequest request) {
+		//List<String> idList = fs.findId(findForm.getC_name(), findForm.getC_birth(), findForm.getC_phone());
+		//System.out.println("RESULT TEST1 : " + idList);
+		return fs.findId(findForm.getC_name(), findForm.getC_birth(), findForm.getC_phone());
 	}
-
-	@PostMapping("/id")
-	public String returnId(FindForm findForm, HttpServletRequest request) {
-		List<String> idList = fs.findId(findForm.getC_name(), findForm.getC_birth(), findForm.getC_phone());
-		if (idList.size() < 1) {
-			return "redirect:/find/id";
-		}
-		String sendId = "";
-		for (String id : idList) {
-			sendId += " ";
-			sendId += id;
-		}
-		request.setAttribute("sendId", sendId);
-		return "redirect:/find/idList";
-	}
-	@GetMapping("/idList")
-	public String moveIdList() {
-		return "customer/idList";
-	}
+	
 	@GetMapping("/pwd")
 	public String moveFindPassword() {
 		return "customer/findPassword";
 	}
 
 	@PostMapping("/sendCheckedMail")
+	//@ResponseBody
 	public String sendPasswordUpdate(FindForm findForm) {
 		if (fs.findCustomer(findForm.getC_id()) == null) {
-			return "redirect:/find/pwd";
+			return "redirect:/login/login";
 		}
 		return "redirect:/token/findPwd?c_id="+findForm.getC_id();
 	}
