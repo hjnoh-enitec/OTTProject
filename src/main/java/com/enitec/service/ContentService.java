@@ -28,7 +28,6 @@ import com.enitec.vo.History;
 import com.enitec.vo.Image;
 import com.enitec.vo.Season;
 
-
 @Service
 public class ContentService {
 
@@ -40,11 +39,20 @@ public class ContentService {
 	EpisodeRepository er;
 	@Autowired
 	HistoryRepository hr;
-	
+
 	String apiKey = "638aa1b1cb8fa91819a382dabe206684";
 	String BASE_URL = "https://api.themoviedb.org/3";
 	String BASE_LANG = "ja";
 	String BASE_REGION = "JP";
+
+	public ArrayList<Content> getMovie() {
+		return ctr.getMovie();
+	}
+
+	public ArrayList<Content> getTv() {
+		return ctr.getTv();
+	}
+
 	public ArrayList<Image> getImgList(String middleURL, String requestSet, String page) {
 		JSONArray jarr = getJsonArray(middleURL, requestSet, page);
 		ArrayList<Image> imgList = getImgArr(jarr);
@@ -52,21 +60,41 @@ public class ContentService {
 		return imgList;
 	}
 
+	public Content getContent(String ct_code) {
+		return ctr.findById(ct_code).orElse(null);
+	}
+
 	public ArrayList<History> getPlayedList(String pf_code) {
 		ArrayList<History> historyArr = hr.findAllByProfileCode(pf_code);
 		String middleURL = "";
-		for(int i=0; i<historyArr.size(); i++) {
-			if(historyArr.get(i).getE_number()==0) {
-				middleURL = "/movie/"+historyArr.get(i).getCt_code()+"?";
-			}else {
-				middleURL = "/tv/"+historyArr.get(i).getCt_code()+"?";
+		for (int i = 0; i < historyArr.size(); i++) {
+			if(historyArr.get(i)==null) {
+				continue;
 			}
-			JSONObject object = getJsonObject(middleURL, "1");
-			if(object!=null) {
-			historyArr.get(i).setImgPath(object.get("poster_path").toString());
+			else if (historyArr.get(i).getCt_code().startsWith("T")) {
+				Content content = getContent(historyArr.get(i).getCt_code());
+				historyArr.get(i).setImgPath(content.getCt_path_thumbnail());
+				historyArr.get(i).setPath(content.getCt_path());
+			} else {
+
+				if (historyArr.get(i).getE_number() == -1) {
+
+					middleURL = "/movie/" + historyArr.get(i).getCt_code() + "?";
+				} else {
+					middleURL = "/tv/" + historyArr.get(i).getCt_code() + "?";
+				}
+				JSONObject object = getJsonObject(middleURL, "1");
+				if (object != null) {
+					String base = "https://image.tmdb.org/t/p/w200";
+					String fileName = object.get("poster_path").toString();
+					
+					historyArr.get(i).setImgPath(base+fileName);
+				}
+				historyArr.get(i).setPath("test.mp4");
 			}
 		}
 		return historyArr;
+
 	}
 
 	private JSONArray getJsonArray(String middleURL, String resultSet, String page) {
@@ -93,6 +121,7 @@ public class ContentService {
 			return null;
 		}
 	}
+
 	private JSONObject getJsonObject(String middleURL, String page) {
 
 		try {
@@ -129,16 +158,19 @@ public class ContentService {
 		ArrayList<Content> tvArr = getContentArr(tv, true);
 		ArrayList<Season> seasonArr = getSeasonList(tvArr);
 		ArrayList<Episode> episodeArr = getEpisodesList(seasonArr);
-		 deleteEveryContent();
-		 saveArrayListInDb(contentArr);
-		 saveArrayListInDb(tvArr);
-		 saveSeasonArrayList(seasonArr);
-		 saveEpisodeArrayList(episodeArr);
+		deleteEveryContent();
+		saveArrayListInDb(contentArr);
+		saveArrayListInDb(tvArr);
+		saveSeasonArrayList(seasonArr);
+		saveEpisodeArrayList(episodeArr);
 	}
-	private ArrayList<Episode> getEpisodesList(ArrayList<Season> season){
+
+	private ArrayList<Episode> getEpisodesList(ArrayList<Season> season) {
 		ArrayList<Episode> episodeArr = new ArrayList<>();
-		for(int i=0; i<season.size(); i++) {
-			JSONArray jarr=getJsonArray("/tv/"+season.get(i).getCt_code()+"/season/"+season.get(i).getS_number()+"?","episodes","1");
+		for (int i = 0; i < season.size(); i++) {
+			JSONArray jarr = getJsonArray(
+					"/tv/" + season.get(i).getCt_code() + "/season/" + season.get(i).getS_number() + "?", "episodes",
+					"1");
 			for (int j = 0; j < jarr.length(); j++) {
 				JSONObject jo = jarr.getJSONObject(j);
 				System.out.println(jo.toString());
@@ -151,17 +183,18 @@ public class ContentService {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				episode.setE_release_Date(LocalDate.parse(releaseDate, formatter));
 				episode.setS_code(season.get(i).getS_code());
-				episode.setE_number(j+1);
+				episode.setE_number(j + 1);
 				episodeArr.add(episode);
 			}
 		}
 		return episodeArr;
 	}
-	private ArrayList<Season> getSeasonList(ArrayList<Content> tv){
+
+	private ArrayList<Season> getSeasonList(ArrayList<Content> tv) {
 		ArrayList<Season> seasonArr = new ArrayList<Season>();
-		
-		for(int i=0; i<tv.size(); i++) {
-			JSONArray jarr=getJsonArray("/tv/"+tv.get(i).getCt_code()+"?","seasons","1");
+
+		for (int i = 0; i < tv.size(); i++) {
+			JSONArray jarr = getJsonArray("/tv/" + tv.get(i).getCt_code() + "?", "seasons", "1");
 			for (int j = 0; j < jarr.length(); j++) {
 				JSONObject jo = jarr.getJSONObject(j);
 				Season season = new Season();
@@ -173,7 +206,7 @@ public class ContentService {
 				seasonArr.add(season);
 			}
 		}
-		
+
 		return seasonArr;
 	}
 
@@ -189,9 +222,10 @@ public class ContentService {
 		}
 		return imgList;
 	}
+
 	private String getImg(JSONArray jarr) {
-			JSONObject jo = jarr.getJSONObject(0);
-			return jo.getString("poster_path");
+		JSONObject jo = jarr.getJSONObject(0);
+		return jo.getString("poster_path");
 	}
 
 	private ArrayList<Content> getContentArr(JSONArray jarr, boolean isTv) {
@@ -211,8 +245,10 @@ public class ContentService {
 			}
 			content.setG_code("28");
 			content.setCt_genre("action");
-			content.setCt_path_thumbnail((jo.getString("poster_path")));;
-			content.setCt_star((jo.getInt("vote_average")));;
+			content.setCt_path_thumbnail((jo.getString("poster_path")));
+			;
+			content.setCt_star((jo.getInt("vote_average")));
+			;
 			if (jo.getString("overview").equals(null)) {
 				content.setCt_info("dummy");
 			} else {
@@ -221,9 +257,9 @@ public class ContentService {
 			String genres = jo.get("genre_ids").toString();
 			Pattern pattern = Pattern.compile("\\[(.*?)\\]");
 			Matcher matcher = pattern.matcher(genres);
-			genres= "";
-			while(matcher.find()){
-				genres+=matcher.group(1);
+			genres = "";
+			while (matcher.find()) {
+				genres += matcher.group(1);
 			}
 			content.setCt_genre(genres);
 			content.setG_code(genres.split(",")[0].trim());
@@ -234,22 +270,23 @@ public class ContentService {
 		return contentArray;
 	}
 
-
 	private void saveArrayListInDb(ArrayList<Content> target) {
 		for (int i = 0; i < target.size(); i++) {
 			ctr.save(target.get(i));
 		}
 	}
+
 	private void saveSeasonArrayList(ArrayList<Season> target) {
 		for (int i = 0; i < target.size(); i++) {
 			sr.save(target.get(i));
 		}
-		
+
 	}
+
 	private void saveEpisodeArrayList(ArrayList<Episode> target) {
 		for (int i = 0; i < target.size(); i++) {
 			er.save(target.get(i));
 		}
 	}
-	
+
 }

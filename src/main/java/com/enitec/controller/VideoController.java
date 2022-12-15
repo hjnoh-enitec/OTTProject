@@ -12,4 +12,5 @@ public class VideoController {
 	public String moveToVideoMain() {
 		return "redirect:/";
 	}
+
 }

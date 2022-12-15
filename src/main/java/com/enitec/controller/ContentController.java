@@ -15,6 +15,7 @@ import com.enitec.service.ContentService;
 import com.enitec.service.CustomerService;
 import com.enitec.service.HistoryService;
 import com.enitec.session.Session;
+import com.enitec.vo.Content;
 import com.enitec.vo.History;
 import com.enitec.vo.Image;
 import com.enitec.vo.Profile;
@@ -34,7 +35,6 @@ public class ContentController {
 	
 	@Autowired
 	private HistoryService historyServ;
-	
 	@GetMapping("/main")
 	public String moveToContentPage(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -47,17 +47,20 @@ public class ContentController {
 			String pf_code= ((Profile)session.getAttribute(Session.SELECT_PROFILE)).getPf_code();
 			ArrayList<History> playedList = cts.getPlayedList(pf_code);
 			model.addAttribute("playedList",playedList);
-			ArrayList<Image> movieList = cts.getImgList(movieURL , jasonName,requestPage);
-			model.addAttribute("topRated", movieList);
-			ArrayList<Image> tvList = cts.getImgList(tvURL,jasonName, requestPage);
-			model.addAttribute("myList", tvList);
-			return "content/content";
 		}
-		return "redirect:/login/login?toURL="+request.getRequestURI();
+		ArrayList<Content> dbMovieList = cts.getMovie();
+		model.addAttribute("dbMoiveList", dbMovieList);
+		ArrayList<Content> dbTvList = cts.getTv();
+		model.addAttribute("dbTvList", dbTvList);
+		ArrayList<Image> movieList = cts.getImgList(movieURL , jasonName,requestPage);
+		model.addAttribute("topRated", movieList);
+		ArrayList<Image> tvList = cts.getImgList(tvURL,jasonName, requestPage);
+		model.addAttribute("myList", tvList);
+		return "content/content";
 	}
 
 	@GetMapping("/watch")
-	public String watchVideo(String e_code, String h_close_at, String pf_code, String toURL, Model model, HttpSession session) {
+	public String watchVideo(String ct_path,String e_code, String h_close_at, String pf_code, String toURL, Model model, HttpSession session) {
 		try {
 			String guest = "Guest";
 			String noMembership = "M0";
@@ -78,6 +81,7 @@ public class ContentController {
 			
 			model.addAttribute("membership", membership);
 			model.addAttribute("pf_code", pf_code);
+			model.addAttribute("ct_path", ct_path);
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -85,6 +89,7 @@ public class ContentController {
 		}
 		return "content/watch";
 	}
+	
 
 	@GetMapping("/test")
 	public String setContent() {

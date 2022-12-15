@@ -59,9 +59,7 @@ html, body {
 	margin-bottom: 50px;
 }
 
-.form label[for="infoCk"] {
-	color: #b3b3b3;
-}
+
 
 .form input {
 	background-color: #323332;
@@ -117,32 +115,15 @@ button {
 	text-align: center;
 	font-size: 20px;
 }
+input[type="checkbox"]{
 
-input[id="infoCk"] {
-	display: none;
+width: 30px; /*Desired width*/
+
+height: 30px; /*Desired height*/
+
 }
-
-input[type="checkbox"]+label:before {
-	content: "";
-	display: inline-block;
-	margin: 0 4px 0 0;
-	width: 20px;
-	height: 20px;
-	border: 0;
-	position: relative;
-	top: 4px;
-	border-radius: 3px;
-	background: #727372;
-}
-
-input[type="checkbox"]:checked+label:before {
-	background-color: #727372;
-	background-image: url("../img/checked.png");
-	width: 20px;
-	height: 20px;
-	background-size: 80% 80%;
-	background-repeat: no-repeat;
-	background-position: center;
+label[for="check"]{
+	color : white;
 }
 
 #login a {

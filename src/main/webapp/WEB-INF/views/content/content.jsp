@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <%@ page import="java.net.URLDecoder"%>
-<%@ include file="/jsp/home/header.jsp" %>
-<c:set var="profile" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('profile')}"/>
+<%@ include file="/jsp/home/header.jsp"%>
+<c:set var="profile"
+	value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('profile')}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +28,7 @@
 			<div class="content" id="content">
 				<!-- 컨텐츠 제목 -->
 				<div class="discription" id="discription">
-					<button class="play" id="play" onclick="watchVideo()"></button>
+					<button class="play" id="play" onclick="watchVideo(this)"></button>
 					<div class="title">
 						<h1 id="contentTitle"></h1>
 						<h1 id=avg></h1>
@@ -51,29 +53,55 @@
 		</div>
 	</div>
 	<div>
-		
+
 		<iframe width="1900px" height="1100px" id="mainPreview"
 			src="https://www.youtube.com/embed/jk7QSGwupPA?enablejsapi=1&controls=0&autoplay=1&mute=1"
 			frameborder="0"></iframe>
 		<div class="catalog">
-			<h1 class="slideTitle">${profile.pf_name}様が観ていた物</h1>
-			<input type="hidden" id="pf_code" name="pf_code" value="${profile.pf_code}">
-			<div class="slider-frame sf3">
-				<div class="btn prev bp3" onclick="prev(3)"></div>
-				<div class="btn next bn3" onclick="next(3)"></div>
-				<div class="slider-container sc3" id="sc1">
-					<c:forEach items="${playedList}" var="playedList">
-						<img class="slide s3" id="${playedList.ct_code}"
-							onclick="clickImg(this,'false')"
-							src="https://image.tmdb.org/t/p/w200${playedList.imgPath}">
-					</c:forEach>
+			<input type="hidden" id="pf_code" name="pf_code"
+				value="${profile.pf_code}">
+			<c:if test="${profile ne null}">
+				<h1 class="slideTitle">${profile.pf_name}様が観ていた物</h1>
+				<div class="slider-frame sf3">
+					<div class="btn prev bp3" onclick="prev(3)"></div>
+					<div class="btn next bn3" onclick="next(3)"></div>
+					<div class="slider-container sc3" id="sc1">
+						<c:forEach items="${playedList}" var="playedList">
+							<c:if test="${playedList.e_number ne '-1'}">
+								<c:if test="${playedList.e_code eq null}">
+									<img class="slide s3" id="${playedList.ct_code}" 
+										onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_number}','${playedList.s_number}','${playedList.path}')"
+										src="${playedList.imgPath}">
+								</c:if>
+								<c:if test="${playedList.e_code ne null}">
+									<img class="slide s3" id="${playedList.ct_code}" 
+										onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
+										src="${playedList.imgPath}">
+								</c:if>
+							</c:if>
+							<c:if test="${playedList.e_number eq '-1'}">
+									<img class="slide s3" id="${playedList.ct_code}" 
+										onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
+										src="${playedList.imgPath}">
+							</c:if>
+
+						</c:forEach>
+					</div>
 				</div>
-			</div>
+			</c:if>
 			<h1 class="slideTitle">映画ランキング</h1>
 			<div class="slider-frame sf1">
 				<div class="btn prev bp1" onclick="prev(1)"></div>
 				<div class="btn next bn1" onclick="next(1)"></div>
 				<div class="slider-container sc1" id="sc1">
+					<c:forEach items="${dbMoiveList}" var="dbMoiveList">
+						<img class="slide s1" id="${dbMoiveList.ct_code}"
+							onclick="clickdbImg(
+								this,'${dbMoiveList.ct_title}',
+								'${dbMoiveList.ct_info}','${dbMoiveList.ct_star}','${dbMoiveList.ct_path}'		
+							)"
+							src="${dbMoiveList.ct_path_thumbnail}">
+					</c:forEach>
 					<c:forEach items="${topRated}" var="topRated">
 						<img class="slide s1" id="${topRated.ct_code}"
 							onclick="clickImg(this,'false')"

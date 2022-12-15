@@ -17,10 +17,11 @@
 	onmouseout="outVideo()">
 	<div class="main" id="header">
 		<form action="<c:url value="/quitVideo"/>" method="get">
-			<input type="hidden" id="e_path" value="${path }"> <input
+			<input type="hidden" id="membership" value="${membership}"> 
+			<input
 				type="hidden" name="e_code" id="e_code" value="${e_code }">
 			<input type="hidden" name="ct_code" id="ct_code" value="${ct_code}">
-			<input type="hidden" id="membership" value="${membership }">
+			<input type="hidden" id="path" value="${ct_path}">
 			<input type="hidden" id="start_sec" value="${h_close_at}"> 
 			<input type="hidden" name="h_close_at" id="h_close_at" value=""> 
 			<input type="hidden" name="pf_code" id="pf_code" value="${profile.pf_code}">

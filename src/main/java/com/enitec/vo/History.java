@@ -21,12 +21,15 @@ public class History implements Serializable{
 	@Id
 	private String e_code;
 	private String ct_code;
+	private String s_code;
 	private double h_close_at;
 	private LocalDate h_date;
 	private int s_number;
 	private int e_number;
 	@Transient
 	private String imgPath;
+	@Transient
+	private String Path;
 	public History() {
 		h_date = LocalDate.now();
 	}

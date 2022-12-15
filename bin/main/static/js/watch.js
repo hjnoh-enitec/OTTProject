@@ -2,22 +2,29 @@ let videoPlayer = document.getElementById("videoPlayer");
 let path = document.getElementById("e_path");
 let membership = document.getElementById("membership");
 let title = document.getElementById("title");
-let start_sec = document.getElementById("start_sec");
 let h_close_at = document.getElementById("h_close_at");
 let pfCode = document.getElementById("pf_code");
 let epicode = document.getElementById("e_code");
 let historyKey = document.getElementById("history_key");
 let e_code = document.getElementById("e_code");
-const urlParam = window.location.search;
-const basic = "M1";
-const standard = "M2";
-const premium = "M3";
-const omega = "M4";
-
-
+let ct_path = document.getElementById("path").value;
+const url = new URL(location.href).searchParams;
+let filePath;
+let membershipJson = {
+	basic: "M1",
+	standard: "M2",
+	premium: "M3",
+	omega: "M4"
+}
+for(ms in membershipJson){
+	if(membership.value ===membershipJson[ms]){
+		filePath = "/video/"+membership.value + "/" + ct_path;
+	}
+}
 const header = document.getElementById("header");
-
+window.onload = beforePlayVideo();
 function beforePlayVideo() {
+	start_sec.value = url.get('h_close_at');
 	if (start_sec.value > 1) {
 		let playVideoFromStopped = confirm("最後に終了した時点から再生しますか？");
 		if (playVideoFromStopped) {
@@ -31,6 +38,7 @@ function beforePlayVideo() {
 	}
 }
 
+
 // 뒤로가기 버튼
 function onVideo() {
 	header.style.display = "flex";
@@ -39,15 +47,8 @@ function outVideo() {
 	header.style.display = "none";
 }
 
-//if(membership.value === basic){
-path.value = basic + "/" + path.value;
-//}else if(membership.value === standard || membership.value === premium){
-//path.value = standard + "/" + path.value;
-//}else if(membership.value === omega){
-//path.value = omega + "/" + path.value;
-//}
 
-videoPlayer.setAttribute("src", "/video/M1/test.mp4");
+videoPlayer.setAttribute("src", filePath);
 
 function setVideoTime() {
 	h_close_at.value = videoPlayer.currentTime;
@@ -55,10 +56,15 @@ function setVideoTime() {
 }
 $(window).on('beforeunload', function() {
 	let endSec = setVideoTime();
-	
+	let sendURL;
+	if (url.get('h_close_at') != null) {
+		url.delete('h_close_at');
+	}
+	sendURL = window.location.search.replace("?", "");
+
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8000/quitVideo" + urlParam + "&pf_code="+pfCode.value+"&h_close_at=" + endSec,
+		url: "http://localhost:8000/quitVideo?" + "&h_close_at=" + endSec + "&" + sendURL + "&pf_code=" + pfCode.value,
 		success: function() {
 		},
 		error: function() {

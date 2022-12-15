@@ -142,7 +142,6 @@ function clickImg(img, isTv) {
 		url: baseURL + contentId + "?api_key=638aa1b1cb8fa91819a382dabe206684&language=ja",
 		async: false,
 		success: function(data) {
-			//메인 예고편의 재생을 멈춤
 			mainPreview.contentWindow.postMessage(
 				'{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
 				'*',
@@ -193,7 +192,7 @@ function setPreview(id, posterPath, isTv) {
 				modalWindow.style.top = "0px";
 				modalContentPreview.appendChild(iframe);
 			}
-			if (isTv!=="true") {
+			if (isTv !== "true") {
 				modalContent.setAttribute("onmouseover", "displayPlayBtn()");
 				modalContent.setAttribute("onmouseout", "hidePlayBtn()");
 			}
@@ -294,16 +293,70 @@ function changeSeason() {
 	episodes.innerHTML = "";
 	setEpisonde(parseInt(s_value));
 }
+
+function clickHistory(clickedContent, h_close_at, e_value, s_value, path) {
+	contentId = clickedContent.id;
+	if (isAPI(clickedContent.id)) {
+		if (e_value == undefined && s_value == undefined) {
+			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path ;
+		} else {
+			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+		}
+	} else {
+		if (e_value == undefined && s_value == undefined) {
+			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+		} else {
+			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+		}
+	}
+}
+function isAPI(contentId) {
+	return !contentId.startsWith('T');
+}
+
+function clickdbImg(content, ct_title, ct_info, ct_star, ct_path) {
+	contentId = content.id;
+	mainPreview.contentWindow.postMessage(
+		'{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
+		'*',
+	);
+	if (contentId.startsWith('CT')) {
+
+	} else {
+		if (ct_info.length > 100) {
+			ct_info = ct_info.substring(0, 200);
+			ct_info += "...";
+		}
+		modalContentOverview.innerHTML = ct_info;
+		modalContentTitle.innerHTML = ct_title;
+		modalContentAvg.innerHTML = ct_star;
+		const video = document.createElement("video");
+		video.setAttribute("src", "http://localhost:8000/video/M1/" + ct_path)
+		modalContentPreview.appendChild(video);
+		modal.style.display = "flex";
+
+		modalContent.setAttribute("onmouseover", "displayPlayBtn()");
+		modalContent.setAttribute("onmouseout", "hidePlayBtn()");
+		playBtn.setAttribute("value",ct_path)
+
+	}
+}
 function watchVideo(episodes) {
 	let e_value = "";
-	if (episodes !== undefined) {
+	let ct_path = "test.mp4"
+	if (contentId.startsWith('CT')) {
+
+	} else if(contentId.startsWith('T')) {
+		location.href = "http://localhost:8000/content/watch?ct_path=" + episodes.value+"&ct_code=" + contentId+ "&ct_path="+ ct_path;
+	}
+	else if (episodes !== undefined) {
 		e_value = episodes.id;
 		hidePlayBtn();
-		if(contentId.startsWith('T')){
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value;
+		if (contentId.startsWith('T')) {
+			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
 		}
- 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_num=" + s_value;
-	}else{
-		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId;
+		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
+	} else {
+		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
 	}
 }

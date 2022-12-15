@@ -34,8 +34,9 @@
 					<p>
 					<input type="submit" value="LogIn">
 					<br>
-					<input type="checkbox" id="infoCk" name="rememberId" value="on" ${empty cookie.c_id.value ? "":"checked"}>
-					<label for="infoCk">IDを保存</label>
+					
+					<input type="checkbox" id="check" name="rememberId" value="on" ${empty cookie.c_id.value ? "":"checked"}>
+					<label for="check">ID保存</label>
 					<p>
 					<br>
 				</form>
