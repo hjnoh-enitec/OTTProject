@@ -56,8 +56,8 @@
 			src="https://www.youtube.com/embed/jk7QSGwupPA?enablejsapi=1&controls=0&autoplay=1&mute=1"
 			frameborder="0"></iframe>
 		<div class="catalog">
-			<h1 class="slideTitle">${profile.pf_name }様が観ていた物</h1>
-			<input type="hidden" id="pf_code" name="pf_code" value="${profile.pf_code }">
+			<h1 class="slideTitle">${profile.pf_name}様が観ていた物</h1>
+			<input type="hidden" id="pf_code" name="pf_code" value="${profile.pf_code}">
 			<div class="slider-frame sf3">
 				<div class="btn prev bp3" onclick="prev(3)"></div>
 				<div class="btn next bn3" onclick="next(3)"></div>

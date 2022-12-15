@@ -18,7 +18,7 @@ public interface Session {
 		return session !=null && session.getAttribute(SELECT_PROFILE) != null;
 	}
 	
-	public static boolean checkMemeberShip(HttpSession session) {
-		return session !=null && session.getAttribute(MEMBER_SHIP) != null;
+	public static boolean isNoPayCustomer(HttpSession session) {
+		return session != null && ("M0").equals(session.getAttribute("m_code"));
 	}
 }
