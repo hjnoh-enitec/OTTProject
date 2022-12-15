@@ -42,8 +42,19 @@ public class ProfileController {
 		if (!Session.checkLogin(session)) {
 			return "redirect:/";
 		}
+		String c_id = session.getAttribute(Session.LOGIN_CUSTOMER).toString();
 		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
 		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, profileList);
+		String pf_code = "pf";
+		if (ps.getProfileCount(c_id) == 0) {
+			pf_code += 1;
+			pf_code += c_id;
+		} else {
+			pf_code += ps.nextVal(c_id);
+			pf_code += c_id;
+		}
+		model.addAttribute(Session.LOGIN_CUSTOMER, c_id);
+		model.addAttribute("pf_code", pf_code);
 		return "profile/profile";
 	}
 
@@ -97,7 +108,7 @@ public class ProfileController {
 		model.addAttribute("c_id", c_id);
 		model.addAttribute("pf_code", pf_code);
 		model.addAttribute("msg", msg);
-		return "profile/profileCreate";
+		return "";
 	}
 
 	@PostMapping("/create")
