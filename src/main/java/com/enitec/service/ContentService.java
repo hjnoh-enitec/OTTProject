@@ -62,7 +62,9 @@ public class ContentService {
 				middleURL = "/tv/"+historyArr.get(i).getCt_code()+"?";
 			}
 			JSONObject object = getJsonObject(middleURL, "1");
+			if(object!=null) {
 			historyArr.get(i).setImgPath(object.get("poster_path").toString());
+			}
 		}
 		return historyArr;
 	}
@@ -108,7 +110,6 @@ public class ContentService {
 				output += outputTmp;
 			}
 			JSONObject jsonObject = new JSONObject(output);
-
 			return jsonObject;
 		} catch (Exception e) {
 			e.printStackTrace();

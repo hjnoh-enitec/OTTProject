@@ -17,7 +17,7 @@ let playBtn;
 let seasonSel;
 let episodes;
 let contentId;
-let s_num;
+let s_value;
 
 window.onload = function() {
 	//modal
@@ -253,7 +253,7 @@ function setSeason(seasonInfo) {
 		}
 		seasonSel.appendChild(option);
 	}
-	s_num = seasonSel.value;
+	s_value = seasonSel.value;
 }
 function setEpisonde(seasonNum) {
 	$.ajax({
@@ -290,16 +290,19 @@ function setEpisonde(seasonNum) {
 }
 
 function changeSeason() {
-	s_num = seasonSel.value;
+	s_value = seasonSel.value;
 	episodes.innerHTML = "";
-	setEpisonde(parseInt(s_num));
+	setEpisonde(parseInt(s_value));
 }
 function watchVideo(episodes) {
-	let e_number = "";
+	let e_value = "";
 	if (episodes !== undefined) {
-		e_number = episodes.id;
+		e_value = episodes.id;
 		hidePlayBtn();
- 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_number + "&s_num=" + s_num;
+		if(contentId.startsWith('T')){
+			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value;
+		}
+ 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_num=" + s_value;
 	}else{
 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId;
 	}

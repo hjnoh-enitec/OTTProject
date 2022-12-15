@@ -14,6 +14,7 @@ const standard = "M2";
 const premium = "M3";
 const omega = "M4";
 
+
 const header = document.getElementById("header");
 
 function beforePlayVideo() {
@@ -50,16 +51,14 @@ videoPlayer.setAttribute("src", "/video/M1/test.mp4");
 
 function setVideoTime() {
 	h_close_at.value = videoPlayer.currentTime;
+	return h_close_at.value;
 }
 $(window).on('beforeunload', function() {
-	let endSec = videoPlayer.currentTime;
-	//console.log("http://localhost:8000/quitVideo" + urlParam + "&pf_code=" + pfCode + "&h_close_at=" + endSec);
-	console.log("http://localhost:8000/e_code=" + e_code + "&pf_code=" + pfCode + "&h_close_at=" + endSec);
+	let endSec = setVideoTime();
+	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8000/e_code=" + e_code + "&pf_code=" + pfCode + "&h_close_at=" + endSec,
-		contentType: "application/json",
-		dataType: "json",
+		url: "http://localhost:8000/quitVideo" + urlParam + "&pf_code="+pfCode.value+"&h_close_at=" + endSec,
 		success: function() {
 		},
 		error: function() {

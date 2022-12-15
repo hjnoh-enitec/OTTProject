@@ -11,9 +11,12 @@ public interface Session {
 	
 	String CUSTOMER_PROFILE_LIST ="profileList";
 	public static boolean checkLogin(HttpSession session) {
-		return session.getAttribute("c_id") == null ? false: true;
+		return session != null && session.getAttribute("c_id") != null;
 	}
 	public static boolean checkSelectedProfile(HttpSession session) {
-		return session.getAttribute("profile") == null ? false:true;
+		return session != null && session.getAttribute("profile") != null;
+	}
+	public static boolean isNoPayCustomer(HttpSession session) {
+		return session != null && ("M0").equals(session.getAttribute("m_code"));
 	}
 }

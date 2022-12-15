@@ -55,11 +55,7 @@ public class ProfileController {
 		}
 		Profile profile = ps.findById(spf.getPf_code());
 		session.setAttribute(Session.SELECT_PROFILE, profile);
-<<<<<<< HEAD
-		return "redirect:/content/main";
-=======
 		return "redirect:/";
->>>>>>> 5ec6987b08bfbdbe9cd1f1f5fd127d68cfc8ad1a
 	}
 
 	@GetMapping("/update")

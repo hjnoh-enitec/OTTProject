@@ -24,6 +24,7 @@
 				<div class="form">
 				<form:form action="/register/signup" method="post"
 					onchange="validInsert()" onkeypress="activeBtn()" id="f">
+					<input type="hidden" name="M_CODE" value="M0">
 					<div class=idDupl>
 					<button id="checkDuplBtn" type="button" onclick="idCheck()">IDチェック</button>
 					<h5 class="idDuplMsg" id="idDuplMsg" style="color:red;"></h5>

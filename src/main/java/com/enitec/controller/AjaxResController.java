@@ -27,8 +27,9 @@ public class AjaxResController {
 	
 	@GetMapping("/quitVideo")
 	public String quitVideo(History history) {
-
-		hs.quitVideo(history);	
+		if(!"".equals(history.getCt_code())) {
+			hs.quitVideo(history);	
+		}
 		return "redirect:/content/main";
 	}
 }
