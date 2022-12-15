@@ -12,92 +12,6 @@
 <link rel="stylesheet" href="/css/profile.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-body#profilebody {
-	color: white;
-	background-color: black;
-}
-
-p#logo {
-	background: transparent;
-	color: blue;
-	text-align: left;
-	font-size: 40px;
-	margin-top: 0px;
-	margin-left: 10px;
-}
-
-div#profile-aria {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%)
-}
-
-p#tv {
-	width: 100%;
-	text-align: center;
-	font-size: 48px;
-	margin-bottom: 10px;
-	margin-left: 25px;
-}
-
-ul#profilrselect {
-	
-}
-
-li#profilrselect {
-	float: left;
-	list-style: none;
-	margin: 10px;
-	display: block;
-}
-
-div#profile {
-	width: 150px;
-	height: 200px;
-	background: transparent;
-}
-
-div#profile-card {
-	width: 150px;
-	height: 150px;
-	background: white;
-}
-
-p#profile-card {
-	color: white;
-	text-align: center;
-}
-
-div#button {
-	width: 120px;
-	height: 30px;
-	margin-left: 45%;
-	margin-top: 30%;
-	position: relative;
-	padding: 5px;
-	border: 1px solid white;
-}
-
-img#profileSelect {
-	width: 150px;
-	height: 150px;
-	object-fit: cover;
-}
-
-button#settingbtn {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%)
-}
-img#fileUpload {
-	width: 150px;
-	height: 150px;
-	object-fit: contain;
-}
-</style>
 </head>
 <body id="profilebody">
 
@@ -117,14 +31,10 @@ img#fileUpload {
 						class='profile-name'>プロフィール名</label> <input type='text'
 						name='pf_name'><br />
 					<div class='profile-card' id='profile-image'>
-						<img src='/image/baseImage/basicProfileImage.jpg' id='fileUpload' />
+						<img src='/img/baseImage/basicProfileImage.jpg' id='fileUpload' />
 					</div>
 					<input type='file' name='fileUpload' accept='.jpg,.png'
-						onchange='setProfile(event)' /><br>
-					<br>
-					<br>
-					<br>
-					<br>
+						onchange='setProfile(event)' />
 					<button id='buttonInForm' onclick="createProfile()">プロフィール作成</button>
 				</form>
 			</div>
@@ -158,7 +68,7 @@ img#fileUpload {
 							<div class="btnSpace">
 								<button class="nameChangebtn" id="nameChange${status.index }"
 									onclick="nameChange(${status.index})">
-									<img src="/image/baseImage/modifyPan.jpg">
+									<img src="/img/baseImage/modifyPan.jpg">
 								</button>
 								<button class="cancelbtn" id="cancel${status.index }"
 									onclick="cancel(${status.index})">x</button>
@@ -225,7 +135,7 @@ img#fileUpload {
 						<li id="profilrselect">
 							<div id="profile" onclick="openModalWithAddProfile()">
 								<div id="profile-card">
-									<img src="/image/baseImage/addProfileImage.jpg" />
+									<img src="/img/baseImage/addbtn.png" />
 								</div>
 								<p id="profile-card">プロフィール追加</p>
 							</div>

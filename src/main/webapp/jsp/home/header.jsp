@@ -98,7 +98,7 @@
 				</ul>
 				<form class="d-flex" role="search" action="/search" id = "searchForm">
 					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search" id="search" name="search" onkeypress="enterSearch(event)">
+						aria-label="Search" id="search" name="keyword" onkeypress="enterSearch(event)">
 				</form>
 			</div>
 		</div>
