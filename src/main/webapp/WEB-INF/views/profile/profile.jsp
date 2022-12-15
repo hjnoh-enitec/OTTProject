@@ -92,6 +92,11 @@ button#settingbtn {
 	left: 50%;
 	transform: translate(-50%, -50%)
 }
+img#fileUpload {
+	width: 150px;
+	height: 150px;
+	object-fit: contain;
+}
 </style>
 </head>
 <body id="profilebody">
