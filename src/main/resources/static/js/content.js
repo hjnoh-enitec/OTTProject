@@ -349,7 +349,7 @@ function watchVideo(episodes) {
 	} else if(contentId.startsWith('T')) {
 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
 	}
-	else if (episodes !== undefined) {
+	else if (episodes.id!="play") {
 		e_value = episodes.id;
 		hidePlayBtn();
 		if (contentId.startsWith('T')) {

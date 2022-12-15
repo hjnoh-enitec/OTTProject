@@ -279,7 +279,8 @@ label {
 				success : function(data) {
 					msg_id.innerHTML = "お客様のメールアドレスは";
 					$.each(data, function(i) {
-						msg.innerHTML += data[i];
+						msg_id.innerHTML += data[i];
+						msg_id.innerHTML += document.createElementTagName("<br/>");
 					});
 					msg_id.innerHTML += "です。"
 				},

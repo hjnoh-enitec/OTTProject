@@ -33,5 +33,9 @@ public class CustomerService {
 		return cr.findMembershipCode(c_id);
 
 	}
+	
+	public Customer findById(String c_id) {
+		return cr.findById(c_id).orElse(null);
+	}
 
 }

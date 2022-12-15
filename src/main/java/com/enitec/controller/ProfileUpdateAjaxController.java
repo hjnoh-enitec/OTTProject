@@ -56,7 +56,10 @@ public class ProfileUpdateAjaxController {
 			}
 		}
 		ps.CreateUpdateProfile(profile);
-		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, ps.getProfileDataBase(Session.LOGIN_CUSTOMER).toString());
+		if(Session.checkSelectedProfile(session)) {
+			session.setAttribute(Session.SELECT_PROFILE, ps.findById(pf_code));
+		}
+		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString()));
 		return 0;
 	}
 	

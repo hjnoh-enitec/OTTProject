@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.enitec.form.ModifyForm;
 import com.enitec.service.CustomerService;
 import com.enitec.vo.Customer;
 
@@ -39,8 +41,11 @@ public class ModifyController {
 	}
 
 	@PostMapping("/save")
-	public String modifySaveUser(Customer customer) {
-		customer = ms.modifyUser(customer);
+	public String modifySaveUser(ModifyForm modify) {
+		Customer customer = ms.findById(modify.getC_id());
+		customer.setC_pwd(modify.getC_pwd());
+		customer.setC_phone(modify.getC_phone());
+		ms.modifyUser(customer);
 		return "redirect:/";
 	}
 	
