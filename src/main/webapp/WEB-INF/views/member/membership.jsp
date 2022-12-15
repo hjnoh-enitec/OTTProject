@@ -70,7 +70,8 @@
 </head>
 <body>
 
-	<form action="/customer/membershipSuccess" onsubmit="return doAction()" method="post">
+	<input type="hidden" id="isFromLogin" value="${isFromLogin }">
+	<form id="memberForm">
 	
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
@@ -103,9 +104,10 @@
 		<div id="msg" class="msg">
 			<p id="planComment"></p>
 		</div>		
-		<button>申込</button>
+		<button onclick="submitForm()">申込</button>
+		<button onclick="backToAnywhere()">戻る</button>
+		<h3 id="alert"></h3>
 	</form>
-	<button onclick="location.href='/content/main'">戻る</button>
 	<script>
 	
 		var curPlan = document.getElementById("curPlan").value;
@@ -142,8 +144,6 @@
 				planComment.innerHTML = "";
 			}
 		}
-
-		
 		
 		function doAction(){
 			
@@ -154,6 +154,22 @@
 				return false;
 			}
 			return true;
+		}
+		var memberForm = document.getElementById("memberForm");
+		var isFromLogin = document.getElementById("isFromLogin");
+		
+		function submitForm(){
+			memberForm.setAttribute("action", "/customer/membershipSuccess");
+			memberForm.setAttribute("onsubmit", "return doAction()");
+			memberForm.setAttribute("method", "post");
+		}
+		
+		function backToAnywhere(){
+			if(isFromLogin.value == "true"){
+				memberForm.setAttribute("action", "/login/logout");
+			}else{
+				memberForm.setAttribute("action", "/");
+			}
 		}
 		
 	</script>

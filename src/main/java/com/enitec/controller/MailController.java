@@ -30,8 +30,9 @@ public class MailController {
 		url ="/find/confirm?c_id="+c_id+"&";
 		subject = "「OTT」パスワードの変更をご案内いたします";
 		ms.sendMail(t_id, c_id,url,subject);
-		model.addAttribute("status", "find");
-		return "notifyMailCheck";
+
+		return "redirect:/login/login";
+
 	}
 	
 }

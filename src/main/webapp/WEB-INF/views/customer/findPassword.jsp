@@ -58,7 +58,8 @@
 <form action="<c:url value="/find/sendCheckedMail"/>" method="post" onsubmit="return formCheck(this);">
 	<h3 id="title">Login</h3>
 	<input type="text" id="c_id" name="c_id" value="" placeholder="E-MAIL" autofocus>
-	<input type="hidden" name="toURL" value="${param.toURL}">
+	<input type="text" name="toURL" value="${param.toURL}">
+	<input type="text" value="<c:url value="/find/sendCheckedMail"/>">
 	<button>認証メール送る</button>
 </form>
 <script>
