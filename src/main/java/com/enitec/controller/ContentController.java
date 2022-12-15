@@ -74,6 +74,8 @@ public class ContentController {
 		return "content/watch";
 	}
 
+	
+	// 에피소드에 있는거 싹다 지우고 새로 등록하는 코드
 	@GetMapping("/test")
 	public String setContent() {
 		cts.setContent(movieURL, tvURL, jasonName, requestPage);

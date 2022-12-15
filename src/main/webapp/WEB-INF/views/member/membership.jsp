@@ -131,13 +131,13 @@
 			plan = value;
 			
 			if(plan == "M1"){
-				planComment.innerHTML = "1人プラン、最大画質 720P";
+				planComment.innerHTML = "最大画質 720P";
 			}else if(plan == "M2"){
-				planComment.innerHTML = "2人プラン、最大画質 1080P";
+				planComment.innerHTML = "最大画質 1080P";
 			}else if(plan == "M3"){
-				planComment.innerHTML = "4人プラン、最大画質 1080P";
+				planComment.innerHTML = "最大画質 1080P";
 			}else if(plan == "M4"){
-				planComment.innerHTML = "4人プラン、最大画質 2160P";
+				planComment.innerHTML = "最大画質 2160P";
 			}else if(plan == ''){
 				planComment.innerHTML = "";
 			}

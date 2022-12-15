@@ -19,7 +19,7 @@
 	z-index: 10
 }
 
-#modal-add.modal-window {
+#modal-add.add-window {
 	/*background: rgba( 69, 139, 197, 0.70 );*/
 	background: black;
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -65,15 +65,14 @@
 	z-index: 10
 }
 
-#modal-modify.modal-window {
-	/*background: rgba( 69, 139, 197, 0.70 );*/
+#modal-modify.modify-window {
 	background: black;
 	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(13.5px);
 	-webkit-backdrop-filter: blur(13.5px);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
-	width: 500px;
+	width: 1500px;
 	height: 500px;
 	position: relative;
 	/*top: 100px;*/
@@ -90,4 +89,111 @@
 	top: 200px;
 	z-index: 1000;
 	top: 200px;
+}
+
+div.profileImg {
+	width: 150px;
+	height: 150px;
+	float: left;
+}
+
+div.profileName {
+	width: 200px;
+	height: 50px;
+	float: left;
+}
+
+div.profileUpdateDelete {
+	width: 150px;
+	height: 150px;
+	float: left;
+	text-align: center;
+	line-height: 150px;
+	position: relative;
+}
+
+div.txtSpace {
+	width: 130px;
+	height: 150px;
+	float: left;
+	text-align: center;
+	line-height: 150px;
+}
+
+div.btnSpace {
+	width: 70px;
+	height: 150px;
+	float: left;
+	position: relative;
+}
+
+input.profileName {
+	width: 100px;
+	outline: none;
+	border: 0;
+}
+
+input.fileUpload {
+	visibility: hidden;
+}
+
+button.nameChangebtn {
+	outline: none;
+	border: 0;
+	width: 25px;
+	height: 25px;
+	background-color: transparent;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+button.acceptbtn {
+	outline: none;
+	border: 0;
+	width: 25px;
+	height: 25px;
+	display: none;
+	background-color: green;
+}
+
+button.cancelbtn {
+	outline: none;
+	border: 0;
+	width: 25px;
+	height: 25px;
+	display: none;
+	background-color: red;
+}
+
+button.update {
+	outline: none;
+	border: 0;
+	width: 50px;
+	height: 25px;
+	background-color: transparent;
+	display: none;
+	position: absolute;
+	left: 50%;
+	color: white;
+	/*transform: translate(-50%, -50%);*/
+}
+
+button.delete {
+	outline: none;
+	border: 0;
+	width: 50px;
+	height: 25px;
+	background-color: transparent;
+	position: absolute;
+	left: 50%;
+	color: white;
+	/*transform: translate(-50%, -50%);*/
+}
+
+img.profileImg {
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
 }

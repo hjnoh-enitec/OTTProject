@@ -30,8 +30,6 @@ public class ProfileController {
 
 	@Autowired
 	private ProfileService ps;
-	//@Autowired
-	//private HistoryService hs;
 
 	@Autowired
 	private FileSaveService fss;
@@ -56,7 +54,7 @@ public class ProfileController {
 		}
 		model.addAttribute("c_id", c_id.toString());
 		model.addAttribute("pf_code", pf_code);
-		
+		model.addAttribute("profileList", profileList);
 		return "profile/profile";
 	}
 
@@ -71,49 +69,6 @@ public class ProfileController {
 
 		return "redirect:/";
 
-	}
-
-	@GetMapping("/update")
-	public String moveProfileUpdatePage(HttpSession session, Model model) {
-		Object c_id = session.getAttribute(Session.LOGIN_CUSTOMER);
-		if (!Session.checkLogin(session)) {
-			return "redirect:/";
-		}
-		List<Profile> profileList = ps.getProfileDataBase(c_id.toString());
-		model.addAttribute("profileList", profileList);
-		return "/profile/profileUpdate";
-	}
-
-	@GetMapping("/create")
-	public String moveProfileInsertPage(Model model, HttpServletRequest request, HttpServletResponse res) {
-		HttpSession session = request.getSession(false);
-		String c_id = session.getAttribute("c_id").toString();
-		if (Session.checkLogin(session)) {
-			return "redirect:/";
-		}
-		Cookie[] cookies = request.getCookies();
-		String msg = "";
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("error")) {
-					msg = cookie.getValue().toString();
-					cookie.setMaxAge(0);
-					res.addCookie(cookie);
-				}
-			}
-		}
-		String pf_code = "pf";
-		if (ps.getProfileCount(c_id) == 0) {
-			pf_code += 1;
-			pf_code += c_id;
-		} else {
-			pf_code += ps.nextVal(c_id);
-			pf_code += c_id;
-		}
-		model.addAttribute("c_id", c_id);
-		model.addAttribute("pf_code", pf_code);
-		model.addAttribute("msg", msg);
-		return "";
 	}
 
 	@PostMapping("/create")
