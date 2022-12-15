@@ -3,10 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<c:set var="c_id"
+	value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}" />
 <%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/css/profile.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -89,6 +92,58 @@ button#settingbtn{
 </style>
 </head>
 <body id="profilebody">
+
+		<!-- 모달 전체 (화면 흐려지는 곳) -->
+	<div id="modal-add" class="modal-overlay">
+		
+		<!-- 본 모달창 -->
+		<div class="modal-window">
+				<!-- 컨텐츠 제목 -->
+			<div class="title" id="modalTitle"></div>
+			<div class="close-area" onclick="closeModal()">X</div>
+			<div id="content">
+				<form id="contentForm" action="/profile/create" method="post" enctype="multipart/form-data">
+					<input type='hidden' name='c_id' value='${c_id }'>
+					<input type="hidden" name="pf_code" value="${pf_code}">
+					<label class='profile-name'>プロフィール名</label>
+					<input type='text' name='pf_name'><br />
+					<div class='profile-card' id='profile-image'>
+						<img src='/image/baseImage/basicProfileImage.jpg' id='fileUpload' />
+					</div>
+					<input type='file' name='fileUpload' accept='.jpg,.png' onchange='setProfile(event)' /><br><br><br><br><br>
+					<button id='buttonInForm' onclick="createProfile()">プロフィール作成</button>
+				</form>
+			</div>
+					
+		</div>
+		
+	</div>
+
+<div id="modal-modify" class="modal-overlay">
+		
+		<!-- 본 모달창 -->
+		<div class="modal-window">
+				<!-- 컨텐츠 제목 -->
+			<div class="title" id="modalTitle"></div>
+			<div class="close-area" onclick="closeModal()">X</div>
+			<div id="content">
+				<form id="contentForm" action="/profile/create" method="post" enctype="multipart/form-data">
+					<input type='hidden' name='c_id' value='${c_id }'>
+					<input type="hidden" name="pf_code" value="${pf_code}">
+					<label class='profile-name'>プロフィール名</label>
+					<input type='text' name='pf_name'><br />
+					<div class='profile-card' id='profile-image'>
+						<img src='/image/baseImage/basicProfileImage.jpg' id='fileUpload' />
+					</div>
+					<input type='file' name='fileUpload' accept='.jpg,.png' onchange='setProfile(event)' /><br><br><br><br><br>
+					<button id='buttonInForm' onclick="createProfile()">プロフィール作成</button>
+				</form>
+			</div>
+					
+		</div>
+		
+	</div>
+
 	<div>
 		<%@ include file="/jsp/home/header.jsp"%>
 		<div id="profile-aria">
@@ -119,7 +174,7 @@ button#settingbtn{
 					</c:forEach>
 					<c:if test="${fn:length(profileList)  < 4}">
 						<li id="profilrselect">
-							<div id="profile" onclick="location.href='/profile/create'">
+							<div id="profile" onclick="openModalWithAddProfile()">
 								<div id="profile-card">
 									<img src="/image/baseImage/addProfileImage.jpg" />
 								</div>
@@ -130,19 +185,13 @@ button#settingbtn{
 				</ul>
 			</div>
 			<div id="button">
-				<button id="settingbtn" onclick="openModal()">ProfileSetting</button>
+				<button id="settingbtn" onclick="openModalWithSetting()">ProfileSetting</button>
 			</div>
 		</div>
 	</div>
-	<script>
-		function moveContent(frm){
-			frm.submit();
-
-		}
-		function openModal() {
-			location.href='/profile/update';
-			
-		}
-	</script>
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="/js/profile.js"></script>
+	
 </body>
 </html>

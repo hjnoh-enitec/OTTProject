@@ -45,6 +45,18 @@ public class ProfileController {
 		}
 		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute("c_id").toString());
 		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, profileList);
+		
+		String pf_code = "pf";
+		if (ps.getProfileCount(c_id.toString()) == 0) {
+			pf_code += 1;
+			pf_code += c_id;
+		} else {
+			pf_code += ps.nextVal(c_id.toString());
+			pf_code += c_id;
+		}
+		model.addAttribute("c_id", c_id.toString());
+		model.addAttribute("pf_code", pf_code);
+		
 		return "profile/profile";
 	}
 
@@ -56,11 +68,9 @@ public class ProfileController {
 		}
 		Profile profile = ps.findById(spf.getPf_code());
 		session.setAttribute(Session.SELECT_PROFILE, profile);
-<<<<<<< HEAD
-		return "redirect:/content/main";
-=======
+
 		return "redirect:/";
->>>>>>> 5ec6987b08bfbdbe9cd1f1f5fd127d68cfc8ad1a
+
 	}
 
 	@GetMapping("/update")
@@ -103,7 +113,7 @@ public class ProfileController {
 		model.addAttribute("c_id", c_id);
 		model.addAttribute("pf_code", pf_code);
 		model.addAttribute("msg", msg);
-		return "profile/profileCreate";
+		return "";
 	}
 
 	@PostMapping("/create")
