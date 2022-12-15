@@ -299,6 +299,7 @@ function watchVideo(episodes) {
 	if (episodes !== undefined) {
 		e_number = episodes.id;
 		hidePlayBtn();
+		//if -> 만약에 우리가 가지고있는 비디오 파일이라면 ecode,scode설정 else API에서 불러온 거라면 enum,snum //
  		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_number + "&s_num=" + s_num;
 	}else{
 		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId;

@@ -12,9 +12,13 @@ public interface Session {
 	String CUSTOMER_PROFILE_LIST ="profileList";
 	
 	public static boolean checkLogin(HttpSession session) {
-		return session.getAttribute("c_id") == null ? false: true;
+		return session !=null && session.getAttribute(LOGIN_CUSTOMER) != null;
 	}
 	public static boolean checkSelectedProfile(HttpSession session) {
-		return session.getAttribute("profile") == null ? false:true;
+		return session !=null && session.getAttribute(SELECT_PROFILE) != null;
+	}
+	
+	public static boolean checkMemeberShip(HttpSession session) {
+		return session !=null && session.getAttribute(MEMBER_SHIP) != null;
 	}
 }

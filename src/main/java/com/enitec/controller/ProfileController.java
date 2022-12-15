@@ -30,8 +30,6 @@ public class ProfileController {
 
 	@Autowired
 	private ProfileService ps;
-	//@Autowired
-	//private HistoryService hs;
 
 	@Autowired
 	private FileSaveService fss;
@@ -55,6 +53,7 @@ public class ProfileController {
 		}
 		model.addAttribute(Session.LOGIN_CUSTOMER, c_id);
 		model.addAttribute("pf_code", pf_code);
+		model.addAttribute("profileList", profileList);
 		return "profile/profile";
 	}
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.enitec.service.ContentService;
 import com.enitec.service.CustomerService;
 import com.enitec.service.HistoryService;
+import com.enitec.session.Session;
 import com.enitec.vo.History;
 import com.enitec.vo.Image;
 
@@ -35,6 +36,7 @@ public class ContentController {
 	
 	@GetMapping("/main")
 	public String moveToContentPage(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
 		ArrayList<History> playedList = cts.getPlayedList("p01");
 		model.addAttribute("playedList",playedList);
 		ArrayList<Image> movieList = cts.getImgList(movieURL , jasonName,requestPage);
@@ -74,6 +76,8 @@ public class ContentController {
 		return "content/watch";
 	}
 
+	
+	// 에피소드에 있는거 싹다 지우고 새로 등록하는 코드
 	@GetMapping("/test")
 	public String setContent() {
 		cts.setContent(movieURL, tvURL, jasonName, requestPage);
