@@ -11,6 +11,4 @@ import com.enitec.vo.Membership;
 
 public interface MembershipRepository extends JpaRepository<Membership, String > {
 
-	@Query(value="select m_code from membership" , nativeQuery=true)
-	List<String> findByM_codes();
 } 

@@ -98,6 +98,7 @@ button#settingbtn{
 			<div>
 				<ul id="profilrselect">
 					<c:forEach items="${profileList }" var="profile" varStatus="status">
+						<c:if test="${status.index}<= ${membership } ">
 						<li id="profilrselect">
 							<div id="profile"
 								onclick="moveContent(profileForm${status.index})">
@@ -116,8 +117,9 @@ button#settingbtn{
 								</form>
 							</div>
 						</li>
+						</c:if>
 					</c:forEach>
-					<c:if test="${fn:length(profileList)  < 4}">
+					<c:if test="${fn:length(profileList)} < ${membership}">
 						<li id="profilrselect">
 							<div id="profile" onclick="location.href='/profile/create'">
 								<div id="profile-card">

@@ -10,6 +10,7 @@ public interface Session {
 	String MEMBER_SHIP = "m_code";
 	
 	String CUSTOMER_PROFILE_LIST ="profileList";
+	
 	public static boolean checkLogin(HttpSession session) {
 		return session.getAttribute("c_id") == null ? false: true;
 	}

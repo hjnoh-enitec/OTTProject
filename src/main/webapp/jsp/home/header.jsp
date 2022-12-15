@@ -9,6 +9,7 @@
 	value="${request.getSession(false)==''?'' : pageContext.request.session.getAttribute('profile')}" />
 <c:set var="profileList"
 	value="${request.getSession(false) == '' ? '' : pageContext.request.session.getAttribute('profileList') }" />
+<c:set var="membership" value="${request.getSession(false) == '' ? '' : pageContext.request.session.getAttribute('m_code') }"/>
 <c:set var="loginOutLink"
 	value="${loginId==null ? '/login/login?toURL=/' : '/login/logout'}" />
 <c:set var="loginOut" value="${loginId==null ? 'Login' : 'Logout'}" />

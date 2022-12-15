@@ -59,10 +59,8 @@ public class CustomerController {
 	}
 
 	@PostMapping("/membershipSuccess")
-	public String changeMembership(String c_id, String m_code,Model model) {
+	public String changeMembership(String c_id, String m_code,HttpSession session) {
 		cms.changeMembership(c_id, m_code);
-		int indexLength = ms.findByIds().indexOf(m_code);
-		model.addAttribute("indexLength",indexLength);
 		return "redirect:/";
 	}
 	@GetMapping("/withdrwal")
