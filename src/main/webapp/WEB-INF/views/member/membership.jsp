@@ -71,7 +71,7 @@
 <body>
 
 	<input type="hidden" id="isFromLogin" value="${isFromLogin }">
-	<form id="memberForm">
+	<form id="memberForm" action = "/customer/membershipSuccess" onsubmit="return doAction()" method = "post">
 	
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
@@ -104,8 +104,8 @@
 		<div id="msg" class="msg">
 			<p id="planComment"></p>
 		</div>		
-		<button onclick="submitForm()">申込</button>
-		<button onclick="backToAnywhere()">戻る</button>
+		<button type="submit" onclick="submitForm()">申込</button>
+		<button type="button" onclick="backToAnywhere()">戻る</button>
 		<h3 id="alert"></h3>
 	</form>
 	<script>
@@ -159,17 +159,11 @@
 		var isFromLogin = document.getElementById("isFromLogin");
 		
 		function submitForm(){
-			memberForm.setAttribute("action", "/customer/membershipSuccess");
-			memberForm.setAttribute("onsubmit", "return doAction()");
-			memberForm.setAttribute("method", "post");
+			return doAction();
 		}
 		
 		function backToAnywhere(){
-			if(isFromLogin.value == "true"){
-				memberForm.setAttribute("action", "/login/logout");
-			}else{
-				memberForm.setAttribute("action", "/");
-			}
+			history.go(-1);
 		}
 		
 	</script>

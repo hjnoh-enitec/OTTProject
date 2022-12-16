@@ -245,7 +245,6 @@ public class ContentService {
 				releaseData = jo.getString("first_air_date");
 			}
 			content.setG_code("28");
-			content.setCt_genre("action");
 			content.setCt_path_thumbnail((jo.getString("poster_path")));
 			;
 			content.setCt_star((jo.getInt("vote_average")));
@@ -262,7 +261,6 @@ public class ContentService {
 			while (matcher.find()) {
 				genres += matcher.group(1);
 			}
-			content.setCt_genre(genres);
 			content.setG_code(genres.split(",")[0].trim());
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			content.setCt_release_Date(LocalDate.parse(releaseData, formatter));

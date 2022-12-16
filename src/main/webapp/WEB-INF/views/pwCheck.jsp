@@ -69,8 +69,13 @@
 	<input type="hidden" name="c_id" value="${c_id}">
 	<input type="password" name="c_pwd" placeholder="パスワード">
 	<button>提出</button>
+	<button type="button" onclick="move()">戻る</button>
 	</form>
 	<script>
+		function move() {
+			history.go(-1);
+		}
+	
 		function formCheck(frm) {
 			let msg ='';
 			if(frm.c_pwd.value.length==0) {

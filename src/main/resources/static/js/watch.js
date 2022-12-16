@@ -26,7 +26,7 @@ window.onload = beforePlayVideo();
 function beforePlayVideo() {
 	start_sec.value = url.get('h_close_at');
 	if (start_sec.value > 1) {
-		let playVideoFromStopped = confirm("最後に終了した時点から再生しますか？");
+		let playVideoFromStopped = confirm("最後に終了した時点("+start_sec.value+")から再生しますか？");
 		if (playVideoFromStopped) {
 			// 마지막 종료 시점부터 시작
 			videoPlayer.currentTime = start_sec.value;
@@ -55,16 +55,16 @@ function setVideoTime() {
 	return h_close_at.value;
 }
 $(window).on('beforeunload', function() {
-	let endSec = setVideoTime();
-	let sendURL;
-	if (url.get('h_close_at') != null) {
-		url.delete('h_close_at');
+let endSec = setVideoTime();
+	let sendURL = window.location.search;
+	let index = sendURL.indexOf("h_close_at");
+	if(index>=0){
+		sendURL = sendURL.substring(0,index-1);
 	}
-	sendURL = window.location.search.replace("?", "");
-
+	let ct_code = url.get("ct_code");
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8000/quitVideo?" + "&h_close_at=" + endSec + "&" + sendURL + "&pf_code=" + pfCode.value,
+		url: "http://localhost:8000/quitVideo" +sendURL+ "&h_close_at=" + endSec  + "&pf_code=" + pfCode.value,
 		success: function() {
 		},
 		error: function() {

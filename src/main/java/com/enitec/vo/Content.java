@@ -14,7 +14,6 @@ public class Content {
 	private String ct_code;
 	private String ct_title;
 	private String g_code;
-	private String ct_genre;
 	private String ct_info;
 	private String ct_path_thumbnail;
 	private int ct_star;

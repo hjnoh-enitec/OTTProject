@@ -6,11 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.enitec.service.ContentService;
 import com.enitec.service.HistoryService;
 import com.enitec.service.RegisterService;
-import com.enitec.vo.Content;
-import com.enitec.vo.History;
 
 @Controller
 public class AjaxResController {
@@ -26,13 +23,14 @@ public class AjaxResController {
 	    return result;
 	}
 	
-	
+	@ResponseBody
 	@GetMapping("/quitVideo")
-	public String quitVideo(History history) {
-		if(!"".equals(history.getCt_code())) {
-
-			hs.quitVideo(history);	
-		}
+	public String quitVideo(String ct_code) {
+		/*
+		 * if(!"".equals(history.getCt_code())) {
+		 * 
+		 * hs.quitVideo(history); }
+		 */
 		return "redirect:/";
 	}
 }

@@ -22,7 +22,7 @@ public class HistoryService {
 	@Transactional
 	public History quitVideo(History history) {
 		history.setH_date(LocalDate.now());
-		if(history.getE_code()==null && history.getS_code()==null&&history.getE_number()==0&&history.getS_number()==0){
+		if(((history.getE_code()==null||history.getE_code()=="")&& (history.getS_code()==null||history.getS_code()==""))&&history.getE_number()==0&&history.getS_number()==0){
 			history.setE_number(-1);
 		}
 		return historyRepo.save(history);

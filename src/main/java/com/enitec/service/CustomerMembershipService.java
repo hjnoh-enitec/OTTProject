@@ -19,6 +19,7 @@ public class CustomerMembershipService {
 		customer.setM_code(m_code);
 		customer.setM_start_date(LocalDate.now());
 		customer.setM_end_date(LocalDate.now().plusMonths(1));
+		customer.setM_autopay("T");
 		cr.save(customer);
 	}
 	
