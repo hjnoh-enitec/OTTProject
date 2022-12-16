@@ -292,6 +292,4 @@ public class ContentService {
 	public List<Content> search(String keyword){
 		return ctr.findByCt_titleContaining(keyword);
 	}
-	
-
 }

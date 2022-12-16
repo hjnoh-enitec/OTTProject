@@ -197,13 +197,10 @@ label {
 					
 					<input type="checkbox" id="check" name="rememberId" value="on" ${empty cookie.c_id.value ? "":"checked"}>
 					<label for="check">ID保存</label>
-
 					<p>
 						<br>
 				</form>
 			</div>
-
-
 			<div class="joinQ">
 				<a href="/register/signup">新規登録</a> <br /> <a id="modal_open_btn_findID">IDを忘れた方</a>
 				| <a id="modal_open_btn_findPW">パスワードを忘れた方</a>

@@ -67,7 +67,7 @@ public class LoginContorller {
         }
 		return "redirect:/profile/select";
 	}
-
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

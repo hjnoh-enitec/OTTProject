@@ -9,36 +9,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+#btn {
+	z-index: 10000;
+}
+</style>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/watch.css">
 <title>OTT - Watch Video</title>
 </head>
+
 <body onload="beforePlayVideo()" onmouseover="onVideo()"
 	onmouseout="outVideo()">
-	<div class="main" id="header">
-		<form action="<c:url value="/quitVideo"/>" method="get">
-			<input type="hidden" id="membership" value="${membership}"> 
-			<input
-				type="hidden" name="e_code" id="e_code" value="${e_code }">
-			<input type="hidden" name="ct_code" id="ct_code" value="${ct_code}">
-			<input type="hidden" id="path" value="${ct_path}">
-			<input type="hidden" id="start_sec" value="${h_close_at}"> 
-			<input type="hidden" name="h_close_at" id="h_close_at" value=""> 
-			<input type="hidden" name="pf_code" id="pf_code" value="${profile.pf_code}">
-			<button onclick="setVideoTime()">
-				<img src="/img/back.png" id="backToMain">
-			</button>
-		</form>
+
+	<input type="hidden" id="membership" value="${membership}">
+	<input type="hidden" id="ct_code" value="${param.ct_code}">
+	<input type="hidden" id="e_code" value="${param.e_code}">
+	<input type="hidden" id="s_code" value="${param.s_code}">
+	<input type="hidden" id="e_number" value="${param.e_number}">
+	<input type="hidden" id="s_number" value="${param.s_number}">
+	<input type="hidden" id="ct_path" value="${param.ct_path}">
+	<input type="hidden" id="h_close_at" value="${param.h_close_at}">
+	<input type="hidden" name="pf_code" id="pf_code"
+		value="${profile.pf_code}">
+		<button id="btn" type="button" onclick="pageOut()">
+			<img src="/img/back.png" id="backToMain">
+		</button>
 
 		<p id="title" style="color: white;"></p>
-	</div>
 	<div id="video_div">
 		<video controls autoplay id="videoPlayer">
 		</video>
 	</div>
-
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/js/watch.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/watch.js"></script>
 </body>
 </html>

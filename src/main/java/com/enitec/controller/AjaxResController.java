@@ -1,13 +1,16 @@
 package com.enitec.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enitec.service.HistoryService;
 import com.enitec.service.RegisterService;
+import com.enitec.vo.History;
 
 @Controller
 public class AjaxResController {
@@ -15,22 +18,30 @@ public class AjaxResController {
 	RegisterService rs;
 	@Autowired
 	HistoryService hs;
+
 	@ResponseBody
 	@PostMapping("/checkId")
 	public int checkIdDuplicated(String customer) {
 		System.out.println("controller called");
-	    int result = rs.checkIdDuplicated(customer);
-	    return result;
+		int result = rs.checkIdDuplicated(customer);
+		return result;
 	}
-	
+
 	@ResponseBody
-	@GetMapping("/quitVideo")
-	public String quitVideo(String ct_code) {
-		/*
-		 * if(!"".equals(history.getCt_code())) {
-		 * 
-		 * hs.quitVideo(history); }
-		 */
-		return "redirect:/";
+	@PostMapping("/quitVideo")
+	public HashMap<String, String> quitVideo(@RequestBody History data) {
+
+		if (!"".equals(data.getCt_code())) {
+			History history = hs.findHistory(data.getPf_code(), data.getCt_code());
+			if (history != null) {
+				history.setH_close_at(data.getH_close_at());
+				hs.quitVideo(history);
+			} else {
+				hs.quitVideo(data);
+			}
+		}
+		HashMap<String, String> url = new HashMap<String, String>();
+		url.put("url", "/");
+		return url;
 	}
 }

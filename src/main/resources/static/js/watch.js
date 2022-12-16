@@ -1,35 +1,35 @@
+
+const ct_code = document.getElementById("ct_code").value;
+const e_code = document.getElementById("e_code").value;
+const s_code = document.getElementById("s_code").value;
+const e_number = document.getElementById("e_number").value;
+const s_number = document.getElementById("s_number").value;
+const ct_path = document.getElementById("ct_path").value;
+const h_close_at = document.getElementById("h_close_at").value;
+const membership = document.getElementById("membership");
+const pf_code = document.getElementById("pf_code").value;
 let videoPlayer = document.getElementById("videoPlayer");
-let path = document.getElementById("e_path");
-let membership = document.getElementById("membership");
-let title = document.getElementById("title");
-let h_close_at = document.getElementById("h_close_at");
-let pfCode = document.getElementById("pf_code");
-let epicode = document.getElementById("e_code");
-let historyKey = document.getElementById("history_key");
-let e_code = document.getElementById("e_code");
-let ct_path = document.getElementById("path").value;
-const url = new URL(location.href).searchParams;
-let filePath;
+const btn = document.getElementById("btn");
+
 let membershipJson = {
 	basic: "M1",
 	standard: "M2",
 	premium: "M3",
 	omega: "M4"
 }
-for(ms in membershipJson){
-	if(membership.value ===membershipJson[ms]){
-		filePath = "/video/"+membership.value + "/" + ct_path;
+for (ms in membershipJson) {
+	if (membership.value === membershipJson[ms]) {
+		filePath = "/video/" + membership.value + "/" + ct_path;
 	}
 }
 const header = document.getElementById("header");
 window.onload = beforePlayVideo();
 function beforePlayVideo() {
-	start_sec.value = url.get('h_close_at');
-	if (start_sec.value > 1) {
-		let playVideoFromStopped = confirm("最後に終了した時点("+start_sec.value+")から再生しますか？");
+	if (h_close_at > 1) {
+		let playVideoFromStopped = confirm("最後に終了した時点(" + h_close_at + ")から再生しますか？");
 		if (playVideoFromStopped) {
 			// 마지막 종료 시점부터 시작
-			videoPlayer.currentTime = start_sec.value;
+			videoPlayer.currentTime = h_close_at;
 		} else {
 			// 처음부터 보기
 			start_sec.value = 0;
@@ -41,33 +41,47 @@ function beforePlayVideo() {
 
 // 뒤로가기 버튼
 function onVideo() {
-	header.style.display = "flex";
+	btn.style.display = "flex";
 }
 function outVideo() {
-	header.style.display = "none";
+	btn.style.display = "none";
 }
 
 
 videoPlayer.setAttribute("src", filePath);
 
-function setVideoTime() {
-	h_close_at.value = videoPlayer.currentTime;
-	return h_close_at.value;
-}
-$(window).on('beforeunload', function() {
-let endSec = setVideoTime();
-	let sendURL = window.location.search;
-	let index = sendURL.indexOf("h_close_at");
-	if(index>=0){
-		sendURL = sendURL.substring(0,index-1);
+function pageOut() {
+	let endSec = videoPlayer.currentTime;
+	const history = {
+		"ct_code": ct_code,
+		"pf_code": pf_code,
+		"e_code": e_code,
+		"s_code": s_code,
+		"e_number": e_number,
+		"s_number": s_number,
+		"ct_path": ct_path,
+		"h_close_at": endSec
 	}
-	let ct_code = url.get("ct_code");
+	let isRun;
+	if (isRun == true) {
+		return;
+	}
+	isRun == true;
 	$.ajax({
-		type: "GET",
-		url: "http://localhost:8000/quitVideo" +sendURL+ "&h_close_at=" + endSec  + "&pf_code=" + pfCode.value,
-		success: function() {
+		type: "post",
+		async: false,
+		contentType: 'application/json',
+		data: JSON.stringify(history),
+		url: "http://localhost:8000/quitVideo",
+		success: function(data) {
+			isRun == false;
+			location.href = "http://localhost:8000" + data.url;
 		},
 		error: function() {
 		}
 	});
+}
+
+$(window).on('beforeunload', function() {
+	pageOut();
 });

@@ -19,6 +19,9 @@ public class HistoryService {
 	public String findSecByPfcodeAndEcode(String pf_code, String e_code) {
 		return historyRepo.findSecByPfcodeAndEcode(pf_code, e_code);
 	}
+	public History findHistory(String pf_code, String ct_code) {
+		return historyRepo.findHistory(pf_code, ct_code);
+	}
 	@Transactional
 	public History quitVideo(History history) {
 		history.setH_date(LocalDate.now());
