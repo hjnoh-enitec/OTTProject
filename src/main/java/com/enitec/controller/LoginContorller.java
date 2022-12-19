@@ -59,11 +59,10 @@ public class LoginContorller {
         }
         
         // 유저의 멤버십 코드가 M0 (미가입상태)면 멤버십 가입 페이지로, 가입 되어있으면 프로필 선택 페이지로
-		String membership = customerServ.getMembershipCode(c_id);
+        session.setAttribute(Session.MEMBER_SHIP,customerServ.getMembershipCode(c_id));
 		String noMembership = "M0";
-
-        if(membership.equals(noMembership)) {
-        	return "redirect:/customer/modifyMembership?c_id=" + c_id + "&isFromLogin=true";
+        if(session.getAttribute(Session.MEMBER_SHIP.toString()).equals(noMembership)) {
+        	return "redirect:/customer/modifyMembership";
         }
 		return "redirect:/profile/select";
 	}

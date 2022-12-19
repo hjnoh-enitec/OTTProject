@@ -45,7 +45,7 @@ public class CustomerController {
 	}
 
 	@GetMapping("/modifyMembership")
-	public String membership(HttpSession session, String toURL, Model model, String isFromLogin) {
+	public String membership(HttpSession session, String toURL, Model model) {
 		if (!Session.checkLogin(session)) {
 			return "redirect:/login/login?toURL=" + toURL;
 		}
@@ -53,7 +53,6 @@ public class CustomerController {
 		model.addAttribute("ml", ml);
 		String c_id = session.getAttribute("c_id").toString();
 		String membershipCode = cs.getMembershipCode(c_id);
-		model.addAttribute("isFromLogin", isFromLogin);
 		model.addAttribute("membershipCode", membershipCode);
 		model.addAttribute("ml", ml);
 		return "member/membership";
@@ -62,6 +61,7 @@ public class CustomerController {
 	@PostMapping("/membershipSuccess")
 	public String changeMembership(String c_id, String m_code,HttpSession session) {
 		cms.changeMembership(c_id, m_code);
+		session.setAttribute(Session.MEMBER_SHIP, m_code);
 		return "redirect:/";
 	}
 	@GetMapping("/withdrwal")
