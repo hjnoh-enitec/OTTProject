@@ -237,7 +237,7 @@ function hidePlayBtn() {
 function setSeason(seasonInfo) {
 	let seasonSel = document.getElementById("seasonSelect");
 	seasonSel.style.display = "flex";
-	modalWindow.style.height = "900px";
+	modalWindow.style.height = "920px";
 	modalWindow.style.top = "30px";
 	for (let i = 0; i < seasonInfo.length; i++) {
 		let option = document.createElement("option");

@@ -211,6 +211,7 @@ public class ContentService {
 		return seasonArr;
 	}
 
+
 	private ArrayList<Image> getImgArr(JSONArray jarr) {
 		ArrayList<Image> imgList = new ArrayList<>();
 		for (int i = 0; i < jarr.length(); i++) {
@@ -224,6 +225,10 @@ public class ContentService {
 		return imgList;
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77d2ce0edd85efa670ed5dc07cf60339b53f6738
 	private ArrayList<Content> getContentArr(JSONArray jarr, boolean isTv) {
 
 		ArrayList<Content> contentArray = new ArrayList<>();
