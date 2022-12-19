@@ -54,7 +54,7 @@ public class FindController {
 	@PostMapping("/pwd")
 	public String PasswordUpdate(FindForm findForm) {
 		fs.updatePassword(findForm.getC_pwd(), findForm.getC_id());
-		return "redirect:/";
+		return "changePassword";
 	}
 
 }

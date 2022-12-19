@@ -65,13 +65,13 @@ public class CustomerController {
 		return "redirect:/";
 	}
 	@GetMapping("/withdrwal")
-	public String moveToWithdrwalPage(String c_id) {
-		System.out.println("hey");
+	public String moveToWithdrwalPage() {
 		return "member/membershipquit";
 	}
 	@PostMapping("/withdrwal") 
-	public String membershipquit(String c_id) { 
+	public String membershipquit(String c_id,HttpSession session) { 
 		cms.withdrwalMembership(c_id);
+		session.setAttribute(Session.MEMBER_SHIP, "M0");
 		return "redirect:/";
 }
 	

@@ -71,7 +71,7 @@ button {
 </style>
 </head>
 <body>
-<form action="<c:url value="/find/pwd"/>" method="post"  onsubmit ="formCheck(this)">
+<form action="<c:url value="/find/pwd"/>" method="post"  onsubmit ="return check()">
 	<h3 id="title">ChangePassword</h3>
 	<div id="msg">
 		<c:if test="${not empty param.msg}">
@@ -79,18 +79,21 @@ button {
 		</c:if>
 	</div>
 	<input type="text" name = "c_id" value="${c_id}">
-	<input type="password" name="c_pwd" value="${cookie.id.value}" placeholder="パスワード">
-	<input type="password" name="rePassword" placeholder="パスワード確認">
+	<input type="password" id="c_pwd" name="c_pwd" placeholder="パスワード">
+	<input type="password" id="re_pwd" name="rePassword" placeholder="パスワード確認">
 	<input type="hidden" name="toURL" value="${param.toURL}">
 	<button>パスワード変更</button>
 	<script>
-		let pwd = ${password};
-		let cPwd = ${rePassword};
-		if(pwd.equals(cPwd)){
-			return true;
-		}else{
-			return false;
+	
+	function check() {
+		let pwd = document.getElementById("c_pwd");
+		let rpwd = document.getElementById("re_pwd");
+		if(pwd.value != rpwd.value){
+			alert('パスワードとパスワード確認が一致しておりません');
+			return false;		
 		}
+		return true;
+	}
 	</script>
 </form>
 </body>
