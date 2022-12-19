@@ -224,11 +224,6 @@ public class ContentService {
 		return imgList;
 	}
 
-	private String getImg(JSONArray jarr) {
-		JSONObject jo = jarr.getJSONObject(0);
-		return jo.getString("poster_path");
-	}
-
 	private ArrayList<Content> getContentArr(JSONArray jarr, boolean isTv) {
 
 		ArrayList<Content> contentArray = new ArrayList<>();
