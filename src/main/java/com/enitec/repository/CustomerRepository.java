@@ -18,7 +18,7 @@ public interface CustomerRepository extends JpaRepository<Customer, String>{
 	@Query(value="UPDATE enitec.customer SET c_mailcheck ='T' WHERE c_id=:c_id",nativeQuery=true)
 	public void updateMailCheck(@Param("c_id") String c_id);
 	
-	@Query(value="SELECT c_id FROM enitec.customer WHERE c_name=:c_name AND c_birth=:c_birth AND c_phone=:c_phone",nativeQuery=true)
+	@Query(value="SELECT c_id FROM enitec.customer WHERE c_name=:c_name AND c_birth=:c_birth AND c_phone=:c_phone ORDER BY C_ID",nativeQuery=true)
 	public List<String> findByNameAndBirthAndPhone(@Param("c_name") String c_name, @Param("c_birth") String c_birth, @Param("c_phone") String c_phone);
 	
 	@Query(value="SELECT m_code FROM enitec.customer WHERE c_id=:c_id",nativeQuery = true)

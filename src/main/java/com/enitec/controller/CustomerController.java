@@ -21,16 +21,18 @@ import com.enitec.vo.Membership;
 @RequestMapping("/customer")
 @Controller
 public class CustomerController {
+	
 	@Autowired
 	CustomerService cs;
+	
 	@Autowired
 	private MembershipSerivce ms;
+	
 	@Autowired
 	private CustomerMembershipService cms;
 
 	@GetMapping("/info")
 	public String customerinfo(HttpSession session, Model model) {
-		System.out.println("hey");
 		if (!Session.checkLogin(session)) {
 			return "error";
 		}
@@ -73,6 +75,6 @@ public class CustomerController {
 	public String membershipquit(String c_id) { 
 		cms.withdrwalMembership(c_id);
 		return "redirect:/";
-}
+	}
 	
 }

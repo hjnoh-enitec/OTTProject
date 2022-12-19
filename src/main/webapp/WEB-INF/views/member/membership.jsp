@@ -5,6 +5,7 @@
 <%@ page import="java.net.URLDecoder"%>
 <%@ page session="false" %>
 <c:set var="loginId" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}"/>
+<c:set var="m" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('m_code')}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +70,6 @@
 	</style>
 </head>
 <body>
-
 	<input type="hidden" id="isFromLogin" value="${isFromLogin }">
 	<form id="memberForm" action = "/customer/membershipSuccess" onsubmit="return doAction()" method = "post">
 	
@@ -163,7 +163,11 @@
 		}
 		
 		function backToAnywhere(){
-			history.go(-1);
+ 			if(isFromLogin == 'true'){
+           		location.href='/login/logout';
+			}else{
+				history.go(-1);
+			}
 		}
 		
 	</script>
