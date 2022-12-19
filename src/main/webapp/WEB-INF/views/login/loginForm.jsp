@@ -275,11 +275,15 @@ label {
 				},
 				success : function(data) {
 					msg_id.innerHTML = "お客様のメールアドレスは";
+					
 					$.each(data, function(i) {
-						msg_id.innerHTML += data[i];
-						msg_id.innerHTML += document.createElementTagName("<br/>");
+						let pTag = document.createElement("p");
+						pTag.innerHTML = data[i];
+						msg_id.appendChild(pTag);
 					});
 					msg_id.innerHTML += "です。"
+					let dataCnt = data.length;
+					msg_id.style.height = dataCnt *100; 
 				},
 				error : function(error) {
 

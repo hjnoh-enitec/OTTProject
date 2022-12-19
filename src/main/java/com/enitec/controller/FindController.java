@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enitec.form.FindForm;
 import com.enitec.service.FindService;
-import com.enitec.service.MailService;
-import com.enitec.service.TokenService;
 
 @Controller
 @RequestMapping("/find")
@@ -23,10 +21,7 @@ public class FindController {
 
 	@Autowired
 	private FindService fs;
-	@Autowired
-	private TokenService ts;
-	@Autowired
-	private MailService ms;
+
 	
 	@PostMapping("id")
 	@ResponseBody
