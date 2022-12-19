@@ -211,6 +211,7 @@ public class ContentService {
 		return seasonArr;
 	}
 
+
 	private ArrayList<Image> getImgArr(JSONArray jarr) {
 		ArrayList<Image> imgList = new ArrayList<>();
 		for (int i = 0; i < jarr.length(); i++) {
@@ -224,10 +225,6 @@ public class ContentService {
 		return imgList;
 	}
 
-	private String getImg(JSONArray jarr) {
-		JSONObject jo = jarr.getJSONObject(0);
-		return jo.getString("poster_path");
-	}
 
 	private ArrayList<Content> getContentArr(JSONArray jarr, boolean isTv) {
 
