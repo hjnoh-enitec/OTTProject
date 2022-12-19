@@ -13,4 +13,6 @@ public interface HistoryRepository extends JpaRepository<History, String>{
 	public String findSecByPfcodeAndEcode(@Param("pf_code") String pf_code, @Param("e_code") String e_code);
 	@Query(value="select * from enitec.history where pf_code = :pf_code", nativeQuery=true)
 	public ArrayList<History> findAllByProfileCode(@Param("pf_code") String pf_code);
+	@Query(value="SELECT * FROM history WHERE pf_code = :pf_code AND ct_code = :ct_code", nativeQuery = true)
+	public History findHistory(@Param("pf_code") String pf_code, @Param("ct_code") String ct_code);
 }
