@@ -31,7 +31,13 @@ function setProfile(event) {
 }
 
 function createProfile() {
+	let pf_name = document.getElementById("pf_name");
+	if(pf_name == '' || pf_name === undefined || pf_name.value.length == 0){
+		alert('使用するニックネームを入力してください。');
+		return false;
+	}
 	$('#createProfile').submit();
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////
@@ -130,7 +136,7 @@ function enterkey(index,e) {
 					type:'POST',
 					enctype:'multipart/form-data',
 					url:'http://localhost:8000/update',
-					//url:'http://18.183.165.120:8000/update',
+					//url:'http://18.183.223.7:8000/update',
 					data:data,
 					processData:false,
 					contentType:false,
@@ -158,7 +164,6 @@ function enterkey(index,e) {
 					$.ajax({
 						type:'POST',
 						url:'http://localhost:8000/delete',
-						//url:'http://18.183.165.120:8000/delete',
 						data:{"pf_code" : pf_code.value},
 						success:function(data){
 							if(data == 0){

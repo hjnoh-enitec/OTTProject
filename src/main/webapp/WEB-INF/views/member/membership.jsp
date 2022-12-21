@@ -1,15 +1,13 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="java.net.URLDecoder"%>
 <%@ page session="false" %>
 <c:set var="loginId" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}"/>
-<<<<<<< HEAD
 <c:set var="m" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('m_code')}"/>
-=======
 <c:set var="m_code" value="${request.getSession(false)==''?'':pageContext.request.session.getAttribute('m_code') }"/>
->>>>>>> 2882bee6505bdf1e7db99e405b2e0719fd2c5c11
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,12 +72,8 @@
 	</style>
 </head>
 <body>
-<<<<<<< HEAD
 	<input type="hidden" id="isFromLogin" value="${isFromLogin }">
-	<form id="memberForm" action = "/customer/membershipSuccess" onsubmit="return doAction()" method = "post">
-=======
 	<form id="memberForm" action = "/customer/membershipSuccess" method = "post">
->>>>>>> 2882bee6505bdf1e7db99e405b2e0719fd2c5c11
 	
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		

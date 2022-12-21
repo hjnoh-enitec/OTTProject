@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
@@ -11,7 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/login.css?ver=1">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-
 <title>Register</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
@@ -23,33 +23,25 @@
 			</div>
 			<div class="form">
 				<form:form action="/register/signup" method="post"
-					 onchange="validInsert()" onkeypress="activeBtn()" id="f">
+					onchange="validInsert()" oninput="activeBtn()" id="f">
 					<input type="hidden" name="M_CODE" value="M0">
 					<div class=idDupl>
 						<button id="checkDuplBtn" type="button" onclick="idCheck()">IDチェック</button>
 						<h5 class="idDuplMsg" id="idDuplMsg" style="color: red;"></h5>
 					</div>
 					
-					
 					<input class="input-field" type="text" id="c_id" name="c_id"
-						placeholder="E-MAIL">
-					<input class="input-field" type="password" id="c_pwd" name="c_pwd"
-						placeholder="パスワード">
-					<input class="input-field" type="password" id="c_pwd2" name="c_pwd2"
-						placeholder="再入力してください">
-					<input class="input-field" type="text" id="c_name" name="c_name"
-						placeholder="木村太郎">
-						
-					<input class="input-field" type="text" name="c_phone" id ="c_phone"
-						placeholder="`-`なし　例）09012345678"  maxlength="11" pattern="[0-9]+">
-					<input class="input-field" type="text" name="c_birth" id = "c_birth"
-						placeholder="例)1990年06月02日 → 19900602"  maxlength="8" pattern="[0-9]+">	
-					<!-- 
-					<input class="input-field" type="number" id="c_phone" name="c_phone"
-						placeholder="`-`なし　例）09012345678">
-					<input class="input-field" type="text" id="c_birth" name="c_birth"
-						placeholder="例)1990年06月02日 → 19900602">
-						 -->
+						placeholder="E-MAIL(最大25文字))" maxlength="25">
+					<input class="input-field" type="password" name="c_pwd"
+						placeholder="パスワード"  maxlength="20">
+					<input class="input-field" type="password" name="c_pwd2"
+						placeholder="再入力してください"  maxlength="20">
+					<input class="input-field" type="text" name="c_name"
+						placeholder="木村太郎"  maxlength="10">
+					<input class="input-field" type="number" name="c_phone" id ="c_phone"
+						placeholder="`-`なし　例）09012345678"  maxlength="11">
+					<input class="input-field" type="number" name="c_birth" id = "c_birth"
+						placeholder="例)1990年06月02日 → 19900602"  maxlength="8" >
 					<div class="msg" id="idCheckMsg"
 						style="margin-bottom: 0px, width: 300px;">IDチェックをした上に登録してください</div>
 					<button type="submit" id="submitBtn" disabled onclick="return validate()">新規登録</button>
@@ -66,11 +58,23 @@
 	const checkDuplBtn = document.getElementById("checkDuplBtn");
 	const f = document.getElementById("f");
 	function activeBtn(){
-	   if(f.c_id.value.length>0
-			   &&f.c_pwd.value.length>0
+		let phoneVal = document.getElementById("c_phone");
+		let birthVal = document.getElementById("c_birth");
+		const phoneVali = 11;
+		const birthVali = 8;
+		if (phoneVal.value.length >phoneVali ) {
+			phoneVal.value = phoneVal.value.substring(0,phoneVali);
+		}
+		if (birthVal.value.length >birthVali ) {
+			birthVal.value = birthVal.value.substring(0,birthVali);
+		}
+		
+	   if(f.c_id.value.length>3
+			   &&f.c_pwd.value.length>3
+			   &&f.c_pwd.value===f.c_pwd2.value
 			   &&f.c_name.value.length>0
-			   &&f.c_phone.value.length>0
-			   &&f.c_birth.value.length>0
+			   &&f.c_phone.value.length===11
+			   &&f.c_birth.value.length===8
 			   &&checkDuplBtn.disabled
 			   ){
 		   submitBtn.disabled = false;
@@ -79,33 +83,32 @@
 		   submitBtn.disabled = true;
 		   submitBtn.style.backgroundColor='rgb(126, 126, 126)';
 	   }
+		
    }
 	
    function validInsert() {
-	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	   
+	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	  
 	   if(f.c_id.value.match(emailCheck) == null){
 		   setMessage('正しいメール形式を入力して下さい', f.c_id);
-		   
 	   }
-	   else if(f.c_pwd2.value>0 && f.c_pwd.value!==f.c_pwd2.value) {　
+	   else if(f.c_pwd2.value.length>0 && f.c_pwd.value!==f.c_pwd2.value) {　
            setMessage('pwdが一致しません', f.c_pwd2);
        }
        else{
-       	deleteMessage();
+    	   setMessage("");
        }
 	   activeBtn();
   }
-   
   function setMessage(msg, element){
        document.getElementById("idCheckMsg").innerHTML = msg;
        if(element) {
            element.select();
        }
   }
-  
   function setMessage(msg){
       document.getElementById("idCheckMsg").innerHTML = msg;
  }
+<<<<<<< HEAD
   
   function deleteMessage(){
 	   document.getElementById("idCheckMsg").innerHTML = ``;
@@ -113,6 +116,8 @@
   
   
   
+=======
+>>>>>>> ff89522fa47d8973c07ab80f5a5ea87d9bf1710a
   function idCheck() {
 		var c_id = document.getElementById("c_id");
 		let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -120,7 +125,6 @@
 			$.ajax({
 				type :'post',
 				url : "http://localhost:8000/checkId",
-
 				async : false,
 				data : {
 					"customer" : c_id.value
@@ -136,7 +140,6 @@
 					checkDuplBtn.disabled=true;
 					checkDuplBtn.style.backgroundColor='rgb(126, 126, 126)';
 					document.getElementById("c_id").readOnly=true;
-					document.getElementById("idCheckMsg").style.display = "none";
 					}
 				},
 				error : function(request, status, error) {
@@ -151,7 +154,7 @@
 	  	
 	activeBtn();
   }
-  
+
   function validate() {
 		 let id = document.getElementById("c_id");
 		 let pwd = document.getElementById("c_pwd");
@@ -180,7 +183,7 @@
 		 }
 		 return true;
 	}
-  
+
    </script>
 </body>
 </html>

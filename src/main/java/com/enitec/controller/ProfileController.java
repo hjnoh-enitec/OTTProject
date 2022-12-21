@@ -31,9 +31,6 @@ public class ProfileController {
 	private ProfileService ps;
 
 	@Autowired
-	private FileSaveService fss;
-	
-	@Autowired
 	private CustomerService customerServ;
 
 	@GetMapping("/select")
@@ -76,19 +73,11 @@ public class ProfileController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/update")
-	public String moveProfileUpdatePage(HttpSession session, Model model) {
-		if (!Session.checkLogin(session)) {
-			return "redirect:/";
-		}
-		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
-		model.addAttribute("profileList", profileList);
-		return "/profile/profileUpdate";
-	}
 
 	@PostMapping("/create")
 	public String createProfile(CreateProfileForm createProfileForm,  HttpSession session,
 			HttpServletResponse res, MultipartFile fileUpload) {
+		FileSaveService fss = new FileSaveService();
 		Profile profile = new Profile();
 		String profilePath = "";
 		String thumbnailPath = "";

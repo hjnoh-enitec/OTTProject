@@ -1,12 +1,9 @@
 var findIdForm = document.getElementById("findIdForm");
 var findPWForm = document.getElementById("findPWForm");
-
 var c_name = document.getElementById("c_name");
 var c_birth = document.getElementById("c_birth");
 var c_phone = document.getElementById("c_phone");
-
 var c_id = document.getElementById("c_id");
-
 		function findID() {
 			findIdForm.setAttribute("onsubmit", "return doAction()");
 			findIdForm.setAttribute("method", "post");
@@ -17,7 +14,6 @@ var c_id = document.getElementById("c_id");
 			findPWForm.setAttribute("onsubmit", "return formCheck(this);");
 			findPWForm.setAttribute("method", "post");
 		}
-
 		document.getElementById("modal_open_btn_findID").onclick = function() {
 			document.getElementById("modal-findID").style.display = "flex";
 			msg_id.innerHTML = "";
@@ -27,9 +23,7 @@ var c_id = document.getElementById("c_id");
 			document.getElementById("modal-findPW").style.display = "flex";
 			msg_pw.innerHTML = "";
 		}
-
 		var msg = document.getElementById("msg");
-
 		function closeFindID() {
 			document.getElementById("modal-findID").style.display = "none";
 			c_name.value = "";
@@ -41,30 +35,24 @@ var c_id = document.getElementById("c_id");
 			document.getElementById("modal-findPW").style.display = "none";
 			c_id.value = "";
 		}
-
 		function doAction() {
 			var nameVal = document.getElementById("c_name").value;
 			var birthVal = document.getElementById("c_birth").value;
 			var phoneVal = document.getElementById("c_phone").value;
-
 			let birthRegex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
-			let phoneRegex = new RegExp('^(0[1|7|8|9][0])([0-9]{4})([0-9]{4})$');
-
-			if (nameVal.length < 3) {
+			let phoneRegex = new RegExp('^(0[7|8|9][0])([0-9]{4})([0-9]{4})$');
+			if (nameVal.length　< 1) {
 				msg_id.innerHTML = "check name";
 				return false;
 			}
-
 			if (birthVal.length != 8 || birthRegex.test(birthVal) == false) {
 				msg_id.innerHTML = "check birth";
 				return false;
 			}
-
 			if (phoneRegex.test(phoneVal) == false) {
 				msg_id.innerHTML = "check phone";
 				return false;
 			}
-
 			$.ajax({
 				type : 'post',
 				url : "http://localhost:8000/find/id",
@@ -96,10 +84,8 @@ var c_id = document.getElementById("c_id");
 					
 				},
 				error : function(error) {
-
 				}
 			})
-
 			return false;
 		}
 		
@@ -118,6 +104,5 @@ var c_id = document.getElementById("c_id");
 			}
 			
 			alert(c_id.value + "にメールを発送しました。");
-
 			return true;
 		}

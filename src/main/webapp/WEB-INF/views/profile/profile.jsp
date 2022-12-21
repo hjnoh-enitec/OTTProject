@@ -29,13 +29,13 @@
 					<input type='hidden' name='c_id' value='${c_id }'> <input
 						type="hidden" name="pf_code" value="${pf_code}"> <label
 						class='profile-name'>プロフィール名</label> <input type='text'
-						name='pf_name'><br />
+						id="pf_name" name='pf_name' maxlength="10"><br />
 					<div class='profile-card' id='profile-image'>
 						<img src='/img/baseImage/basicProfileImage.jpg' id='fileUpload' />
 					</div>
 					<input type='file' name='fileUpload' accept='.jpg,.png'
 						onchange='setProfile(event)' />
-					<button id='buttonInForm' onclick="createProfile()">プロフィール作成</button>
+					<button id='buttonInForm' onclick="return createProfile()">プロフィール作成</button>
 				</form>
 			</div>
 
@@ -63,7 +63,7 @@
 								<input type="text" class="profileName" name="name"
 									id="name${status.index }" value="${profile.pf_name }"
 									readonly="readonly"
-									onkeypress="enterkey(${status.index},event)">
+									onkeypress="enterkey(${status.index},event)" maxlength="10">
 							</div>
 							<div class="btnSpace">
 								<button class="nameChangebtn" id="nameChange${status.index }"
@@ -97,7 +97,6 @@
 					</div>
 				</c:forEach>
 			</div>
-
 		</div>
 
 	</div>

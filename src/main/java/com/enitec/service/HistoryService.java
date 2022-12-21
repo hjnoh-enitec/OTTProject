@@ -11,6 +11,7 @@ import com.enitec.repository.HistoryRepository;
 import com.enitec.vo.History;
 
 @Service
+@Transactional
 public class HistoryService {
 
 	@Autowired
