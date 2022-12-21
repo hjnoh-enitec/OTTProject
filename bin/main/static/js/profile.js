@@ -80,6 +80,10 @@ function enterkey(index,e) {
 			let sendUpdateBtn = document.getElementById("profileUpdateBtn"+ index);
 			let sendDeleteBtn = document.getElementById("profileDeleteBtn"+ index);
 			let cancelBtn = document.getElementById("cancel"+index);
+			if(showProfileName.value.length < 1){
+				alert('ニックネームを入力してください。');
+				return false;	
+			}
 			updateBtn.style.display = 'block';
 			acceptBtn.style.display = 'none';
 			cancelBtn.style.display = 'none';
@@ -92,6 +96,7 @@ function enterkey(index,e) {
 				sendUpdateBtn.style.display = 'block';
 				sendDeleteBtn.style.display = 'none';
 			}
+			return true;
 		}
 		function nameChange(index) {
 			let updateBtn = document.getElementById("nameChange" + index);

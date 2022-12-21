@@ -73,7 +73,7 @@
 								<button class="cancelbtn" id="cancel${status.index }"
 									onclick="cancel(${status.index})">x</button>
 								<button class="acceptbtn" id="changeAccept${status.index }"
-									onclick="accept(${status.index})">o</button>
+									onclick="return accept(${status.index})">o</button>
 							</div>
 							
 						</div>
