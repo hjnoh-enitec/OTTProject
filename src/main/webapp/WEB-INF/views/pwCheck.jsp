@@ -81,7 +81,7 @@
 			let msg ='';
 			if(frm.c_pwd.value.length==0) {
 				setMessage('PWを入力してください', frm.c_pwd);
-				return false;
+				return false;	
 			}
 			return true;
 		}
