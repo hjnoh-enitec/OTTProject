@@ -41,7 +41,7 @@ var c_id = document.getElementById("c_id");
 			var phoneVal = document.getElementById("c_phone").value;
 			let birthRegex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
 			let phoneRegex = new RegExp('^(0[7|8|9][0])([0-9]{4})([0-9]{4})$');
-			if (nameVal.length　< 1) {
+			if (nameVal.length　< 1 || nameVal.length > 10) {
 				msg_id.innerHTML = "check name";
 				return false;
 			}

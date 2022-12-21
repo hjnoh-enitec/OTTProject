@@ -29,22 +29,21 @@
 						<button id="checkDuplBtn" type="button" onclick="idCheck()">IDチェック</button>
 						<h5 class="idDuplMsg" id="idDuplMsg" style="color: red;"></h5>
 					</div>
-					
 					<input class="input-field" type="text" id="c_id" name="c_id"
 						placeholder="E-MAIL(最大25文字))" maxlength="25">
 					<input class="input-field" type="password" name="c_pwd"
-						placeholder="パスワード"  maxlength="20">
+						placeholder="パスワード" maxlength="20">
 					<input class="input-field" type="password" name="c_pwd2"
-						placeholder="再入力してください"  maxlength="20">
+						placeholder="再入力してください" maxlength="20">
 					<input class="input-field" type="text" name="c_name"
-						placeholder="木村太郎"  maxlength="10">
-					<input class="input-field" type="number" name="c_phone" id ="c_phone"
-						placeholder="`-`なし　例）09012345678"  maxlength="11">
-					<input class="input-field" type="number" name="c_birth" id = "c_birth"
-						placeholder="例)1990年06月02日 → 19900602"  maxlength="8" >
+						placeholder="木村太郎" maxlength="10">
+					<input class="input-field" type="number" name="c_phone"
+						id="c_phone" placeholder="`-`なし　例）09012345678" maxlength="11">
+					<input class="input-field" type="number" name="c_birth"
+						id="c_birth" placeholder="例)1990年06月02日 → 19900602" maxlength="8">
 					<div class="msg" id="idCheckMsg"
 						style="margin-bottom: 0px, width: 300px;">IDチェックをした上に登録してください</div>
-					<button type="submit" id="submitBtn" disabled onclick="return validate()">新規登録</button>
+					<button type="submit" id="submitBtn" disabled>新規登録</button>
 					<button type="button" id="backPage" onclick="gomain()">メインページへ</button>
 				</form:form>
 			</div>
@@ -68,7 +67,6 @@
 		if (birthVal.value.length >birthVali ) {
 			birthVal.value = birthVal.value.substring(0,birthVali);
 		}
-		
 	   if(f.c_id.value.length>3
 			   &&f.c_pwd.value.length>3
 			   &&f.c_pwd.value===f.c_pwd2.value
@@ -79,15 +77,15 @@
 			   ){
 		   submitBtn.disabled = false;
 		   submitBtn.style.backgroundColor='rgb(50, 200, 196)';
-	   }else{
+	   }
+	   else{
 		   submitBtn.disabled = true;
 		   submitBtn.style.backgroundColor='rgb(126, 126, 126)';
 	   }
-		
    }
 	
    function validInsert() {
-	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	  
+	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	 
 	   if(f.c_id.value.match(emailCheck) == null){
 		   setMessage('正しいメール形式を入力して下さい', f.c_id);
 	   }
@@ -108,18 +106,8 @@
   function setMessage(msg){
       document.getElementById("idCheckMsg").innerHTML = msg;
  }
-<<<<<<< HEAD
-  
-  function deleteMessage(){
-	   document.getElementById("idCheckMsg").innerHTML = ``;
-  }
-  
-  
-  
-=======
->>>>>>> ff89522fa47d8973c07ab80f5a5ea87d9bf1710a
   function idCheck() {
-		var c_id = document.getElementById("c_id");
+		const c_id = document.getElementById("c_id");
 		let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		if(c_id.value.match(regex) != null){
 			$.ajax({
@@ -154,36 +142,6 @@
 	  	
 	activeBtn();
   }
-
-  function validate() {
-		 let id = document.getElementById("c_id");
-		 let pwd = document.getElementById("c_pwd");
-		 let cPwd = document.getElementById("c_pwd2");
-		 let name = document.getElementById("c_name");
-		 let phone = document.getElementById("c_phone");
-		 let birth = document.getElementById("c_birth");
-		 let regex = "/\s/g";
-		 if(id.value.length > 30 && id.value.match(regex)){
-			 return false;
-		 }
-		 if(pwd.value.length < 3 && pwd.value.length > 16 && pwd.value.match(regex)){
-			 return false;
-		 }
-		 if(pwd.value !== cPwd.value){
-			 return false;
-		 }
-		 if(name.value.length > 10 && name.value.match(regex)){
-			 return false;
-		 }
-		 if(phone.value.length != 11 && phone.value.match(regex)){
-			 return false;
-		 }
-		 if(birth.value.length != 8 birth.value.match(regex)){
-			 return false;
-		 }
-		 return true;
-	}
-
    </script>
 </body>
 </html>
