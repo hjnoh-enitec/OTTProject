@@ -126,9 +126,11 @@
 					<input type="submit" onclick="javascript: form.action='/customer/modifyMembership'" value="メンバーシップ申込＆修正">
 				</td>
 				<td>
+				
 					<c:if test="${customer.m_code == null || customer.m_autopay == 'F'}">
 						<input type="submit" value="メンバーシップ脱退" id="quitMembership" disabled="disabled">
 					</c:if>
+				
 					<c:if test="${customer.m_code != null && customer.m_autopay == 'T'}">
 						<input type="submit" onclick="javascript: form.action='/customer/withdrwal'" value="メンバーシップ脱退" id="quitMembership">
 					</c:if>

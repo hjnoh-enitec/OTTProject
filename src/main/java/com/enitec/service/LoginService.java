@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.enitec.repository.CustomerRepository;
-
-@Service
 @Transactional
+@Service
 public class LoginService {
 	@Autowired
 	private CustomerRepository cr;

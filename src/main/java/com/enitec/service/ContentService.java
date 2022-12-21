@@ -46,27 +46,25 @@ public class ContentService {
 	String BASE_URL = "https://api.themoviedb.org/3";
 	String BASE_LANG = "ja";
 	String BASE_REGION = "JP";
-
-	
+	@Transactional
 	public ArrayList<Content> getMovie() {
 		return ctr.getMovie();
 	}
-	
+	@Transactional
 	public ArrayList<Content> getTv() {
 		return ctr.getTv();
 	}
-	
 	public ArrayList<Image> getImgList(String middleURL, String requestSet, String page) {
 		JSONArray jarr = getJsonArray(middleURL, requestSet, page);
 		ArrayList<Image> imgList = getImgArr(jarr);
 		Collections.sort(imgList);
 		return imgList;
 	}
-	
+	@Transactional
 	public Content getContent(String ct_code) {
 		return ctr.findById(ct_code).orElse(null);
 	}
-	
+
 	public ArrayList<History> getPlayedList(String pf_code) {
 		ArrayList<History> historyArr = hr.findAllByProfileCode(pf_code);
 		String middleURL = "";
@@ -99,7 +97,7 @@ public class ContentService {
 		return historyArr;
 
 	}
-	
+	@Transactional
 	private JSONArray getJsonArray(String middleURL, String resultSet, String page) {
 
 		try {
@@ -124,7 +122,7 @@ public class ContentService {
 			return null;
 		}
 	}
-
+	@Transactional
 	private JSONObject getJsonObject(String middleURL, String page) {
 
 		try {
@@ -148,7 +146,7 @@ public class ContentService {
 			return null;
 		}
 	}
-
+	@Transactional
 	public void deleteEveryContent() {
 		ctr.deleteAll();
 	}
@@ -167,7 +165,7 @@ public class ContentService {
 		saveSeasonArrayList(seasonArr);
 		saveEpisodeArrayList(episodeArr);
 	}
-	
+	@Transactional
 	private ArrayList<Episode> getEpisodesList(ArrayList<Season> season) {
 		ArrayList<Episode> episodeArr = new ArrayList<>();
 		for (int i = 0; i < season.size(); i++) {
@@ -192,7 +190,7 @@ public class ContentService {
 		}
 		return episodeArr;
 	}
-
+	@Transactional
 	private ArrayList<Season> getSeasonList(ArrayList<Content> tv) {
 		ArrayList<Season> seasonArr = new ArrayList<Season>();
 
@@ -213,7 +211,7 @@ public class ContentService {
 		return seasonArr;
 	}
 
-
+	@Transactional
 	private ArrayList<Image> getImgArr(JSONArray jarr) {
 		ArrayList<Image> imgList = new ArrayList<>();
 		for (int i = 0; i < jarr.length(); i++) {
@@ -227,6 +225,7 @@ public class ContentService {
 		return imgList;
 	}
 
+	@Transactional
 	private ArrayList<Content> getContentArr(JSONArray jarr, boolean isTv) {
 
 		ArrayList<Content> contentArray = new ArrayList<>();
@@ -266,27 +265,27 @@ public class ContentService {
 		}
 		return contentArray;
 	}
-
+	@Transactional
 	private void saveArrayListInDb(ArrayList<Content> target) {
 		for (int i = 0; i < target.size(); i++) {
 			ctr.save(target.get(i));
 		}
 	}
-
+	@Transactional
 	private void saveSeasonArrayList(ArrayList<Season> target) {
 		for (int i = 0; i < target.size(); i++) {
 			sr.save(target.get(i));
 		}
 
 	}
-
+	@Transactional
 	private void saveEpisodeArrayList(ArrayList<Episode> target) {
 		for (int i = 0; i < target.size(); i++) {
 			er.save(target.get(i));
 		}
 	}
 
-	
+	@Transactional
 	public List<Content> search(String keyword){
 		return ctr.findByCt_titleContaining(keyword);
 	}

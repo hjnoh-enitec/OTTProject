@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enitec.service.CustomerService;
 import com.enitec.service.LoginService;
@@ -35,14 +36,14 @@ public class LoginContorller {
 	}
 
 	@PostMapping("/login")
-	public String login(String c_id, String c_pwd, String toURL, boolean rememberId, HttpServletRequest request, HttpServletResponse res) {
+	public String login(String c_id, String c_pwd, String toURL, boolean rememberId, HttpServletRequest request, HttpServletResponse res,RedirectAttributes redirect) {
 		String mailCheck = mailCheck(c_id, c_pwd);
 		if ("F".equals(mailCheck)) {
 			request.setAttribute("c_id", c_id);
 			return "notifyMailCheck";
 		} else if (mailCheck == null) {
 			String msg = "IDまたはパスワードが一致しません";
-			request.setAttribute("msg", msg);
+			redirect.addAttribute("msg",msg);
 			return "redirect:/login/login";
 		}
 		//session生成

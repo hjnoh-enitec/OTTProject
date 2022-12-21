@@ -18,14 +18,17 @@
 	height: 100%;
 	z-index: 1;
 }
+
 #modal-findID h2 {
 	margin: 0;
 }
+
 #modal-findID button {
 	display: inline-block;
 	width: 100px;
 	margin-left: calc(100% - 100px - 10px);
 }
+
 #modal-findID .modal_content {
 	width: 350px;
 	height: 500px;
@@ -34,6 +37,7 @@
 	background: #fff;
 	border: 2px solid #666;
 }
+
 #modal-findID .modal_layer {
 	position: fixed;
 	top: 0;
@@ -43,6 +47,7 @@
 	background: rgba(0, 0, 0, 0.5);
 	z-index: -1;
 }
+
 #modal-findPW {
 	display: none;
 	position: absolute;
@@ -50,14 +55,17 @@
 	height: 100%;
 	z-index: 1;
 }
+
 #modal-findPW h2 {
 	margin: 0;
 }
+
 #modal-findPW button {
 	display: inline-block;
 	width: 100px;
 	margin-left: calc(100% - 100px - 10px);
 }
+
 #modal-findPW .modal_content {
 	width: 350px;
 	height: 500px;
@@ -66,6 +74,7 @@
 	background: #fff;
 	border: 2px solid #666;
 }
+
 #modal-findPW .modal_layer {
 	position: fixed;
 	top: 0;
@@ -75,6 +84,7 @@
 	background: rgba(0, 0, 0, 0.5);
 	z-index: -1;
 }
+
 .input-field {
 	width: 300px;
 	height: 40px;
@@ -83,17 +93,23 @@
 	padding: 0 10px;
 	margin-bottom: 10px;
 }
+
 label {
 	width: 300px;
 	height: 30px;
 	margin-top: 4px;
 }
+
 #title-findID {
 	font-size: 25px;
 }
 </style>
 </head>
 <body>
+<!-- ----------------------------------------------------------------------------------------Modal(FindID)-------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
 	<div class="LoginSection">
 		<div id="modal-findID">
 			<div class="modal_content">
@@ -118,21 +134,24 @@ label {
 						<button id="modal_close_btn" onclick="closeFindID()">戻る</button>
 					</div>
 				</form>
-				<br>
-				<br>
-				<br>
+				<br> <br> <br>
 				<div>
 					<h2 id="msg_id"></h2>
 				</div>
 			</div>
 		</div>
+<!-- ----------------------------------------------------------------------------------------Modal(FindPWD)-------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 		<div id="modal-findPW">
 			<div class="modal_content">
 				<form id="findPWForm">
 					<h3 id="title">メールアドレスを入力してください。</h3>
 					<div style="text-align: center; height: 70px;">
-						<input type="text" id="c_id" name="c_id" value="" placeholder="E-MAIL" autofocus style="width: 320px; height: 50px;">
-						<input type="hidden" name="toURL" value="${param.toURL}">
+						<input type="text" id="c_id" name="c_id" value=""
+							placeholder="E-MAIL" autofocus
+							style="width: 320px; height: 50px;"> <input type="hidden"
+							name="toURL" value="${param.toURL}">
 					</div>
 					<div style="height: 50px;">
 						<button onclick="findPW()" style="margin: auto; width: 330px;">認証メール発送</button>
@@ -141,42 +160,46 @@ label {
 						<button id="modal_close_btn" onclick="closeFindPW()">戻る</button>
 					</div>
 				</form>
-				<br>
-				<br>
-				<br>
+				<br> <br> <br>
 				<div>
 					<h2 id="msg_pw"></h2>
 				</div>
 			</div>
 		</div>
+<!-- ----------------------------------------------------------------------------------------Login-------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->		
 		<div class="LoginDiv">
 			<div class="title">
 				<h1>LogIn</h1>
 			</div>
+			<div class="title">
+				<h3 id="loginMsg" style="color:red;">${param.msg}</h3>
+			</div>
 			<div class="form">
-				<form action="/login/login" method="post" id="f">
+				<form action="/login/login" method="post" id="f" oninput="LoginCheck()">
 					<input type="hidden" name="toURL" value="${toURL}" />
 					<p>
-						<input type="text" name="c_id" value="${cookie.c_id.value}"
+						<input type="text" name="c_id" id="loginC_id" value="${cookie.c_id.value}"
 							placeholder="E-MAIL" autofocus>
 					</p>
 					<p>
-						<input type="password" name="c_pwd" placeholder="パスワード"> <br>
+						<input type="password" name="c_pwd" id="c_pwd" placeholder="パスワード"> <br>
 						<font color="white" id="emptycheck"></font>
 					</p>
 					<p>
-					<input type="submit" value="LogIn">
-					<br>
-					
-					<input type="checkbox" id="check" name="rememberId" value="on" ${empty cookie.c_id.value ? "":"checked"}>
-					<label for="check">ID保存</label>
+						<input type="submit" value="LogIn"> <br> <input
+							type="checkbox" id="check" name="rememberId" value="on"
+							${empty cookie.c_id.value ? "":"checked"}> <label
+							for="check">ID保存</label>
 					<p>
 						<br>
 				</form>
 			</div>
 			<div class="joinQ">
-				<a href="/register/signup">新規登録</a> <br /> <a id="modal_open_btn_findID">IDを忘れた方</a>
-				| <a id="modal_open_btn_findPW">パスワードを忘れた方</a> | <a href="/">戻る</a>
+				<a href="/register/signup">新規登録</a> <br /> <a
+					id="modal_open_btn_findID">IDを忘れた方</a> | <a
+					id="modal_open_btn_findPW">パスワードを忘れた方</a> | <a href="/">戻る</a>
 			</div>
 		</div>
 	</div>

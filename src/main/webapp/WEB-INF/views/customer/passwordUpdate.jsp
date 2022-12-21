@@ -79,8 +79,8 @@ button {
 		</c:if>
 	</div>
 	<input type="text" name = "c_id" value="${c_id}">
-	<input type="password" id="c_pwd" name="c_pwd" placeholder="パスワード" maxlength="20">
-	<input type="password" id="re_pwd" name="rePassword" placeholder="パスワード確認" maxlength="20">
+	<input type="password" id="c_pwd" name="c_pwd" placeholder="パスワード">
+	<input type="password" id="re_pwd" name="rePassword" placeholder="パスワード確認">
 	<input type="hidden" name="toURL" value="${param.toURL}">
 	<button>パスワード変更</button>
 	<script>
@@ -88,15 +88,15 @@ button {
 	function check() {
 		let pwd = document.getElementById("c_pwd");
 		let rpwd = document.getElementById("re_pwd");
-		if(pwd.value.length == 0){
-			alert('パスワードを入力してください。');
+		if(pwd.value.length == 0 || rpwd.value.length == 0){
+			alert('パスワードまたはパスワード確認を入力してください。');
 			return false;
 		}
 		if(pwd.value.length < 4 || pwd.value.length > 20){
-			alert('パスワードは4字以上20字以下でお願いします。');
+			alert('パスワードは3字以上20字以下でお願いします。');
 			return false;
 		}
-		if(pwd.value !== rpwd.value){
+		if(pwd.value != rpwd.value){
 			alert('パスワードとパスワード確認が一致しておりません');
 			return false;		
 		}

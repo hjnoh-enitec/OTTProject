@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.enitec.repository.HistoryRepository;
 import com.enitec.vo.History;
-
-@Service
 @Transactional
+@Service
 public class HistoryService {
 
 	@Autowired

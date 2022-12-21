@@ -67,6 +67,7 @@
 		if (birthVal.value.length >birthVali ) {
 			birthVal.value = birthVal.value.substring(0,birthVali);
 		}
+
 	   if(f.c_id.value.length>3
 			   &&f.c_pwd.value.length>3
 			   &&f.c_pwd.value===f.c_pwd2.value
@@ -82,10 +83,11 @@
 		   submitBtn.disabled = true;
 		   submitBtn.style.backgroundColor='rgb(126, 126, 126)';
 	   }
+
    }
 	
    function validInsert() {
-	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	 
+	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	  
 	   if(f.c_id.value.match(emailCheck) == null){
 		   setMessage('正しいメール形式を入力して下さい', f.c_id);
 	   }
@@ -106,6 +108,7 @@
   function setMessage(msg){
       document.getElementById("idCheckMsg").innerHTML = msg;
  }
+
   function idCheck() {
 		const c_id = document.getElementById("c_id");
 		let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;

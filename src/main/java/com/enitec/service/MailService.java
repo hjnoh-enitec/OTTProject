@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 import com.enitec.vo.Mail;
 
 import lombok.extern.slf4j.Slf4j;
-
+@Transactional
 @Service
 @Slf4j
-@Transactional
 public class MailService {
 
 	@Autowired
