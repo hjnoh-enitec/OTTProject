@@ -130,6 +130,7 @@ function enterkey(index,e) {
 					type:'POST',
 					enctype:'multipart/form-data',
 					url:'http://localhost:8000/update',
+					//url:'http://18.183.165.120:8000/update',
 					data:data,
 					processData:false,
 					contentType:false,
@@ -157,6 +158,7 @@ function enterkey(index,e) {
 					$.ajax({
 						type:'POST',
 						url:'http://localhost:8000/delete',
+						//url:'http://18.183.165.120:8000/delete',
 						data:{"pf_code" : pf_code.value},
 						success:function(data){
 							if(data == 0){

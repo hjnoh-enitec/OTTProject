@@ -23,27 +23,36 @@
 			</div>
 			<div class="form">
 				<form:form action="/register/signup" method="post"
-					onchange="validInsert()" onkeypress="activeBtn()" id="f">
+					 onchange="validInsert()" onkeypress="activeBtn()" id="f">
 					<input type="hidden" name="M_CODE" value="M0">
 					<div class=idDupl>
 						<button id="checkDuplBtn" type="button" onclick="idCheck()">IDチェック</button>
 						<h5 class="idDuplMsg" id="idDuplMsg" style="color: red;"></h5>
 					</div>
+					
+					
 					<input class="input-field" type="text" id="c_id" name="c_id"
 						placeholder="E-MAIL">
-					<input class="input-field" type="password" name="c_pwd"
+					<input class="input-field" type="password" id="c_pwd" name="c_pwd"
 						placeholder="パスワード">
-					<input class="input-field" type="password" name="c_pwd2"
+					<input class="input-field" type="password" id="c_pwd2" name="c_pwd2"
 						placeholder="再入力してください">
-					<input class="input-field" type="text" name="c_name"
+					<input class="input-field" type="text" id="c_name" name="c_name"
 						placeholder="木村太郎">
-					<input class="input-field" type="number" name="c_phone"
+						
+					<input class="input-field" type="text" name="c_phone" id ="c_phone"
+						placeholder="`-`なし　例）09012345678"  maxlength="11" pattern="[0-9]+">
+					<input class="input-field" type="text" name="c_birth" id = "c_birth"
+						placeholder="例)1990年06月02日 → 19900602"  maxlength="8" pattern="[0-9]+">	
+					<!-- 
+					<input class="input-field" type="number" id="c_phone" name="c_phone"
 						placeholder="`-`なし　例）09012345678">
-					<input class="input-field" type="text" name="c_birth"
+					<input class="input-field" type="text" id="c_birth" name="c_birth"
 						placeholder="例)1990年06月02日 → 19900602">
+						 -->
 					<div class="msg" id="idCheckMsg"
 						style="margin-bottom: 0px, width: 300px;">IDチェックをした上に登録してください</div>
-					<button type="submit" id="submitBtn" disabled>新規登録</button>
+					<button type="submit" id="submitBtn" disabled onclick="return validate()">新規登録</button>
 					<button type="button" id="backPage" onclick="gomain()">メインページへ</button>
 				</form:form>
 			</div>
@@ -103,8 +112,9 @@
   }
   
   
+  
   function idCheck() {
-		const c_id = document.getElementById("c_id");
+		var c_id = document.getElementById("c_id");
 		let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		if(c_id.value.match(regex) != null){
 			$.ajax({
@@ -141,7 +151,36 @@
 	  	
 	activeBtn();
   }
-
+  
+  function validate() {
+		 let id = document.getElementById("c_id");
+		 let pwd = document.getElementById("c_pwd");
+		 let cPwd = document.getElementById("c_pwd2");
+		 let name = document.getElementById("c_name");
+		 let phone = document.getElementById("c_phone");
+		 let birth = document.getElementById("c_birth");
+		 let regex = "/\s/g";
+		 if(id.value.length > 30 && id.value.match(regex)){
+			 return false;
+		 }
+		 if(pwd.value.length < 3 && pwd.value.length > 16 && pwd.value.match(regex)){
+			 return false;
+		 }
+		 if(pwd.value !== cPwd.value){
+			 return false;
+		 }
+		 if(name.value.length > 10 && name.value.match(regex)){
+			 return false;
+		 }
+		 if(phone.value.length != 11 && phone.value.match(regex)){
+			 return false;
+		 }
+		 if(birth.value.length != 8 birth.value.match(regex)){
+			 return false;
+		 }
+		 return true;
+	}
+  
    </script>
 </body>
 </html>
