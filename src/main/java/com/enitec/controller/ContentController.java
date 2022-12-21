@@ -49,10 +49,12 @@ public class ContentController {
 			ArrayList<History> playedList = cts.getPlayedList(pf_code);
 			model.addAttribute("playedList",playedList);
 		}
+		//데이터베이스에서 더미데이터 호출
 		ArrayList<Content> dbMovieList = cts.getMovie();
 		model.addAttribute("dbMoiveList", dbMovieList);
 		ArrayList<Content> dbTvList = cts.getTv();
 		model.addAttribute("dbTvList", dbTvList);
+		//TMDB에서 영화와 티비목록 호출-
 		ArrayList<Image> movieList = cts.getImgList(movieURL , jasonName,requestPage);
 		model.addAttribute("topRated", movieList);
 		ArrayList<Image> tvList = cts.getImgList(tvURL,jasonName, requestPage);

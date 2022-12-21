@@ -30,6 +30,7 @@ import com.enitec.vo.Image;
 import com.enitec.vo.Season;
 
 @Service
+@Transactional
 public class ContentService {
 
 	@Autowired
@@ -46,25 +47,26 @@ public class ContentService {
 	String BASE_LANG = "ja";
 	String BASE_REGION = "JP";
 
+	
 	public ArrayList<Content> getMovie() {
 		return ctr.getMovie();
 	}
-
+	
 	public ArrayList<Content> getTv() {
 		return ctr.getTv();
 	}
-
+	
 	public ArrayList<Image> getImgList(String middleURL, String requestSet, String page) {
 		JSONArray jarr = getJsonArray(middleURL, requestSet, page);
 		ArrayList<Image> imgList = getImgArr(jarr);
 		Collections.sort(imgList);
 		return imgList;
 	}
-
+	
 	public Content getContent(String ct_code) {
 		return ctr.findById(ct_code).orElse(null);
 	}
-
+	
 	public ArrayList<History> getPlayedList(String pf_code) {
 		ArrayList<History> historyArr = hr.findAllByProfileCode(pf_code);
 		String middleURL = "";
@@ -97,7 +99,7 @@ public class ContentService {
 		return historyArr;
 
 	}
-
+	
 	private JSONArray getJsonArray(String middleURL, String resultSet, String page) {
 
 		try {
@@ -151,7 +153,7 @@ public class ContentService {
 		ctr.deleteAll();
 	}
 
-	@Transactional
+	
 	public void setContent(String movieURL, String tvURL, String jsonName, String requestPage) {
 		JSONArray movie = getJsonArray(movieURL, jsonName, requestPage);
 		JSONArray tv = getJsonArray(tvURL, jsonName, requestPage);
@@ -165,7 +167,7 @@ public class ContentService {
 		saveSeasonArrayList(seasonArr);
 		saveEpisodeArrayList(episodeArr);
 	}
-
+	
 	private ArrayList<Episode> getEpisodesList(ArrayList<Season> season) {
 		ArrayList<Episode> episodeArr = new ArrayList<>();
 		for (int i = 0; i < season.size(); i++) {
@@ -210,6 +212,7 @@ public class ContentService {
 
 		return seasonArr;
 	}
+
 
 	private ArrayList<Image> getImgArr(JSONArray jarr) {
 		ArrayList<Image> imgList = new ArrayList<>();

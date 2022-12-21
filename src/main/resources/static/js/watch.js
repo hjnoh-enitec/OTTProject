@@ -72,10 +72,10 @@ function pageOut() {
 		async: false,
 		contentType: 'application/json',
 		data: JSON.stringify(history),
-		url: "http://localhost:8000/quitVideo",
+		url: "http://18.183.223.7:8000/quitVideo",
 		success: function(data) {
 			isRun == false;
-			location.href = "http://localhost:8000" + data.url;
+			location.href = "http://18.183.223.7:8000" + data.url;
 		},
 		error: function() {
 		}

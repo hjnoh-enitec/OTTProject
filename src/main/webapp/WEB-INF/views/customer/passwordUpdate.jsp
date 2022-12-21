@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -88,6 +88,10 @@ button {
 	function check() {
 		let pwd = document.getElementById("c_pwd");
 		let rpwd = document.getElementById("re_pwd");
+		if(pwd.value.length == 0 || rpwd.value.length == 0){
+			alert('パスワードまたはパスワード確認を入力してください。');
+			return false;
+		}
 		if(pwd.value != rpwd.value){
 			alert('パスワードとパスワード確認が一致しておりません');
 			return false;		

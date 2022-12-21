@@ -1,6 +1,6 @@
-let scaling;                                         //컨텐츠에 마우스 올라갔을 때 배율 조정
-let currentSliderCount;                              //이전 슬라이드 수
-let videoCount;										//비디오 카운트
+let scaling;                                      
+let currentSliderCount;                             
+let videoCount;										
 let showCount;
 let sliderCount;
 let controlsWidth;
@@ -18,7 +18,6 @@ let seasonSel;
 let episodes;
 let contentId;
 let s_value;
-
 window.onload = function() {
 	//modal
 	modal = document.getElementById("modal");
@@ -31,30 +30,25 @@ window.onload = function() {
 	episodes = document.getElementById("episodes");
 	//slideFrame
 	scaling = 1.50;
-	scollWidth = 0;
-	currentSliderCount = 0;                                 //이전 슬라이드 수
+	scollWidth = {scollWidth1 : 0,scollWidth2 : 0,scollWidth3 : 0};
+	currentSliderCount = {slideCnt1 : 0,slideCnt2 : 0,slideCnt3 : 0};                              
 	showCount = 10;
-	videoCount = document.getElementsByClassName("slide s1").length;//비디오 카운트
+	videoCount = document.getElementsByClassName("slide s1").length;
 	sliderCount = videoCount / showCount;
 	controlsWidth = 40;
 	content = document.querySelector(".slide");
 	modalContentAvg = document.getElementById("avg");
 	playBtn = document.getElementById("play");
-
 	let win = $(window);
 	let sliderFrame = $(".slider-frame");
 	let sliderContainer = $(".slider-container");
 	let slide = $(".slide");
 	//counts
-
 	$('.slide.s1:nth-last-child(-n+4)').prependTo('.slider-container.sc1');
 	$('.slide.s2:nth-last-child(-n+4)').prependTo('.slider-container.sc2');
 	//$(window).resize(function() {
 	//	init();
 	//});
-
-
-
 	//sizes
 	let windowWidth = win.width();
 	frameWidth = win.width() - 80;
@@ -62,18 +56,11 @@ window.onload = function() {
 	let videoHeight = 300;
 	let videoWidthDiff = (videoWidth * scaling) - videoWidth;
 	let videoHeightDiff = (videoHeight * scaling) - videoHeight;
-
-
-
 	//set sizes
 	sliderFrame.width(windowWidth);
-
-
-
 	sliderContainer.width((videoWidth * videoCount) + videoWidthDiff);
 	sliderContainer.css("top", (videoHeightDiff / 2 - 45));
 	sliderContainer.css("margin-left", (controlsWidth));
-
 	slide.height(videoHeight);
 	slide.width(videoWidth);
 	//hover effect
@@ -90,7 +77,6 @@ window.onload = function() {
 		else {
 			$(this).parent().css("margin-left", - (videoWidthDiff / 2));
 		}
-
 	}).mouseout(function() {
 		$(this).css("width", videoWidth * 1);
 		$(this).css("height", videoHeight * 1);
@@ -99,33 +85,27 @@ window.onload = function() {
 	});
 }
 function prev(num) {
-	console.log(currentSliderCount);
-	console.log(sliderCount);
-	if (currentSliderCount == 0) {
+	if (currentSliderCount["slideCnt"+num] == 0) {
 		return false;
 	}
-	scollWidth -= frameWidth;
-	console.log(scollWidth);
+	scollWidth["scollWidth"+num] -= frameWidth;
 	$('.slider-container.sc' + num).animate({
-		left: - scollWidth
+		left: - scollWidth["scollWidth"+num]
 	}, 300, function() {
-		currentSliderCount--;
+		currentSliderCount["slideCnt"+num]--;
 	});
-	$(".slider-container.sc" + num).css("left", scollWidth);
+	$(".slider-container.sc" + num).css("left", scollWidth["scollWidth"+num]);
 }
 function next(num) {
-	console.log(currentSliderCount);
-	console.log(sliderCount);
-	if (currentSliderCount >= sliderCount) {
+	if (currentSliderCount["slideCnt"+num] >= sliderCount) {
 		return false;
 	}
-	scollWidth += frameWidth;
-
+	scollWidth["scollWidth"+num] += frameWidth;
 	$('.slider-container.sc' + num).animate({
-		left: - scollWidth
+		left: - scollWidth["scollWidth"+num]
 	}, 300, function() {
-		console.log(scollWidth);
-		currentSliderCount++;
+		console.log(scollWidth["scollWidth"+num]);
+		currentSliderCount["slideCnt"+num]++;
 	});
 }
 let baseURL;
@@ -161,7 +141,6 @@ function clickImg(img, isTv) {
 			modalContentOverview.innerHTML = overView;
 			modalContentTitle.innerHTML = title;
 			modalContentAvg.innerHTML = "&nbsp" + data["vote_average"] + "点&nbsp";
-
 			setPreview(data.id, data.poster_path, isTv);
 			modal.style.display = "flex";
 		},
@@ -203,7 +182,6 @@ function setPreview(id, posterPath, isTv) {
 		}
 	})
 }
-
 function closeModal() {
 	modal.style.display = "none";
 	//메인 예고편의 재생을 재개함
@@ -232,12 +210,11 @@ function displayPlayBtn() {
 }
 function hidePlayBtn() {
 	playBtn.style.display = "none";
-
 }
 function setSeason(seasonInfo) {
 	let seasonSel = document.getElementById("seasonSelect");
 	seasonSel.style.display = "flex";
-	modalWindow.style.height = "900px";
+	modalWindow.style.height = "920px";
 	modalWindow.style.top = "30px";
 	for (let i = 0; i < seasonInfo.length; i++) {
 		let option = document.createElement("option");
@@ -287,33 +264,30 @@ function setEpisonde(seasonNum) {
 		}
 	})
 }
-
 function changeSeason() {
 	s_value = seasonSel.value;
 	episodes.innerHTML = "";
 	setEpisonde(parseInt(s_value));
 }
-
 function clickHistory(clickedContent, h_close_at, e_value, s_value, path) {
 	contentId = clickedContent.id;
 	if (isAPI(clickedContent.id)) {
 		if (e_value == undefined && s_value == undefined) {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path ;
+			location.href = "http://18.183.223.7:8000/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path ;
 		} else {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = "http://18.183.223.7:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
 		}
 	} else {
 		if (e_value == undefined && s_value == undefined) {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = "http://18.183.223.7:8000/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path;
 		} else {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = "http://18.183.223.7:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
 		}
 	}
 }
 function isAPI(contentId) {
 	return !contentId.startsWith('T');
 }
-
 function clickdbImg(content, ct_title, ct_info, ct_star, ct_path) {
 	contentId = content.id;
 	mainPreview.contentWindow.postMessage(
@@ -321,7 +295,6 @@ function clickdbImg(content, ct_title, ct_info, ct_star, ct_path) {
 		'*',
 	);
 	if (contentId.startsWith('CT')) {
-
 	} else {
 		if (ct_info.length > 100) {
 			ct_info = ct_info.substring(0, 200);
@@ -331,33 +304,29 @@ function clickdbImg(content, ct_title, ct_info, ct_star, ct_path) {
 		modalContentTitle.innerHTML = ct_title;
 		modalContentAvg.innerHTML = ct_star;
 		const video = document.createElement("video");
-		video.setAttribute("src", "http://localhost:8000/video/M1/" + ct_path)
+		video.setAttribute("src", "http://18.183.223.7:8000/video/M1/" + ct_path)
 		modalContentPreview.appendChild(video);
 		modal.style.display = "flex";
-
 		modalContent.setAttribute("onmouseover", "displayPlayBtn()");
 		modalContent.setAttribute("onmouseout", "hidePlayBtn()");
 		playBtn.setAttribute("value",ct_path)
-
 	}
 }
 function watchVideo(episodes) {
 	let e_value = "";
 	let ct_path = "test.mp4"
 	if (contentId.startsWith('CT')) {
-
 	} else if(contentId.startsWith('T')) {
-		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
+		location.href = "http://18.183.223.7:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
 	}
 	else if (episodes.id!="play") {
 		e_value = episodes.id;
 		hidePlayBtn();
 		if (contentId.startsWith('T')) {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
+			location.href = "http://18.183.223.7:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
 		}
-		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
+		location.href = "http://18.183.223.7:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
 	} else {
-		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
-
+		location.href = "http://18.183.223.7:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
 	}
 }

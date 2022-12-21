@@ -10,7 +10,7 @@
 	<%@ include file="/jsp/home/header.jsp"%>
 	<ul>
 		<c:forEach var="content" items="${search }" varStatus="status">
-			<li>${content.ct_code }</li>
+			<li>${content.ct_title }</li>
 		</c:forEach>
 	</ul>
 

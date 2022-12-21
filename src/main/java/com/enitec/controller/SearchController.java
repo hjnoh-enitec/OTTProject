@@ -19,7 +19,6 @@ public class SearchController {
 	
 	@GetMapping("/search")
 	public String searchKeyword(@RequestParam(value = "keyword")String keyword,Model model){
-		System.out.println("keyword : " + keyword);
 		List<Content> searchContent = cts.search("%"+keyword+"%");
 		model.addAttribute("search", searchContent);
 		return "searchContent";

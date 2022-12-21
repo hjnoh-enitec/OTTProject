@@ -2,6 +2,7 @@ package com.enitec.service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@Transactional
 public class MailService {
 
 	@Autowired
@@ -26,8 +28,8 @@ public class MailService {
         try {
             mail.setRecipient(c_id);
             mail.setSubject(subject);
-            mail.setText("http://localhost:8000"+url+"?t_id="+t_id);
-            System.out.println("link : -> -> "+"http://localhost:8000/token/confirm?t_id="+t_id);
+            mail.setText("http://18.183.223.7:8000"+url+"?t_id="+t_id);
+            System.out.println("link : -> -> "+"http://18.183.223.7:8000/token/confirm?t_id="+t_id);
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             mimeMessageHelper.setTo(mail.getRecipient());
             mimeMessageHelper.setSubject(mail.getSubject());

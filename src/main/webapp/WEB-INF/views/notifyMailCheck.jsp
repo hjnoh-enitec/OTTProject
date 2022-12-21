@@ -40,16 +40,10 @@ button{
 </head>
 <body>
 	<div class="content">
-	<c:if test="${status eq 'sign'}">
 	<h1>登録はまた終わっていません</h1>
 	<h2><b>${c_id}</b>にメールを送りました<br/>メールを確認して新規登録を終えてください。</h2>
 	<button type="button" onclick="location.href='/token/signUp?c_id=${c_id}'">メール再送</button>
 	<button type="button" onclick="location.href='/login/login'">ログイン</button>
-	</c:if>
-	<c:if test="${status eq 'find' }">
-	<h1>メールを送信しました。</h1>
-	<button type="button" onclick="location.href='/'">戻る</button>
-	</c:if>
 	</div>
 </body>
 </html>

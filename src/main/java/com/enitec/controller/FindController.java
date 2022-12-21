@@ -30,11 +30,6 @@ public class FindController {
 		//System.out.println("RESULT TEST1 : " + idList);
 		return fs.findId(findForm.getC_name(), findForm.getC_birth(), findForm.getC_phone());
 	}
-	
-	@GetMapping("/pwd")
-	public String moveFindPassword() {
-		return "customer/findPassword";
-	}
 
 	@PostMapping("/sendCheckedMail")
 	//@ResponseBody

@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="java.net.URLDecoder"%>
@@ -86,10 +87,10 @@ button {
 			value="${customer.c_id}" readonly="readonly">
 		<label for="">パスワード</label>
 		<input class="input-field" type="password" name="c_pwd"
-			placeholder="パスワード">
+			placeholder="パスワード" maxlength="20">
 		<label for="">パスワード再入力</label>
 		<input class="input-field" type="password" name="c_pwd2"
-			placeholder="再入力してください">
+			placeholder="再入力してください" maxlength="20">
 		<label for="">名前</label>
 		<input class="input-field" type="text" name="c_name"
 			value="${customer.c_name}" readonly="readonly">
@@ -98,7 +99,7 @@ button {
 			value="${customer.c_birth}" readonly="readonly">
 		<label for="">携帯</label>
 		<input class="input-field" type="text" name="c_phone"
-			value="${customer.c_phone}">
+			value="${customer.c_phone}" maxlength="11">
 		<input type="hidden" name="c_mailcheck"
 			value="${customer.c_mailcheck}">
 		<button>修正</button>
@@ -106,10 +107,7 @@ button {
 	<script>
        function pwCheck(frm) {
     	   deleteMessage('', frm.pwd);
-            if(frm.c_pwd.value!==frm.c_pwd2.value) {　
-                setMessage('pwdが一致しません', frm.c_pwd2);
-                return false;
-            }
+           
             if(frm.c_pwd.value.length == 0){
      		   setMessage('パスワードを入力してください。', frm.c_pwd);
      		  return false;
@@ -118,10 +116,24 @@ button {
      		   setMessage('もう一度パスワードを入力してください。', frm.c_pwd2);
      		  return false;
      	   }
+     	  if(frm.c_pwd.value!==frm.c_pwd2.value) {　
+              setMessage('pwdが一致しません', frm.c_pwd2);
+              return false;
+          }
      	   if(frm.c_phone.value.length == 0){
      		   setMessage('携帯番号を入力してください', frm.c_phone);
      		  return false;
      	   }
+     	  if(frm.c_phone.value.length !== 11){
+    		   setMessage('携帯番号を正しく入力してください', frm.c_phone);
+    		  return false;
+    	   }
+     	  let phoneRegex = new RegExp('^(0[7|8|9][0])([0-9]{4})([0-9]{4})$');
+     	  if (phoneRegex.test(frm.c_phone.value) == false) {
+     		 setMessage('携帯番号を確認してください', frm.c_phone);
+				
+			return false;
+			}     	   
      	   return true;
        }
        function setMessage(msg, element){

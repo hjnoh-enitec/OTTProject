@@ -120,7 +120,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="submit" onclick="javascript: form.action='http://localhost:8000/modify/pwCheck'" value="会員情報修正">
+					<input type="submit" onclick="javascript: form.action='http://18.183.223.7:8000/modify/pwCheck'" value="会員情報修正">
 				</td>
 				<td>
 					<input type="submit" onclick="javascript: form.action='/customer/modifyMembership'" value="メンバーシップ申込＆修正">
