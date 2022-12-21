@@ -63,7 +63,7 @@
 								<input type="text" class="profileName" name="name"
 									id="name${status.index }" value="${profile.pf_name }"
 									readonly="readonly"
-									onkeypress="enterkey(${status.index},event)">
+									onkeypress="enterkey(${status.index},event)" maxlength="10">
 							</div>
 							<div class="btnSpace">
 								<button class="nameChangebtn" id="nameChange${status.index }"
@@ -73,7 +73,7 @@
 								<button class="cancelbtn" id="cancel${status.index }"
 									onclick="cancel(${status.index})">x</button>
 								<button class="acceptbtn" id="changeAccept${status.index }"
-									onclick="accept(${status.index})">o</button>
+									onclick="return accept(${status.index})">o</button>
 							</div>
 							
 						</div>
