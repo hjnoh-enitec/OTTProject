@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.enitec.repository.CustomerRepository;
 import com.enitec.vo.Customer;
-@Transactional
+
 @Service
 public class FindService {
 

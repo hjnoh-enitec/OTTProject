@@ -31,7 +31,13 @@ function setProfile(event) {
 }
 
 function createProfile() {
+	let pf_name = document.getElementById("pf_name");
+	if(pf_name == '' || pf_name === undefined || pf_name.value.length == 0){
+		alert('使用するニックネームを入力してください。');
+		return false;
+	}
 	$('#createProfile').submit();
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////

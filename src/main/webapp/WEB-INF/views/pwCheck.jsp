@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page session="false" %>
@@ -62,9 +63,7 @@
 	<form action ="<c:url value="/modify/modify"/>" method="post" onsubmit="return formCheck(this);">
 	<h3 id="title">パスワードを入力してください</h3>
 	<div id="msg">
-		<c:if test="${not empty param.msg}">
-			<i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
-		</c:if>
+		${param.msg}
 	</div>
 	<input type="hidden" name="c_id" value="${c_id}">
 	<input type="password" name="c_pwd" placeholder="パスワード">
@@ -72,8 +71,10 @@
 	<button type="button" onclick="move()">戻る</button>
 	</form>
 	<script>
+		let url;
 		function move() {
-			history.go(-1);
+			url = "/customer/info";
+			location.href = "http://localhost:8000" + url;
 		}
 	
 		function formCheck(frm) {

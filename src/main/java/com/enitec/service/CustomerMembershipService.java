@@ -11,6 +11,7 @@ import com.enitec.repository.CustomerRepository;
 import com.enitec.vo.Customer;
 
 @Service
+@Transactional
 public class CustomerMembershipService {
 
 	@Autowired
@@ -26,9 +27,11 @@ public class CustomerMembershipService {
 	}
 	@Transactional
 	public void withdrwalMembership(String c_id) {
-		Customer customer = cr.findById(c_id).get();
-		cr.save(customer);
-		
+		Customer customer = cr.findById(c_id).orElse(null);
+		if(customer != null) {
+			customer.setM_code("M0");
+			cr.save(customer);
+		}
 	}
 	
 }

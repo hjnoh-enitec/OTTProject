@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
@@ -11,7 +12,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/css/login.css?ver=1">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-
 <title>Register</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
@@ -84,12 +84,10 @@
 		   submitBtn.style.backgroundColor='rgb(126, 126, 126)';
 	   }
 
-		
-
    }
 	
    function validInsert() {
-	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	   
+	   const emailCheck = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	  
 	   if(f.c_id.value.match(emailCheck) == null){
 		   setMessage('正しいメール形式を入力して下さい', f.c_id);
 	   }
@@ -101,20 +99,16 @@
        }
 	   activeBtn();
   }
-   
   function setMessage(msg, element){
        document.getElementById("idCheckMsg").innerHTML = msg;
        if(element) {
            element.select();
        }
   }
-  
   function setMessage(msg){
       document.getElementById("idCheckMsg").innerHTML = msg;
  }
-  
-  
-  
+
   function idCheck() {
 		const c_id = document.getElementById("c_id");
 		let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -122,7 +116,6 @@
 			$.ajax({
 				type :'post',
 				url : "http://localhost:8000/checkId",
-
 				async : false,
 				data : {
 					"customer" : c_id.value
@@ -152,8 +145,6 @@
 	  	
 	activeBtn();
   }
-
-
    </script>
 </body>
 </html>

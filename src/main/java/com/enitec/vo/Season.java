@@ -2,7 +2,6 @@ package com.enitec.vo;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 import lombok.Data;
 

@@ -30,6 +30,7 @@ import com.enitec.vo.Image;
 import com.enitec.vo.Season;
 
 @Service
+@Transactional
 public class ContentService {
 
 	@Autowired
@@ -53,7 +54,6 @@ public class ContentService {
 	public ArrayList<Content> getTv() {
 		return ctr.getTv();
 	}
-	@Transactional
 	public ArrayList<Image> getImgList(String middleURL, String requestSet, String page) {
 		JSONArray jarr = getJsonArray(middleURL, requestSet, page);
 		ArrayList<Image> imgList = getImgArr(jarr);
@@ -64,7 +64,7 @@ public class ContentService {
 	public Content getContent(String ct_code) {
 		return ctr.findById(ct_code).orElse(null);
 	}
-	@Transactional
+
 	public ArrayList<History> getPlayedList(String pf_code) {
 		ArrayList<History> historyArr = hr.findAllByProfileCode(pf_code);
 		String middleURL = "";
@@ -151,7 +151,7 @@ public class ContentService {
 		ctr.deleteAll();
 	}
 
-	@Transactional
+	
 	public void setContent(String movieURL, String tvURL, String jsonName, String requestPage) {
 		JSONArray movie = getJsonArray(movieURL, jsonName, requestPage);
 		JSONArray tv = getJsonArray(tvURL, jsonName, requestPage);

@@ -10,8 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +30,6 @@ public class ProfileController {
 	@Autowired
 	private ProfileService ps;
 
-	@Autowired
-	private FileSaveService fss;
-	
 	@Autowired
 	private CustomerService customerServ;
 
@@ -78,19 +73,11 @@ public class ProfileController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/update")
-	public String moveProfileUpdatePage(HttpSession session, Model model) {
-		if (!Session.checkLogin(session)) {
-			return "redirect:/";
-		}
-		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
-		model.addAttribute("profileList", profileList);
-		return "/profile/profileUpdate";
-	}
 
 	@PostMapping("/create")
 	public String createProfile(CreateProfileForm createProfileForm,  HttpSession session,
 			HttpServletResponse res, MultipartFile fileUpload) {
+		FileSaveService fss = new FileSaveService();
 		Profile profile = new Profile();
 		String profilePath = "";
 		String thumbnailPath = "";

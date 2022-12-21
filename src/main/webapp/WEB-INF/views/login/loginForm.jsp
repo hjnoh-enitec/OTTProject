@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,15 +106,13 @@ label {
 </style>
 </head>
 <body>
-
-
+<!-- ----------------------------------------------------------------------------------------Modal(FindID)-------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
 	<div class="LoginSection">
-
 		<div id="modal-findID">
-
 			<div class="modal_content">
-
 				<form id="findIdForm">
 					<div id="title-findID">Find ID</div>
 					<div style="height: 70px;">
@@ -136,26 +134,24 @@ label {
 						<button id="modal_close_btn" onclick="closeFindID()">戻る</button>
 					</div>
 				</form>
-				<br>
-				<br>
-				<br>
+				<br> <br> <br>
 				<div>
 					<h2 id="msg_id"></h2>
 				</div>
 			</div>
-
-
 		</div>
-
+<!-- ----------------------------------------------------------------------------------------Modal(FindPWD)-------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 		<div id="modal-findPW">
-
 			<div class="modal_content">
-
 				<form id="findPWForm">
 					<h3 id="title">メールアドレスを入力してください。</h3>
 					<div style="text-align: center; height: 70px;">
-						<input type="text" id="c_id" name="c_id" value="" placeholder="E-MAIL" autofocus style="width: 320px; height: 50px;"> 
-						<input type="hidden" name="toURL" value="${param.toURL}">
+						<input type="text" id="c_id" name="c_id" value=""
+							placeholder="E-MAIL" autofocus
+							style="width: 320px; height: 50px;"> <input type="hidden"
+							name="toURL" value="${param.toURL}">
 					</div>
 					<div style="height: 50px;">
 						<button onclick="findPW()" style="margin: auto; width: 330px;">認証メール発送</button>
@@ -164,146 +160,50 @@ label {
 						<button id="modal_close_btn" onclick="closeFindPW()">戻る</button>
 					</div>
 				</form>
-				<br>
-				<br>
-				<br>
+				<br> <br> <br>
 				<div>
 					<h2 id="msg_pw"></h2>
 				</div>
 			</div>
-
-
 		</div>
-
+<!-- ----------------------------------------------------------------------------------------Login-------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->		
 		<div class="LoginDiv">
 			<div class="title">
 				<h1>LogIn</h1>
-
+			</div>
+			<div class="title">
+				<h3 id="loginMsg" style="color:red;">${param.msg}</h3>
 			</div>
 			<div class="form">
-				<form action="/login/login" method="post" id="f">
+				<form action="/login/login" method="post" id="f" oninput="LoginCheck()">
 					<input type="hidden" name="toURL" value="${toURL}" />
 					<p>
-						<input type="text" name="c_id" value="${cookie.c_id.value}"
+						<input type="text" name="c_id" id="loginC_id" value="${cookie.c_id.value}"
 							placeholder="E-MAIL" autofocus>
 					</p>
 					<p>
-						<input type="password" name="c_pwd" placeholder="パスワード"> <br>
+						<input type="password" name="c_pwd" id="c_pwd" placeholder="パスワード"> <br>
 						<font color="white" id="emptycheck"></font>
 					</p>
 					<p>
-					<input type="submit" value="LogIn">
-					<br>
-					
-					<input type="checkbox" id="check" name="rememberId" value="on" ${empty cookie.c_id.value ? "":"checked"}>
-					<label for="check">ID保存</label>
+						<input type="submit" value="LogIn"> <br> <input
+							type="checkbox" id="check" name="rememberId" value="on"
+							${empty cookie.c_id.value ? "":"checked"}> <label
+							for="check">ID保存</label>
 					<p>
 						<br>
 				</form>
 			</div>
 			<div class="joinQ">
-				<a href="/register/signup">新規登録</a> <br /> <a id="modal_open_btn_findID">IDを忘れた方</a>
-				| <a id="modal_open_btn_findPW">パスワードを忘れた方</a>
-
+				<a href="/register/signup">新規登録</a> <br /> <a
+					id="modal_open_btn_findID">IDを忘れた方</a> | <a
+					id="modal_open_btn_findPW">パスワードを忘れた方</a> | <a href="/">戻る</a>
 			</div>
 		</div>
 	</div>
-
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script>
-		var findIdForm = document.getElementById("findIdForm");
-		var findPWForm = document.getElementById("findPWForm");
-
-		function findID() {
-			findIdForm.setAttribute("onsubmit", "return doAction()");
-			findIdForm.setAttribute("method", "post");
-		}
-		
-		function findPW() {
-			findPWForm.setAttribute("action", "/find/sendCheckedMail")
-			findPWForm.setAttribute("onsubmit", "return formCheck(this);");
-			findPWForm.setAttribute("method", "post");
-		}
-
-		document.getElementById("modal_open_btn_findID").onclick = function() {
-			document.getElementById("modal-findID").style.display = "flex";
-		}
-		
-		document.getElementById("modal_open_btn_findPW").onclick = function() {
-			document.getElementById("modal-findPW").style.display = "flex";
-		}
-
-		var msg = document.getElementById("msg");
-
-		function closeFindID() {
-			document.getElementById("modal-findID").style.display = "none";
-		}
-		function closeFindPW() {
-			document.getElementById("modal-findPW").style.display = "none";
-		}
-
-		function doAction() {
-			var nameVal = document.getElementById("c_name").value;
-			var birthVal = document.getElementById("c_birth").value;
-			var phoneVal = document.getElementById("c_phone").value;
-
-			let birthRegex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
-			let phoneRegex = new RegExp('^(0[7|8|9][0])([0-9]{4})([0-9]{4})$');
-
-			if (nameVal.length < 3) {
-				msg_id.innerHTML = "check name";
-				return false;
-			}
-
-			if (birthVal.length != 8 || birthRegex.test(birthVal) == false) {
-				msg_id.innerHTML = "check birth";
-				return false;
-			}
-
-			if (phoneRegex.test(phoneVal) == false) {
-				msg_id.innerHTML = "check phone";
-				return false;
-			}
-
-			$.ajax({
-				type : 'post',
-				url : "http://localhost:8000/find/id",
-				data : {
-					"c_name" : nameVal,
-					"c_birth" : birthVal,
-					"c_phone" : phoneVal
-				},
-				success : function(data) {
-					msg_id.innerHTML = "お客様のメールアドレスは";
-					$.each(data, function(i) {
-						msg_id.innerHTML += data[i];
-						msg_id.innerHTML += document.createElementTagName("<br/>");
-					});
-					msg_id.innerHTML += "です。"
-				},
-				error : function(error) {
-
-				}
-			})
-
-			return false;
-		}
-		
-		function formCheck(frm) {
-			
-			let c_id = document.getElementById("c_id");
-			
-			if(c_id.value == ""){
-				msg_pw.innerHTML = 'メールを入力してください。';
-				return false;
-			}
-			
-			alert(c_id.value + "にメールを発送しました。");
-
-			return true;
-		}
-		
-	</script>
-
+	<script src="/js/loginForm.js"></script>
 </body>
 </html>

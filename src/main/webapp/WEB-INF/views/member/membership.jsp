@@ -1,10 +1,13 @@
-<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="java.net.URLDecoder"%>
 <%@ page session="false" %>
 <c:set var="loginId" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}"/>
+<c:set var="m" value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('m_code')}"/>
+<c:set var="m_code" value="${request.getSession(false)==''?'':pageContext.request.session.getAttribute('m_code') }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,9 +72,8 @@
 	</style>
 </head>
 <body>
-
 	<input type="hidden" id="isFromLogin" value="${isFromLogin }">
-	<form id="memberForm" action = "/customer/membershipSuccess" onsubmit="return doAction()" method = "post">
+	<form id="memberForm" action = "/customer/membershipSuccess" method = "post">
 	
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
@@ -104,7 +106,7 @@
 		<div id="msg" class="msg">
 			<p id="planComment"></p>
 		</div>		
-		<button type="submit" onclick="submitForm()">申込</button>
+		<button type="submit" onclick="return doAction()">申込</button>
 		<button type="button" onclick="backToAnywhere()">戻る</button>
 		<h3 id="alert"></h3>
 	</form>
@@ -155,15 +157,17 @@
 			}
 			return true;
 		}
-		var memberForm = document.getElementById("memberForm");
-		var isFromLogin = document.getElementById("isFromLogin");
-		
-		function submitForm(){
-			return doAction();
-		}
 		
 		function backToAnywhere(){
-			history.go(-1);
+
+			let m_code = "${m_code}";
+			if(m_code == "M0"){
+				location.href='/login/logout';
+			}
+			else{
+				location.href='/customer/info';
+
+			}
 		}
 		
 	</script>

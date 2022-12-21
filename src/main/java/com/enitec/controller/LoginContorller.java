@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enitec.service.CustomerService;
 import com.enitec.service.LoginService;
@@ -35,14 +36,14 @@ public class LoginContorller {
 	}
 
 	@PostMapping("/login")
-	public String login(String c_id, String c_pwd, String toURL, boolean rememberId, HttpServletRequest request, HttpServletResponse res) {
+	public String login(String c_id, String c_pwd, String toURL, boolean rememberId, HttpServletRequest request, HttpServletResponse res,RedirectAttributes redirect) {
 		String mailCheck = mailCheck(c_id, c_pwd);
 		if ("F".equals(mailCheck)) {
 			request.setAttribute("c_id", c_id);
 			return "notifyMailCheck";
 		} else if (mailCheck == null) {
 			String msg = "IDまたはパスワードが一致しません";
-			request.setAttribute("msg", msg);
+			redirect.addAttribute("msg",msg);
 			return "redirect:/login/login";
 		}
 		//session生成
@@ -59,11 +60,10 @@ public class LoginContorller {
         }
         
         // 유저의 멤버십 코드가 M0 (미가입상태)면 멤버십 가입 페이지로, 가입 되어있으면 프로필 선택 페이지로
-		String membership = customerServ.getMembershipCode(c_id);
+        session.setAttribute(Session.MEMBER_SHIP,customerServ.getMembershipCode(c_id));
 		String noMembership = "M0";
-
-        if(membership.equals(noMembership)) {
-        	return "redirect:/customer/modifyMembership?c_id=" + c_id + "&isFromLogin=true";
+        if(session.getAttribute(Session.MEMBER_SHIP.toString()).equals(noMembership)) {
+        	return "redirect:/customer/modifyMembership";
         }
 		return "redirect:/profile/select";
 	}

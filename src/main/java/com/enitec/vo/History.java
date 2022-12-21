@@ -10,6 +10,9 @@ import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+
+
 @Data
 @AllArgsConstructor
 @Entity(name="history")

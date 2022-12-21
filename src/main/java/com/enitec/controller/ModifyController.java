@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enitec.form.ModifyForm;
 import com.enitec.service.CustomerService;
@@ -31,9 +32,11 @@ public class ModifyController {
 	}
 
 	@PostMapping("/modify")
-	public String moveToModyfyPage(@ModelAttribute Customer customer, Model model) {
+	public String moveToModyfyPage(@ModelAttribute Customer customer, Model model, RedirectAttributes redirect) {
 		customer = ms.pwCheck(customer.getC_id(), customer.getC_pwd());
 		if (customer == null) {
+			String msg = "パスワードを確認してください";
+			redirect.addAttribute("msg",msg);
 			return "redirect:/modify/pwCheck";
 		}
 		model.addAttribute("customer", customer);
