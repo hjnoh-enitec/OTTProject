@@ -2,6 +2,8 @@ package com.enitec.service;
 
 import java.time.LocalDate;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,7 @@ public class CustomerMembershipService {
 
 	@Autowired
 	CustomerRepository cr;
-	
+	@Transactional
 	public void changeMembership(String c_id, String m_code) {
 		Customer customer = cr.findById(c_id).get();
 		customer.setM_code(m_code);
@@ -22,7 +24,7 @@ public class CustomerMembershipService {
 		customer.setM_autopay("T");
 		cr.save(customer);
 	}
-	
+	@Transactional
 	public void withdrwalMembership(String c_id) {
 		Customer customer = cr.findById(c_id).get();
 		cr.save(customer);

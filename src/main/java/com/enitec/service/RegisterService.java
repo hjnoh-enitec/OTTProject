@@ -9,6 +9,7 @@ import com.enitec.repository.CustomerRepository;
 import com.enitec.vo.Customer;
 
 @Service
+@Transactional
 public class RegisterService {
 	@Autowired
 	CustomerRepository cr;

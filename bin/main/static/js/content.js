@@ -31,8 +31,8 @@ window.onload = function() {
 	episodes = document.getElementById("episodes");
 	//slideFrame
 	scaling = 1.50;
-	scollWidth = 0;
-	currentSliderCount = 0;                                 //이전 슬라이드 수
+	scollWidth = {scollWidth1 : 0,scollWidth2 : 0,scollWidth3 : 0};
+	currentSliderCount = {slideCnt1 : 0,slideCnt2 : 0,slideCnt3 : 0};                                 //이전 슬라이드 수
 	showCount = 10;
 	videoCount = document.getElementsByClassName("slide s1").length;//비디오 카운트
 	sliderCount = videoCount / showCount;
@@ -99,33 +99,28 @@ window.onload = function() {
 	});
 }
 function prev(num) {
-	console.log(currentSliderCount);
-	console.log(sliderCount);
-	if (currentSliderCount == 0) {
+	if (currentSliderCount["slideCnt"+num] == 0) {
 		return false;
 	}
-	scollWidth -= frameWidth;
-	console.log(scollWidth);
+	scollWidth["scollWidth"+num] -= frameWidth;
 	$('.slider-container.sc' + num).animate({
-		left: - scollWidth
+		left: - scollWidth["scollWidth"+num]
 	}, 300, function() {
-		currentSliderCount--;
+		currentSliderCount["slideCnt"+num]--;
 	});
-	$(".slider-container.sc" + num).css("left", scollWidth);
+	$(".slider-container.sc" + num).css("left", scollWidth["scollWidth"+num]);
 }
 function next(num) {
-	console.log(currentSliderCount);
-	console.log(sliderCount);
-	if (currentSliderCount >= sliderCount) {
+	if (currentSliderCount["slideCnt"+num] >= sliderCount) {
 		return false;
 	}
-	scollWidth += frameWidth;
+	scollWidth["scollWidth"+num] += frameWidth;
 
 	$('.slider-container.sc' + num).animate({
-		left: - scollWidth
+		left: - scollWidth["scollWidth"+num]
 	}, 300, function() {
-		console.log(scollWidth);
-		currentSliderCount++;
+		console.log(scollWidth["scollWidth"+num]);
+		currentSliderCount["slideCnt"+num]++;
 	});
 }
 let baseURL;

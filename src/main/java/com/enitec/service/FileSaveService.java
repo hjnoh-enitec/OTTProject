@@ -6,21 +6,20 @@ import java.io.File;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 @Service
 public class FileSaveService {
 	
 	public String root = "C:/LeeTJ/WorkSpace_lee_Spring/OTTProject/src/main/resources/static";
-
 	public String thumbnail = "/img/thumbnail/";
 	public String profile = "/img/profile/";
 	public String base = "/img/baseImage/";
 	public String defaultProfileImageName = "basicProfileImage.jpg";
 	public String defaultThumbnailImageName = "basicThumbnailImage.jpg";
-	
+	@Transactional
 	public boolean uploadFile(MultipartFile uploadFile, String fileName) {
 		String profilePath = root+profile + fileName;
 		String thumbnailPath = root + thumbnail + fileName;
@@ -39,6 +38,7 @@ public class FileSaveService {
 		}
 		return true;
 	}
+	@Transactional
 	private BufferedImage resizeImage(BufferedImage originalImage, int type,int width,int height) {
 		BufferedImage resizedImage = new BufferedImage(width,height,type);
 		Graphics2D g = resizedImage.createGraphics();

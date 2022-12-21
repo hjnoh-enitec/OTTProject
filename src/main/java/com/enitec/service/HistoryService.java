@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.enitec.repository.HistoryRepository;
 import com.enitec.vo.History;
-
+@Transactional
 @Service
 public class HistoryService {
 
