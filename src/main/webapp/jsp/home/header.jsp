@@ -88,7 +88,7 @@
 									</c:forEach>
 									<li><hr class="dropdown-divider"></li>
 									<li><a class="dropdown-item"
-										href="<c:url value='/profile/select'/>">プロフィール選択</a></li>	
+										href="<c:url value='/profile/select'/>">プロフィール管理</a></li>	
 
 									<li><a class="dropdown-item"
 										href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
