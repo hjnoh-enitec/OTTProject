@@ -68,7 +68,7 @@
 	<div id="msg">
 		${param.msg}
 	</div>
-						<input type="hidden" id="urlPath" value="${urlPath}">
+	<input type="hidden" id="urlPath" value="${urlPath}">
 	<input type="hidden" name="c_id" value="${c_id}">
 	<input type="password" name="c_pwd" placeholder="パスワード">
 	<button>提出</button>

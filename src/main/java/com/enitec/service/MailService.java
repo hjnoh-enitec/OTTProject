@@ -5,9 +5,11 @@ import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.enitec.vo.Mail;
@@ -16,10 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Service
 @Slf4j
+@Component
 public class MailService {
-
-	@Autowired
-	FileSaveService fss;
+	@Value("${path.urlPath}")
+	private String urlPath;
 	@Autowired
 	private JavaMailSender ms;
 	@Async
@@ -29,7 +31,7 @@ public class MailService {
         try {
             mail.setRecipient(c_id);
             mail.setSubject(subject);
-            mail.setText(url+"?t_id="+t_id);
+            mail.setText(urlPath+url+"?t_id="+t_id);
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             mimeMessageHelper.setTo(mail.getRecipient());
             mimeMessageHelper.setSubject(mail.getSubject());
