@@ -8,7 +8,11 @@ function moveContent(frm) {
 	frm.submit();
 }
 function openModalWithSetting() {
+	
 	modalModify.style.display = "flex";
+	const cntCount = buttonInForm.childElementCount;
+	let height = 100+ (cntCount*200);
+	modalModify.style.height = height + "px";
 }
 
 function openModalWithAddProfile() {
