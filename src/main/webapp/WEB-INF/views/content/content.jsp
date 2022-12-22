@@ -57,7 +57,7 @@
 	</div>
 	<div>
 		<input type="hidden" id="urlPath" value="${urlPath}">
-		<iframe width="1900px" height="1100px" id="mainPreview"
+		<iframe width="100%" height="800px" id="mainPreview"
 			src="https://www.youtube.com/embed/zqhU76d690o?enablejsapi=1&controls=0&autoplay=1&mute=1"
 			frameborder="0"></iframe>
 		<div class="catalog">

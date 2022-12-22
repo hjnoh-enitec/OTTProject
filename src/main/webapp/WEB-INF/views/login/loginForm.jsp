@@ -177,7 +177,7 @@ label {
 				<h1>LogIn</h1>
 			</div>
 			<div class="title">
-				<h3 id="loginMsg" style="color: red;">${param.msg}</h3>
+				<h3 id="loginMsg" style="color: red;">${param.notify}</h3>
 			</div>
 			<div class="form">
 				<form action="/login/login" method="post" id="f"
