@@ -15,11 +15,12 @@
 	<title>OTTProject - Membership Join</title>
 	<link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+	<link rel="shortcut icon" href="/img/logo.png">
 	<style>
 		* { box-sizing:border-box; }
 		a { text-decoration: none; }
 		form {
-			width:400px;
+			width:450px;
 			height:600px;
 			display : flex;
 			flex-direction: column;
@@ -77,7 +78,7 @@
 	
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
-		<div class="title"><h2>申し込むプランを選んでください。</h2></div>
+		<div class="title"><h2>契約するプランを選んでください。</h2></div>
 		
 		<input type="hidden" id="curPlan" value="${membershipCode}">
 		
@@ -99,8 +100,8 @@
 		<div id="msg" class="msg">
 			<p id="planComment"></p>
 		</div>		
-		<button type="submit" onclick="return doAction()">申込</button>
-		<button type="button" onclick="backToAnywhere()">戻る</button>
+		<button type="submit" onclick="return doAction()">プランを契約</button>
+		<button type="button" onclick="backToAnywhere()">キャンセル</button>
 		<h3 id="alert"></h3>
 	</form>
 	<script>

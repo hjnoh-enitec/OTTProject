@@ -4,6 +4,9 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <%@ page import="java.net.URLDecoder"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@environment.getProperty('path.urlPath')"
+	var="urlPath" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +28,7 @@
 			<div class="form">
 				<form:form action="/register/signup" method="post"
 					onchange="validInsert()" oninput="activeBtn()" id="f">
+					<input type="hidden" id="urlPath" value="${urlPath}">
 					<input type="hidden" name="M_CODE" value="M0">
 					<div class=idDupl>
 						<button id="checkDuplBtn" type="button" onclick="idCheck()">IDチェック</button>
@@ -54,6 +58,7 @@
 		function gomain() {
 			location.href='/';
 		}
+	const urlPath = document.getElementById("urlPath");
 	const submitBtn = document.getElementById("submitBtn");
 	const checkDuplBtn = document.getElementById("checkDuplBtn");
 	const f = document.getElementById("f");
@@ -116,7 +121,7 @@
 		if(c_id.value.match(regex) != null){
 			$.ajax({
 				type :'post',
-				url : "http://localhost:8000/checkId",
+				url :urlPath+"/checkId",
 				async : false,
 				data : {
 					"customer" : c_id.value

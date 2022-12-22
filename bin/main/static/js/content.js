@@ -18,6 +18,7 @@ let seasonSel;
 let episodes;
 let contentId;
 let s_value;
+const urlPath = document.getElementById("urlPath");
 window.onload = function() {
 	//modal
 	modal = document.getElementById("modal");
@@ -273,15 +274,15 @@ function clickHistory(clickedContent, h_close_at, e_value, s_value, path) {
 	contentId = clickedContent.id;
 	if (isAPI(clickedContent.id)) {
 		if (e_value == undefined && s_value == undefined) {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path ;
+			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path ;
 		} else {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
 		}
 	} else {
 		if (e_value == undefined && s_value == undefined) {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path;
 		} else {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
 		}
 	}
 }
@@ -304,7 +305,7 @@ function clickdbImg(content, ct_title, ct_info, ct_star, ct_path) {
 		modalContentTitle.innerHTML = ct_title;
 		modalContentAvg.innerHTML = ct_star;
 		const video = document.createElement("video");
-		video.setAttribute("src", "http://localhost:8000/video/M1/" + ct_path)
+		video.setAttribute("src", urlPath+"/video/M1/" + ct_path)
 		modalContentPreview.appendChild(video);
 		modal.style.display = "flex";
 		modalContent.setAttribute("onmouseover", "displayPlayBtn()");
@@ -317,16 +318,34 @@ function watchVideo(episodes) {
 	let ct_path = "test.mp4"
 	if (contentId.startsWith('CT')) {
 	} else if(contentId.startsWith('T')) {
-		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
+		//location.href = urlPath+"/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
+		location.href = "/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
 	}
 	else if (episodes.id!="play") {
 		e_value = episodes.id;
 		hidePlayBtn();
 		if (contentId.startsWith('T')) {
-			location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
+			//location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
+			location.href = "/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
 		}
-		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
+		//location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
+		location.href = "/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
 	} else {
-		location.href = "http://localhost:8000/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
+		//location.href = urlPath+"/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
+		location.href = "/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
 	}
 }
+
+// main page preview영상 랜덤재생
+var preViewVideos = ['zqhU76d690o', 'EzGDPZhPjRA', 'n800hOJmgWo', 'HghrzTldjpc', 'kFqJhAk4Ul0', 'k4xGqY5IDBE', 'rzKcrJ77wBY', 'YLDxwZHRP6o'];
+	
+		var mainPreview = document.getElementById("mainPreview");
+	
+		function choosePreviewVideo(min, max){
+		    var videoNum = Math.floor(Math.random()*(max-min+1));
+		    console.log(videoNum);
+		    return videoNum;
+		}
+	
+		mainPreview.setAttribute("src", "https://www.youtube.com/embed/" + preViewVideos[choosePreviewVideo(0, preViewVideos.length-1)] + "?enablejsapi=1&controls=0&autoplay=1&mute=1");
+		console

@@ -3,9 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="c_id"
 	value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}" />
 <%@ page session="false"%>
+<spring:eval expression="@environment.getProperty('path.urlPath')" var="urlPath"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +30,7 @@
 			<div id="content">
 				<form id="contentForm" action="/profile/create" method="post"
 					enctype="multipart/form-data">
+					<input type="hidden" id="urlPath" value="${urlPath}">
 					<input type='hidden' name='c_id' value='${c_id }'> <input
 						type="hidden" name="pf_code" value="${pf_code}"> <label
 						class='profile-name'>プロフィール名</label> <input type='text'

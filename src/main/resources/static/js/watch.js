@@ -9,7 +9,7 @@ const membership = document.getElementById("membership");
 const pf_code = document.getElementById("pf_code").value;
 let videoPlayer = document.getElementById("videoPlayer");
 const btn = document.getElementById("btn");
-
+const urlPath = document.getElementById("urlPath").value;
 let membershipJson = {
 	basic: "M1",
 	standard: "M2",
@@ -69,10 +69,10 @@ function pageOut() {
 		async: false,
 		contentType: 'application/json',
 		data: JSON.stringify(history),
-		url: "http://localhost:8000/quitVideo",
+		url: urlPath+"/quitVideo",
 		success: function(data) {
 			isRun == false;
-			location.href = "http://localhost:8000" + data.url;
+			location.href = urlPath + data.url;
 		},
 		error: function() {
 		}

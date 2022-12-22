@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -17,7 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class MailService {
-
+	@Value("${path.urlPath}")
+	private String urlPath;
 	@Autowired
 	private JavaMailSender ms;
 	@Async
@@ -27,8 +29,7 @@ public class MailService {
         try {
             mail.setRecipient(c_id);
             mail.setSubject(subject);
-            mail.setText("http://localhost:8000"+url+"?t_id="+t_id);
-            System.out.println("link : -> -> "+"http://localhost:8000/token/confirm?t_id="+t_id);
+            mail.setText(urlPath+url+"?t_id="+t_id);
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             mimeMessageHelper.setTo(mail.getRecipient());
             mimeMessageHelper.setSubject(mail.getSubject());

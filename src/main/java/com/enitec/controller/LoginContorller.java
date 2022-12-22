@@ -43,7 +43,7 @@ public class LoginContorller {
 			return "notifyMailCheck";
 		} else if (mailCheck == null) {
 			String msg = "IDまたはパスワードが一致しません";
-			redirect.addAttribute("msg",msg);
+			redirect.addAttribute("notify",msg);
 			return "redirect:/login/login";
 		}
 		//session生成

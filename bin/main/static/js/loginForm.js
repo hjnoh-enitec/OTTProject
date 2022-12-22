@@ -7,6 +7,7 @@ const c_id = document.getElementById("c_id");
 const c_pwd = document.getElementById("c_pwd");
 const loginMsg = document.getElementById("loginMsg");
 const mailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+const urlPath = document.getElementById("urlPath");
 function LoginCheck() {
 	const loginC_id = document.getElementById("loginC_id");
 	if (loginC_id.value == "") {
@@ -78,7 +79,7 @@ function doAction() {
 	}
 	$.ajax({
 		type: 'post',
-		url: "http://localhost:8000/find/id",
+		url: urlPath+"/find/id",
 		async: false,
 		data: {
 			"c_name": nameVal,

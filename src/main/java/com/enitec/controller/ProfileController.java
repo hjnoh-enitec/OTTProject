@@ -26,12 +26,12 @@ import com.enitec.vo.Profile;
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
-
 	@Autowired
 	private ProfileService ps;
-
 	@Autowired
 	private CustomerService customerServ;
+	@Autowired
+	private FileSaveService fss;
 
 	@GetMapping("/select")
 	public String moveProfilePage(String toURL, HttpServletRequest request, HttpServletResponse res, Model model) {
@@ -56,9 +56,9 @@ public class ProfileController {
 		// 유저의 멤버십 코드가 M0 (미가입상태)면 멤버십 가입 페이지로, 가입 되어있으면 프로필 선택 페이지로
 		String membership = customerServ.getMembershipCode(c_id.toString());
 		String noMembership = "M0";
-        if(membership.equals(noMembership)) {
-        	return "redirect:/customer/modifyMembership?c_id=" + c_id + "&isFromLogin=true";
-        }		
+		if (membership.equals(noMembership)) {
+			return "redirect:/customer/modifyMembership?c_id=" + c_id + "&isFromLogin=true";
+		}
 		return "profile/profile";
 	}
 
@@ -73,11 +73,9 @@ public class ProfileController {
 		return "redirect:/";
 	}
 
-
 	@PostMapping("/create")
-	public String createProfile(CreateProfileForm createProfileForm,  HttpSession session,
-			HttpServletResponse res, MultipartFile fileUpload) {
-		FileSaveService fss = new FileSaveService();
+	public String createProfile(CreateProfileForm createProfileForm, HttpSession session, HttpServletResponse res,
+			MultipartFile fileUpload) {
 		Profile profile = new Profile();
 		String profilePath = "";
 		String thumbnailPath = "";
@@ -85,8 +83,8 @@ public class ProfileController {
 		profile.setC_id(createProfileForm.getC_id());
 		profile.setPf_name(createProfileForm.getPf_name());
 		if (fileUpload.isEmpty()) {
-			profilePath = fss.base + fss.defaultProfileImageName;
-			thumbnailPath = fss.base + fss.defaultThumbnailImageName;
+			profilePath = fss.getBase() + fss.getDefaultProfileImageName();
+			thumbnailPath = fss.getBase() + fss.getDefaultThumbnailImageName();
 		} else {
 			String fileName = fileUpload.getOriginalFilename();
 			boolean uploadStatus = fss.uploadFile(fileUpload, fileName);
@@ -95,8 +93,8 @@ public class ProfileController {
 				res.addCookie(error);
 				return "redirect:/profile/select";
 			}
-			profilePath = fss.profile + fileName;
-			thumbnailPath = fss.thumbnail + fileName;
+			profilePath = fss.getProfile() + fileName;
+			thumbnailPath = fss.getThumbnail() + fileName;
 		}
 		profile.setPf_path(profilePath);
 		profile.setPf_thumbnail_path(thumbnailPath);

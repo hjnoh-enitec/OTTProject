@@ -12,6 +12,7 @@
 	<meta charset="UTF-8">
 	<title>OTTProject - Membership Quit</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+	<link rel="shortcut icon" href="/img/logo.png">
 	<style>
 		* { box-sizing:border-box; }
 		a { text-decoration: none; }
@@ -50,7 +51,7 @@
 <%//@ include file="/jsp/home/header.jsp"%>
 
 <div>
-<form action="/customer/withdrwal" method="post">
+	<form action="/customer/withdrwal" method="post">
 
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
@@ -61,8 +62,8 @@
 		<!-- 추후 #c_id의 value는 로그인 후 회원정보에서 가져온 id를 넣도록 -->
 		<input type="hidden" id="c_id" name="c_id" value="${loginId}">
 		
-		<button style="background-color: red;" type="submit">解約する</button>
-		<button style="background-color: blue;" type="button" onclick="back()">キャンセル</button>
+		<button style="background-color: red;" type="submit">はい</button>
+		<button style="background-color: blue;" type="button" onclick="back()">いいえ</button>
 	</form>
 </div>
 	
