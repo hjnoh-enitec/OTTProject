@@ -8,14 +8,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>OTTProject - User</title>
+<title>OTTProject - UserInfo</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+<link rel="shortcut icon" href="#">
 	<style>
 		* { box-sizing:border-box; }
 		a { text-decoration: none; }
 		#main {
-			width:500px;
-			height:600px;
+			width:400px;
+			height:550px;
 			display : flex;
 			flex-direction: column;
 			align-items:center;
@@ -27,12 +28,30 @@
 			border-radius: 10px;
 		}
 		input[type='text'], input[type='password'] {
-			width: 200px;
+			width: 220px;
 			height: 40px;
 			border : 1px solid rgb(89,117,196);
 			border-radius:5px;
 			padding: 0 10px;
 			margin-bottom: 10px;
+		}
+		input[type='submit'] {
+			width: 200px;
+			height: 40px;
+			border : 1px solid rgb(89,117,196);
+			border-radius:5px;
+			padding: 0 10px;
+			background-color: gray;
+			color: white;
+		}
+		input[type='submit']:hover {
+			width: 200px;
+			height: 40px;
+			border : 1px solid rgb(89,117,196);
+			border-radius:5px;
+			padding: 0 10px;
+			background-color: white;
+			color: black;
 		}
 		button {
 			background-color: rgb(89,117,196);
@@ -47,6 +66,14 @@
 		#title {
 			font-size : 50px;
 			margin: 40px 0 30px 0;
+		}
+		.form-left{
+			width: 40%;
+			float: left;
+		}
+		.form-right{
+			width: 50%;
+			float: right;
 		}
 	</style>
 </head>
@@ -118,32 +145,63 @@
 				</c:if>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<input type="submit" onclick="javascript: form.action='http://localhost:8000/modify/pwCheck'" value="会員情報修正">
-				</td>
-				<td>
-					<input type="submit" onclick="javascript: form.action='/customer/modifyMembership'" value="メンバーシップ申込＆修正">
-				</td>
-				<td>
-				
-					<c:if test="${customer.m_code == null || customer.m_autopay == 'F'}">
-						<input type="submit" value="メンバーシップ脱退" id="quitMembership" disabled="disabled">
-					</c:if>
-				
-					<c:if test="${customer.m_code != null && customer.m_autopay == 'T'}">
-						<input type="submit" onclick="javascript: form.action='/customer/withdrwal'" value="メンバーシップ脱退" id="quitMembership">
-					</c:if>
-				</td>
-			</tr>
-
 		</table>
-		
+		<p><p>
+			<div style="text-align: center;">
+				<div style="margin-bottom: 10px;"><input type="submit" onclick="javascript: form.action='http://localhost:8000/modify/pwCheck'" value="会員情報修正"></div>
+				<div style="margin-bottom: 10px;"><input type="submit" onclick="javascript: form.action='/customer/modifyMembership'" value="メンバーシップ申込＆修正"></div>
+				<div style="margin-bottom: 10px;">
+					<c:if test="${customer.m_code == null || customer.m_autopay == 'F'}">
+					<input type="submit" value="メンバーシップ脱退" id="quitMembership" disabled="disabled">
+				</c:if>
+					
+				<c:if test="${customer.m_code != null && customer.m_autopay == 'T'}">
+					<input type="submit" onclick="javascript: form.action='/customer/withdrwal'" value="メンバーシップ脱退" id="quitMembership">
+				</c:if>
+				</div>
+			</div>
 		</form>
 	</div>
 
 	<script>
 	
+		var today = new Date();
+		var thisYear = today.getFullYear();
+	
+		var phone = document.getElementById("phone");
+		if(phone.value.length == 11){
+			var phoneFirst = phone.value.substr(0,3) + "-";
+			var phoneSecond = phone.value.substr(3,4) + "-";
+			var phoneThird = phone.value.substr(7,4);
+
+			phone.value = phoneFirst + phoneSecond + phoneThird;
+		}else{
+			phone.value = "ERROR!";
+		}
+		
+		var birth = document.getElementById("birth");
+		if(birth.value.length == 8){
+			var year = birth.value.substr(0,4) + "年";
+			var month = "";
+			var day = "";
+			
+			if(birth.value.charAt(4) == 0){
+				month = birth.value.substr(5,1) + "月";
+			}else{
+				month = birth.value.substr(4,2) + "月";
+			}
+			
+			if(birth.value.charAt(6) == 0){
+				day = birth.value.substr(7,1) + "日";
+			}else{
+				day = birth.value.substr(6,2) + "日";
+			}
+			
+			birth.value = year + month + day;
+		}else{
+			birth.value = "ERROR!";
+		}
+		
 	</script>
 	
 </body>

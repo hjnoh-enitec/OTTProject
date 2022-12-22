@@ -11,7 +11,7 @@
 <head>
 <link rel="stylesheet" href="/css/profile.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>OTTProject - Profile</title>
 </head>
 <body id="profilebody">
 
@@ -22,7 +22,7 @@
 		<div class="add-window" style="background-color: black; color: white; width: 400px;">
 			<!-- 컨텐츠 제목 -->
 			<div style="width: 500px; height: 50px;">
-				<div class="title" id="modalTitle" style="width: 290px;  height: 50px; float: left;"><h2>Profile Add</h2></div>
+				<div class="title" id="modalTitle" style="width: 290px;  height: 50px; float: left;"><h2>プロフィール追加</h2></div>
 			</div>
 			
 			<div id="content">
@@ -31,16 +31,21 @@
 					<input type='hidden' name='c_id' value='${c_id }'> <input
 						type="hidden" name="pf_code" value="${pf_code}"> <label
 						class='profile-name'>プロフィール名</label> <input type='text'
-						id="pf_name" name='pf_name' maxlength="10"><br />
+						id="pf_name" name='pf_name' maxlength="10"><p><p><p>
 					<div class='profile-card' id='profile-image'>
 						<img src='/img/baseImage/basicProfileImage.jpg' id='fileUpload' />
-					</div>
-					<input type='file' name='fileUpload' accept='.jpg,.png'
+						<p><p><p>
+						<input type='file' name='fileUpload' accept='.jpg,.png'
 						onchange='setProfile(event)' />
-					<button id='buttonInForm' onclick="return createProfile()">プロフィール作成</button>
+					</div>
+					
+					<div>
+						<p><p><p>
+						<button id='buttonInForm' type="submit" onclick="return createProfile()">続ける</button>
+						<button onclick="closeModal()" type="button">キャンセル</button>
+					</div>
 				</form>
 			</div>
-			<div class="close-area" style="margin: auto; text-align: center;"><button onclick="closeModal()">閉じる</button></div>
 		</div>
 
 	</div>
@@ -51,7 +56,7 @@
 		<div class="modify-window" style="background-color: black; color: white; width: 500px; height:'';">
 			<!-- 컨텐츠 제목 -->
 			<div style="width: 500px; height: 50px;">
-				<div class="title" id="modalTitle" style="width: 290px;  height: 50px; float: left;"><h2>Profile Setting</h2></div>
+				<div class="title" id="modalTitle" style="width: 290px;  height: 50px; float: left;"><h2>プロフィールの管理</h2></div>
 				
 			</div>
 			
@@ -103,7 +108,7 @@
 				</c:forEach>
 			</div>
 			
-			<div class="close-area" style="margin: auto; text-align: center;"><button onclick="closeModal()">閉じる</button></div>
+			<div class="close-area" style="margin: auto; text-align: center;"><button onclick="closeModal()">キャンセル</button></div>
 		</div>
 
 	</div>
@@ -112,12 +117,12 @@
 		<%@ include file="/jsp/home/header.jsp"%>
 		<div id="profile-aria">
 			<div>
-				<p id="tv">プロフィールを選択してください。</p>
+				<p id="tv">どなたが観ますか？</p>
 			</div>
 			<div>
-				<ul id="profilrselect">
+				<ul id="profileSelect">
 					<c:forEach items="${profileList }" var="profile" varStatus="status">
-						<li id="profilrselect">
+						<li id="profileSelect">
 							<div id="profile"
 								onclick="moveContent(profileForm${status.index})">
 								<form action="/profile/select" method="post"
@@ -138,7 +143,7 @@
 					</c:forEach>
 
 					<c:if test="${fn:length(profileList)  < 4}">
-						<li id="profilrselect">
+						<li id="profileSelect">
 							<div id="profile" onclick="openModalWithAddProfile()">
 								<div id="profile-card">
 									<img src="/img/baseImage/addbtn.png" />
@@ -149,10 +154,9 @@
 					</c:if>
 				</ul>
 			</div>
-			<br>
-			<br>
+			<br><br><br><br>
 			<div id="button">
-				<button id="settingbtn" onclick="openModalWithSetting()">ProfileSetting</button>
+				<button id="settingbtn" onclick="openModalWithSetting()">プロフィールの管理</button>
 			</div>
 		</div>
 	</div>

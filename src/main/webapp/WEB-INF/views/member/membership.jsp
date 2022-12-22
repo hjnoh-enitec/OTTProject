@@ -42,7 +42,7 @@
 		button {
 			background-color: rgb(89,117,196);
 			color : white;
-			width:300px;
+			width:200px;
 			height:50px;
 			font-size: 17px;
 			border : none;
@@ -77,19 +77,12 @@
 	
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		
-		<div class="title"><h2>Choose your Plan</h2></div>
-		
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		
-		<label for="">プランを選んでください。</label>
-		
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="title"><h2>申し込むプランを選んでください。</h2></div>
 		
 		<input type="hidden" id="curPlan" value="${membershipCode}">
 		
 		<c:if test="${membershipCode != null}">
-			<h3>現在のプラン</h3>
-			<h4 id="curPlanName"></h4>
+			<h3 id="curPlanName"></h3>
 		</c:if>
 		<div id="msg" class="msg">
 			<p id="errorMsg"></p>
@@ -116,14 +109,16 @@
 		
 		var curPlanName = document.getElementById("curPlanName");
 	
+		var curPlanTXT = "現在のプラン ： ";
+		
 		if(curPlan == 'M1'){
-			curPlanName.innerHTML = "ベーシック"
+			curPlanName.innerHTML = curPlanTXT + "ベーシック"
 		}else if(curPlan == 'M2'){
-			curPlanName.innerHTML = "スタンダード"
+			curPlanName.innerHTML = curPlanTXT + "スタンダード"
 		}else if(curPlan == 'M3'){
-			curPlanName.innerHTML = "プレミアム"
+			curPlanName.innerHTML = curPlanTXT + "プレミアム"
 		}else if(curPlan == 'M4'){
-			curPlanName.innerHTML = "オメガ"
+			curPlanName.innerHTML = curPlanTXT + "オメガ"
 		}
 	
 		var plan = document.getElementById("planSelect").value;

@@ -14,6 +14,7 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Register</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="icon" href="/img/logo.png">
 </head>
 <body>
 	<section class="LoginSection">

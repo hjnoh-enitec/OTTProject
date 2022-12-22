@@ -16,7 +16,7 @@
 		* { box-sizing:border-box; }
 		a { text-decoration: none; }
 		form {
-			width:400px;
+			width:500px;
 			height:500px;
 			display : flex;
 			flex-direction: column;
@@ -39,7 +39,7 @@
 		button {
 			background-color: rgb(89,117,196);
 			color : white;
-			width:300px;
+			width:200px;
 			height:50px;
 			font-size: 17px;
 			border : none;
@@ -61,7 +61,7 @@
 </head>
 <body>
 	<form action ="<c:url value="/modify/modify"/>" method="post" onsubmit="return formCheck(this);">
-	<h3 id="title">パスワードを入力してください</h3>
+	<h3 id="title">パスワードを<br>入力してください</h3>
 	<div id="msg">
 		${param.msg}
 	</div>
