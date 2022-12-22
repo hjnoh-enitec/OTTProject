@@ -27,6 +27,7 @@ function LoginCheck() {
 	}
 	loginMsg.innerHTML = '';
 	mailRegex.style = "none";
+	return true;
 }
 function findID() {
 	findIdForm.setAttribute("onsubmit", "return doAction()");

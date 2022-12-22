@@ -110,7 +110,9 @@ function enterkey(index,e) {
 			profileName.style.outline = '1px solid';
 			profileName.style.border = '1px solid';
 			profileName.style.borderRadius = '1px';
-			
+			profileName.addEventListener("blur",e =>{
+				accept(index);
+			})
 		}
 		function imgChange(index) {
 			let file = document.getElementById("fileUpload"+index);
