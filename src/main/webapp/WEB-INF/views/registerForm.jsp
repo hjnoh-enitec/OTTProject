@@ -80,7 +80,7 @@
 	const sbmBtn = document.getElementById("submitBtn");
 	const checkDuplBtn = document.getElementById("checkDuplBtn");
 	const msg = document.getElementById("validateMsg");
-	const urlPath = document.getElementById("urlPath");
+	const urlPath = document.getElementById("urlPath").value;
 	 function idCheck() {
 			const c_id = document.getElementById("c_id");
 			let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;

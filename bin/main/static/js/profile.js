@@ -3,7 +3,7 @@ const modalModify = document.getElementById("modal-modify");
 const modalTitle = document.getElementById("modalTitle");
 const contentForm = document.getElementById("contentForm");
 const buttonInForm = document.getElementById("buttonInForm");
-const urlPath = document.getElementById("urlPath");
+const urlPath = document.getElementById("urlPath").value;
 function moveContent(frm) {
 	frm.submit();
 }

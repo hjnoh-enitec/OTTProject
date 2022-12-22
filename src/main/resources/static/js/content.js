@@ -19,7 +19,7 @@ let episodes;
 let contentId;
 let s_value;
 let historyCnt;
-const urlPath = document.getElementById("urlPath");
+const urlPath = document.getElementById("urlPath").value;
 window.onload = function() {
 	//modal
 	modal = document.getElementById("modal");

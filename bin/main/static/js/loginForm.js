@@ -7,12 +7,12 @@ const c_id = document.getElementById("c_id");
 const c_pwd = document.getElementById("c_pwd");
 const loginMsg = document.getElementById("loginMsg");
 const mailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-const urlPath = document.getElementById("urlPath");
+const urlPath = document.getElementById("urlPath").value;
 function LoginCheck() {
 	const loginC_id = document.getElementById("loginC_id");
 	if (loginC_id.value == "") {
 		loginMsg.innerHTML = 'メールを入力してください。';
-		loginMsg.style.display = "flex";
+		loginMsg.style.display = "flex";``
 		return false;
 	}
 	else if (mailRegex.test(loginC_id.value) == false) {

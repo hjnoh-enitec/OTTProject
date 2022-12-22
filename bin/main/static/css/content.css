@@ -3,6 +3,7 @@ body{
 	height: 100%;
 }
 .catalog {
+	width :100%;
 	position: absolute;
 	top: 600px;
 }
