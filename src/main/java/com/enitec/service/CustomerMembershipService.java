@@ -21,7 +21,7 @@ public class CustomerMembershipService {
 		Customer customer = cr.findById(c_id).get();
 		customer.setM_code(m_code);
 		customer.setM_start_date(LocalDate.now());
-		customer.setM_end_date(LocalDate.now().plusMonths(1));
+		customer.setM_end_date(LocalDate.now().plusDays(30));
 		customer.setM_autopay("T");
 		cr.save(customer);
 	}
@@ -30,6 +30,7 @@ public class CustomerMembershipService {
 		Customer customer = cr.findById(c_id).orElse(null);
 		if(customer != null) {
 			customer.setM_code("M0");
+			customer.setM_autopay("F");
 			cr.save(customer);
 		}
 	}
