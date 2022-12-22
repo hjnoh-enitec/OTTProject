@@ -6,6 +6,9 @@
 <%@ page session="false"%>
 <%@ page import="java.net.URLDecoder"%>
 <%@ include file="/jsp/home/header.jsp"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@environment.getProperty('path.urlPath')"
+	var="urlPath" />
 <c:set var="profile"
 	value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('profile')}" />
 <!DOCTYPE html>
@@ -53,7 +56,7 @@
 		</div>
 	</div>
 	<div>
-
+		<input type="hidden" id="urlPath" value="${urlPath}">
 		<iframe width="1900px" height="1100px" id="mainPreview"
 			src="https://www.youtube.com/embed/zqhU76d690o?enablejsapi=1&controls=0&autoplay=1&mute=1"
 			frameborder="0"></iframe>
@@ -69,20 +72,20 @@
 						<c:forEach items="${playedList}" var="playedList">
 							<c:if test="${playedList.e_number ne '-1'}">
 								<c:if test="${playedList.e_code eq null}">
-									<img class="slide s3" id="${playedList.ct_code}" 
+									<img class="slide s3" id="${playedList.ct_code}"
 										onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_number}','${playedList.s_number}','${playedList.path}')"
 										src="${playedList.imgPath}">
 								</c:if>
 								<c:if test="${playedList.e_code ne null}">
-									<img class="slide s3" id="${playedList.ct_code}" 
+									<img class="slide s3" id="${playedList.ct_code}"
 										onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
 										src="${playedList.imgPath}">
 								</c:if>
 							</c:if>
 							<c:if test="${playedList.e_number eq '-1'}">
-									<img class="slide s3" id="${playedList.ct_code}" 
-										onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
-										src="${playedList.imgPath}">
+								<img class="slide s3" id="${playedList.ct_code}"
+									onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
+									src="${playedList.imgPath}">
 							</c:if>
 
 						</c:forEach>

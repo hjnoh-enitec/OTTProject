@@ -35,8 +35,8 @@ public class ProfileUpdateAjaxController {
 			if(!fss.uploadFile(uploadfile, fileName)) {
 				return 1;
 			}else {
-				File beforeProfile = new File(fss.root + fss.profile + profile.getPf_path());
-				File beforeThumbnail = new File(fss.root + fss.thumbnail + profile.getPf_thumbnail_path());
+				File beforeProfile = new File(fss.getFilePathRoot() + fss.getProfile() + profile.getPf_path());
+				File beforeThumbnail = new File(fss.getFilePathRoot() + fss.getThumbnail() + profile.getPf_thumbnail_path());
 				if(beforeProfile.exists()) {
 					if(beforeProfile.delete()) {
 						System.out.println("delete before profile");
@@ -51,8 +51,8 @@ public class ProfileUpdateAjaxController {
 						return 1;	
 					}
 				}
-				profile.setPf_path(fss.profile+fileName);
-				profile.setPf_thumbnail_path(fss.thumbnail+fileName);
+				profile.setPf_path(fss.getProfile()+fileName);
+				profile.setPf_thumbnail_path(fss.getThumbnail()+fileName);
 			}
 		}
 		ps.CreateUpdateProfile(profile);

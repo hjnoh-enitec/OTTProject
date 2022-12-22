@@ -3,16 +3,12 @@ const modalModify = document.getElementById("modal-modify");
 const modalTitle = document.getElementById("modalTitle");
 const contentForm = document.getElementById("contentForm");
 const buttonInForm = document.getElementById("buttonInForm");
-
+const urlPath = document.getElementById("urlPath");
 function moveContent(frm) {
 	frm.submit();
 }
 function openModalWithSetting() {
-	
 	modalModify.style.display = "flex";
-	const cntCount = buttonInForm.childElementCount;
-	let height = 100+ (cntCount*200);
-	modalModify.style.height = height + "px";
 }
 
 function openModalWithAddProfile() {
@@ -144,7 +140,7 @@ function enterkey(index,e) {
 				$.ajax({
 					type:'POST',
 					enctype:'multipart/form-data',
-					url:'http://localhost:8000/update',
+					url:urlPath+ '/update',
 					data:data,
 					processData:false,
 					contentType:false,
@@ -171,7 +167,7 @@ function enterkey(index,e) {
 					let pf_code = document.getElementById("pf_code" + index);
 					$.ajax({
 						type:'POST',
-						url:'http://localhost:8000/delete',
+						url:urlPath+'/delete',
 						data:{"pf_code" : pf_code.value},
 						success:function(data){
 							if(data == 0){

@@ -4,9 +4,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <%@ page import="java.net.URLDecoder"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="profile"
 	value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('profile')}" />
 <!DOCTYPE html>
+<spring:eval expression="@environment.getProperty('path.urlPath')" var="urlPath"/>
 <html>
 <head>
 <style>
@@ -21,7 +23,7 @@
 
 <body onload="beforePlayVideo()" onmouseover="onVideo()"
 	onmouseout="outVideo()">
-
+	<input type="hidden" id="urlPath" value="${urlPath}">
 	<input type="hidden" id="membership" value="${membership}">
 	<input type="hidden" id="ct_code" value="${param.ct_code}">
 	<input type="hidden" id="e_code" value="${param.e_code}">

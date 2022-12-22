@@ -19,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MailService {
 
 	@Autowired
+	FileSaveService fss;
+	@Autowired
 	private JavaMailSender ms;
 	@Async
 	public void sendMail(String t_id, String c_id, String url, String subject) {
@@ -27,8 +29,7 @@ public class MailService {
         try {
             mail.setRecipient(c_id);
             mail.setSubject(subject);
-            mail.setText("http://localhost:8000"+url+"?t_id="+t_id);
-            System.out.println("link : -> -> "+"http://localhost:8000/token/confirm?t_id="+t_id);
+            mail.setText(url+"?t_id="+t_id);
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             mimeMessageHelper.setTo(mail.getRecipient());
             mimeMessageHelper.setSubject(mail.getSubject());

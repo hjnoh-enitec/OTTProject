@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page import="java.net.URLDecoder"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,6 @@
 	<div id="main">
 		<div class="title"><h2></h2></div>
 		<form id="csForm">
-		<input type="hidden" name="c_id" value="${customer.c_id}">
 		<table>
 			<tr>
 				<td><label for="">ID</label></td>
@@ -120,7 +120,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="submit" onclick="javascript: form.action='http://localhost:8000/modify/pwCheck'" value="会員情報修正">
+					<input type="submit" onclick="javascript: form.action='/modify/pwCheck'" value="会員情報修正">
 				</td>
 				<td>
 					<input type="submit" onclick="javascript: form.action='/customer/modifyMembership'" value="メンバーシップ申込＆修正">
