@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enitec.form.ModifyForm;
 import com.enitec.service.CustomerService;
+import com.enitec.session.Session;
 import com.enitec.vo.Customer;
 
 @Controller
@@ -44,7 +45,7 @@ public class ModifyController {
 	}
 
 	@PostMapping("/save")
-	public String modifySaveUser(ModifyForm modify) {
+	public String modifySaveUser(ModifyForm modify,RedirectAttributes redirect) {
 		Customer customer = ms.findById(modify.getC_id());
 		customer.setC_pwd(modify.getC_pwd());
 		customer.setC_phone(modify.getC_phone());

@@ -107,24 +107,29 @@ button {
 	<script>
        function pwCheck(frm) {
     	   deleteMessage('', frm.pwd);
-           
+    	   var reg = /\s/g;
+    	   
             if(frm.c_pwd.value.length == 0){
      		   setMessage('パスワードを入力してください。', frm.c_pwd);
      		  return false;
      	   }
+            
      	   if(frm.c_pwd2.value.length == 0){
      		   setMessage('もう一度パスワードを入力してください。', frm.c_pwd2);
      		  return false;
      	   }
-     	   if(frm.c_pwd.value.length < 4 && frm.c_pwd2.value.length < 4){
-     		  setMessage('pwdは4文字以上入力して下し', frm.c_pwd2);
-     		  return false
+     	  if(frm.c_pwd.value.length < 4 && frm.c_pwd2.value.length < 4){
+     		  setMessage('パスワードは4文字以上入力してください。', frm.c_pwd2);
+     		  return false;
      	   }
+     	  if(frm.c_pwd.value.match(reg)){
+     		setMessage('パスワードには空白は入れません。', frm.c_pwd);
+     		return false;
+     	  }
      	  if(frm.c_pwd.value!==frm.c_pwd2.value) {　
-     		 setMessage('PWが一致しません', frm.c_pwd2);
+     		 setMessage('パスワードが一致しません', frm.c_pwd2);
               return false;
           }
-     	  
      	   if(frm.c_phone.value.length == 0){
      		   setMessage('携帯番号を入力してください', frm.c_phone);
      		  return false;

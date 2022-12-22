@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileSaveService {
 
-	public String root = "C:/LeeTJ/WorkSpace_lee_Spring/OTTProject/src/main/resources/static";
+	public String root = "C:/Program Files/apache-tomcat-8.5.84-windows-x64/apache-tomcat-8.5.84/webapps/OTTProject/WEB-INF/classes/static";
 	public String thumbnail = "/img/thumbnail/";
 	public String profile = "/img/profile/";
 	public String base = "/img/baseImage/";

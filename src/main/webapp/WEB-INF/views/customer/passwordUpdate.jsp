@@ -88,6 +88,7 @@ button {
 	function check() {
 		let pwd = document.getElementById("c_pwd");
 		let rpwd = document.getElementById("re_pwd");
+		var reg = /\s/g;
 		if(pwd.value.length == 0 || rpwd.value.length == 0){
 			alert('パスワードまたはパスワード確認を入力してください。');
 			return false;
@@ -96,6 +97,10 @@ button {
 			alert('パスワードは3字以上20字以下でお願いします。');
 			return false;
 		}
+		if(pwd.value.match(reg)){
+     		setMessage('パスワードには空白は入れません。', frm.c_pwd);
+     		return false;
+     	  }
 		if(pwd.value != rpwd.value){
 			alert('パスワードとパスワード確認が一致しておりません');
 			return false;		

@@ -22,8 +22,7 @@ html, body {
 
 .LoginSection {
 	width: 100%;
-	height: 100%;
-	background: url("../img/background.jpg");
+	height: 110%;
 	box-shadow: inset 150px 120px 150px #000000, inset -120px -100px 250px
 		#000000;
 }
@@ -36,8 +35,9 @@ html, body {
 	background-color: rgba(0, 0, 0, 0.8);
 	padding: 10px;
 	width: 560px;
-	height: 820px;
+	height: 970px;
 	border-radius: 0.4em;
+	margin-top: 3%;
 }
 
 .LoginDiv div {
@@ -196,13 +196,6 @@ label[for="check"]{
 	display: none;
 	color: #737373;
 }
-
-.msg {
-	font-size: 16px;
-	color: red;
-	width: 300px;
-}
-
 .form .idDupl {
 	display: flex;
 	margin-left: 0px;
@@ -210,8 +203,24 @@ label[for="check"]{
 }
 
 .form .idDupl .idDuplMsg {
+	width:65%;
 	color: red;
 	margin-top: 15px;
-	margin-left: 10px;
+	margin-left : 30px;
 	font-size: 16px;
+}
+
+.form #backPage{
+	margin-left: 35%;
+}
+
+.signLabel{
+	color : white;
+}
+#validateMsg{
+	margin-left : 0px;
+	text-align: center;
+	width: 440px;
+	height:20px;
+	color: red;
 }

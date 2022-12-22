@@ -199,7 +199,8 @@ label {
 			<div class="joinQ">
 				<a href="/register/signup">新規登録</a> <br /> <a
 					id="modal_open_btn_findID">IDを忘れた方</a> | <a
-					id="modal_open_btn_findPW">パスワードを忘れた方</a> | <a href="/">戻る</a>
+					id="modal_open_btn_findPW">パスワードを忘れた方</a> | <a href="/">メインページへ
+				</a>
 			</div>
 		</div>
 	</div>
