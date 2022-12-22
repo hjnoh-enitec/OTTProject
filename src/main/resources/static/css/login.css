@@ -215,8 +215,10 @@ label[for="check"]{
 }
 
 .signLabel{
-	color : white;
+	color : white;	
 }
+
+
 #validateMsg{
 	margin-left : 0px;
 	text-align: center;

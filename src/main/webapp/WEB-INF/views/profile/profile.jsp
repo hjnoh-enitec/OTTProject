@@ -3,9 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="c_id"
 	value="${request.getSession(false)=='' ? '' : pageContext.request.session.getAttribute('c_id')}" />
 <%@ page session="false"%>
+<spring:eval expression="@environment.getProperty('path.urlPath')" var="urlPath"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,13 +21,16 @@
 	<div id="modal-add" class="modal-overlay">
 
 		<!-- 본 모달창 -->
-		<div class="add-window" style="background-color: black; color: white; width: 400px; height:500px;">
+		<div class="add-window" style="background-color: black; color: white; width: 400px;">
 			<!-- 컨텐츠 제목 -->
-			<div class="title" id="modalTitle"><h2>Profile Add</h2></div>
-			<div class="close-area" onclick="closeModal()">X</div>
+			<div style="width: 500px; height: 50px;">
+				<div class="title" id="modalTitle" style="width: 290px;  height: 50px; float: left;"><h2>Profile Add</h2></div>
+			</div>
+			
 			<div id="content">
 				<form id="contentForm" action="/profile/create" method="post"
 					enctype="multipart/form-data">
+					<input type="hidden" id="urlPath" value="${urlPath}">
 					<input type='hidden' name='c_id' value='${c_id }'> <input
 						type="hidden" name="pf_code" value="${pf_code}"> <label
 						class='profile-name'>プロフィール名</label> <input type='text'
@@ -38,7 +43,7 @@
 					<button id='buttonInForm' onclick="return createProfile()">プロフィール作成</button>
 				</form>
 			</div>
-
+			<div class="close-area" style="margin: auto; text-align: center;"><button onclick="closeModal()">閉じる</button></div>
 		</div>
 
 	</div>
@@ -46,10 +51,13 @@
 	<div id="modal-modify" class="modal-overlay">
 
 		<!-- 본 모달창 -->
-		<div class="modify-window" style="background-color: black; color: white; width: 500px; height:100%;">
+		<div class="modify-window" style="background-color: black; color: white; width: 500px; height:'';">
 			<!-- 컨텐츠 제목 -->
-			<div class="title" id="modalTitle"><h2>Profile Setting</h2></div>
-			<div class="close-area" onclick="closeModal()">X</div>
+			<div style="width: 500px; height: 50px;">
+				<div class="title" id="modalTitle" style="width: 290px;  height: 50px; float: left;"><h2>Profile Setting</h2></div>
+				
+			</div>
+			
 			<div id="content">
 				<c:forEach var="profile" items="${profileList }" varStatus="status">
 					<div class="profileList" id="profileList${status.index }">
@@ -97,6 +105,8 @@
 					</div>
 				</c:forEach>
 			</div>
+			
+			<div class="close-area" style="margin: auto; text-align: center;"><button onclick="closeModal()">閉じる</button></div>
 		</div>
 
 	</div>

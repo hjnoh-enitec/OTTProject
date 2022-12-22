@@ -4,6 +4,9 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <%@ page import="java.net.URLDecoder"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@environment.getProperty('path.urlPath')"
+	var="urlPath" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +26,7 @@
 			</div>
 			<div class="form">
 				<form:form action="/register/signup" method="post" id="f">
+					<input type="hidden" id="urlPath" value="${urlPath}">
 					<input type="hidden" name="M_CODE" value="M0">
 					<div class=idDupl>
 						<h5 class="idDuplMsg" id="idDuplMsg" style="color: red;"></h5>
@@ -66,103 +70,117 @@
 		</div>
 	</section>
 	<script>
-		const idLabel = document.getElementById("c_idLabel");
-		const pwdLabel = document.getElementById("c_pwdLabel");
-		const pwd2Label = document.getElementById("c_pwd2Label");
-		const nameLabel = document.getElementById("c_nameLabel");
-		const phoneLabel = document.getElementById("c_phoneLabel");
-		const birthLabel = document.getElementById("c_birthLabel");
-		const frm = document.getElementById("f");
-		const sbmBtn = document.getElementById("submitBtn");
-		const checkDuplBtn = document.getElementById("checkDuplBtn");
-		const msg = document.getElementById("validateMsg");
-		function idCheck() {
+	const idLabel = document.getElementById("c_idLabel");
+	const pwdLabel = document.getElementById("c_pwdLabel");
+	const pwd2Label = document.getElementById("c_pwd2Label");
+	const nameLabel = document.getElementById("c_nameLabel");
+	const phoneLabel = document.getElementById("c_phoneLabel");
+	const birthLabel = document.getElementById("c_birthLabel");
+	const frm = document.getElementById("f");
+	const sbmBtn = document.getElementById("submitBtn");
+	const checkDuplBtn = document.getElementById("checkDuplBtn");
+	const msg = document.getElementById("validateMsg");
+	const urlPath = document.getElementById("urlPath");
+	 function idCheck() {
 			const c_id = document.getElementById("c_id");
 			let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-			if (c_id.value.length < 1) {
-				document.getElementById("idDuplMsg").innerHTML = 'メールアドレスを入力してください。';
+			if(c_id.value.match(regex) != null){
+				$.ajax({
+					type :'post',
+					url :urlPath+"/checkId",
+					async : false,
+					data : {
+						"customer" : c_id.value
+					},
+					success : function(data) {
+						if(data == 1)
+						{
+							document.getElementById("idDuplMsg").innerHTML='このIDは使えません';
+						}
+					else
+						{
+						document.getElementById("idDuplMsg").innerHTML='このIDは使えます';
+						checkDuplBtn.disabled=true;
+						checkDuplBtn.style.backgroundColor='rgb(126, 126, 126)';
+						document.getElementById("c_id").readOnly=true;
+						}
+					},
+					error : function(request, status, error) {
+						alert("code:" + request.status + "\n" + "message:"
+								+ request.responseText + "\n" + "error:" + error);
+					}
+				})	
 			}
-			else {
-				if (c_id.value.match(regex) != null) {
-					$
-							.ajax({
-								type : 'post',
-								url : "http://localhost:8000/checkId",
-								async : false,
-								data : {
-									"customer" : c_id.value
-								},
-								success : function(data) {
-									if (data == 1) {
-										document.getElementById("idDuplMsg").innerHTML = 'このIDは使えません';
-									} else {
-										document.getElementById("idDuplMsg").innerHTML = 'このIDは使えます';
-										checkDuplBtn.disabled = true;
-										checkDuplBtn.style.backgroundColor = 'rgb(126, 126, 126)';
-										document.getElementById("c_id").readOnly = true;
-									}
-								},
-								error : function(request, status, error) {
-									alert("code:" + request.status + "\n"
-											+ "message:" + request.responseText
-											+ "\n" + "error:" + error);
-								}
-							})
-				} else {
-					document.getElementById("idDuplMsg").innerHTML = 'メール形式ではありません。';
-				}
+			else{
+				document.getElementById("idDuplMsg").innerHTML='メールアドレスを入力してください。';
 			}
+	  }
+	function sbmvalid() {
+		msg.innerHTML = '';
+		returnColor();
+		const phoneRex = /^(0[7|8|9][0])([0-9]{4})([0-9]{4})$/;
+		const birthRex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+		if(frm.c_id.value.length < 1){
+			idLabel.style.color = "red";
+			frm.c_id.focus();
+			msg.innerHTML = 'メールを入力してください。';
+			return false;
 		}
-		function sbmvalid() {
-			msg.innerHTML = '';
-			const phoneRex = /^(0[7|8|9][0])([0-9]{4})([0-9]{4})$/;
-			const birthRex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
-			if(frm.c_id.value.length < 1){
-				frm.c_id.focus();
-				msg.innerHTML = 'メールを入力してください。';
-				return false;
-			}
-			if(!checkDuplBtn.disabled){
-				frm.c_id.focus();
-				msg.innerHTML = 'IDチェックをしてください。';
-				return false;
-			}
-			if(frm.c_pwd.value.length < 4 || frm.c_pwd.value.length > 20){
-				frm.c_pwd.focus();
-				msg.innerHTML = 'パスワードは4~20文字の間で入力してください。';
-				return false;
-			}
-			if(frm.c_pwd.value !== frm.c_pwd2.value){
-				frm.c_pwd2.focus();
-				msg.innerHTML = 'パスワードが一致しておりません。';
-				return false;
-			}
-			if(frm.c_name.value.length < 1 || frm.c_name.value.length > 10){
-				frm.c_name.focus();
-				msg.innerHTML = 'お客様のお名前を入力してください。';
-				return false;
-			}
-			if(!phoneRex.test(frm.c_phone.value)){
-				frm.c_phone.focus();
-				msg.innerHTML = '携帯番号ではないです。もう一度確認してください。';
-				return false;
-			}
-			if(!birthRex.test(frm.c_birth.value)){
-				frm.c_birth.focus();
-				msg.innerHTML = '生年月日を正しく入力してください。';
-				return false;
-			}
-			return true;
+		if(!checkDuplBtn.disabled){
+			idLabel.style.color = "red";
+			frm.c_id.focus();
+			msg.innerHTML = 'IDチェックをしてください。';
+			return false;
 		}
-		
-		function sbm(){
-			if(sbmvalid()){
-				f.submit();
-			}
+		if(frm.c_pwd.value.length < 4 || frm.c_pwd.value.length > 20){
+			pwdLabel.style.color = "red";
+			frm.c_pwd.focus();
+			msg.innerHTML = 'パスワードは4~20文字の間で入力してください。';
+			return false;
 		}
-		function gomain() {
-			location.href='/';
+		if(frm.c_pwd.value !== frm.c_pwd2.value){
+			pwd2Label.style.color = "red";
+			frm.c_pwd2.focus();
+			msg.innerHTML = 'パスワードが一致しておりません。';
+			return false;
 		}
-	</script>
+		if(frm.c_name.value.length < 1 || frm.c_name.value.length > 10){
+			nameLabel.style.color = "red";
+			frm.c_name.focus();
+			msg.innerHTML = 'お客様のお名前を入力してください。';
+			return false;
+		}
+		if(!phoneRex.test(frm.c_phone.value)){
+			phoneLabel.style.color = "red";
+			frm.c_phone.focus();
+			msg.innerHTML = '携帯番号ではないです。もう一度確認してください。';
+			return false;
+		}
+		if(!birthRex.test(frm.c_birth.value)){
+			birthLabel.style.color = "red";
+			frm.c_birth.focus();
+			msg.innerHTML = '生年月日を正しく入力してください。';
+			return false;
+		}
+		return true;
+	}
+	
+	function sbm(){
+		if(sbmvalid()){
+			f.submit();
+		}
+	}
+	function gomain() {
+		location.href='/';
+	}
+	function returnColor() {
+		idLabel.style.color = "white";
+		pwdLabel.style.color = "white";
+		pwd2Label.style.color = "white";
+		nameLabel.style.color = "white";
+		phoneLabel.style.color = "white";
+		birthLabel.style.color = "white";
+	}
+   </script>
 </body>
 </html>

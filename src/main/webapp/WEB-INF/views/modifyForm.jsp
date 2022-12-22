@@ -54,7 +54,7 @@ button {
 	font-size: 17px;
 	border: none;
 	border-radius: 5px;
-	margin: 20px 0 30px 0;
+	margin: 10px 0 10px 0;
 }
 
 .title {
@@ -72,6 +72,10 @@ button {
 .sns-chk {
 	margin-top: 5px;
 }
+
+.noChange {
+	background-color: rgba(0, 0, 0, 0.25);
+}
 </style>
 <title>Register</title>
 </head>
@@ -83,7 +87,7 @@ button {
 			<form:errors path="pwd" />
 		</div>
 		<label for="">ID</label>
-		<input class="input-field" type="text" name="c_id"
+		<input class="input-field noChange" type="text" name="c_id"
 			value="${customer.c_id}" readonly="readonly">
 		<label for="">パスワード</label>
 		<input class="input-field" type="password" name="c_pwd"
@@ -92,60 +96,61 @@ button {
 		<input class="input-field" type="password" name="c_pwd2"
 			placeholder="再入力してください" maxlength="20">
 		<label for="">名前</label>
-		<input class="input-field" type="text" name="c_name"
+		<input class="input-field noChange" type="text" name="c_name"
 			value="${customer.c_name}" readonly="readonly">
 		<label for="">生年月日</label>
-		<input class="input-field" type="text" name="c_birth"
+		<input class="input-field noChange" type="text" name="c_birth"
 			value="${customer.c_birth}" readonly="readonly">
 		<label for="">携帯</label>
 		<input class="input-field" type="text" name="c_phone"
 			value="${customer.c_phone}" maxlength="11">
 		<input type="hidden" name="c_mailcheck"
 			value="${customer.c_mailcheck}">
-		<button>修正</button>
+		<button type="submit">修正</button>
+		<button type="button" onclick="backToInfo()">戻る</button>
 	</form:form>
 	<script>
-       function pwCheck(frm) {
-    	   deleteMessage('', frm.pwd);
-    	   var reg = /\s/g;
-    	   
-            if(frm.c_pwd.value.length == 0){
-     		   setMessage('パスワードを入力してください。', frm.c_pwd);
-     		  return false;
-     	   }
-            
-     	   if(frm.c_pwd2.value.length == 0){
-     		   setMessage('もう一度パスワードを入力してください。', frm.c_pwd2);
-     		  return false;
-     	   }
-     	  if(frm.c_pwd.value.length < 4 && frm.c_pwd2.value.length < 4){
-     		  setMessage('パスワードは4文字以上入力してください。', frm.c_pwd2);
-     		  return false;
-     	   }
-     	  if(frm.c_pwd.value.match(reg)){
-     		setMessage('パスワードには空白は入れません。', frm.c_pwd);
-     		return false;
-     	  }
-     	  if(frm.c_pwd.value!==frm.c_pwd2.value) {　
-     		 setMessage('パスワードが一致しません', frm.c_pwd2);
-              return false;
-          }
-     	   if(frm.c_phone.value.length == 0){
-     		   setMessage('携帯番号を入力してください', frm.c_phone);
-     		  return false;
-     	   }
-     	  if(frm.c_phone.value.length !== 11){
-    		   setMessage('携帯番号を正しく入力してください', frm.c_phone);
-    		  return false;
-    	   }
-     	  let phoneRegex = new RegExp('^(0[7|8|9][0])([0-9]{4})([0-9]{4})$');
-     	  if (phoneRegex.test(frm.c_phone.value) == false) {
-     		 setMessage('携帯番号を確認してください', frm.c_phone);
+	 function pwCheck(frm) {
+  	   deleteMessage('', frm.pwd);
+  	   var reg = /\s/g;
+  	   
+          if(frm.c_pwd.value.length == 0){
+   		   setMessage('パスワードを入力してください。', frm.c_pwd);
+   		  return false;
+   	   }
+          
+   	   if(frm.c_pwd2.value.length == 0){
+   		   setMessage('もう一度パスワードを入力してください。', frm.c_pwd2);
+   		  return false;
+   	   }
+   	  if(frm.c_pwd.value.length < 4 && frm.c_pwd2.value.length < 4){
+   		  setMessage('パスワードは4文字以上入力してください。', frm.c_pwd2);
+   		  return false;
+   	   }
+   	  if(frm.c_pwd.value.match(reg)){
+   		setMessage('パスワードには空白は入れません。', frm.c_pwd);
+   		return false;
+   	  }
+   	  if(frm.c_pwd.value!==frm.c_pwd2.value) {　
+   		 setMessage('パスワードが一致しません', frm.c_pwd2);
+            return false;
+        }
+   	   if(frm.c_phone.value.length == 0){
+   		   setMessage('携帯番号を入力してください', frm.c_phone);
+   		  return false;
+   	   }
+   	  if(frm.c_phone.value.length !== 11){
+  		   setMessage('携帯番号を正しく入力してください', frm.c_phone);
+  		  return false;
+  	   }
+   	  let phoneRegex = new RegExp('^(0[7|8|9][0])([0-9]{4})([0-9]{4})$');
+   	  if (phoneRegex.test(frm.c_phone.value) == false) {
+   		 setMessage('携帯番号を確認してください', frm.c_phone);
 				
 			return false;
 			}     	   
-     	   return true;
-       }
+   	   return true;
+     }
        function setMessage(msg, element){
             document.getElementById("msg").innerHTML = `<i class="fa fa-exclamation-circle"> ${'${msg}'}</i>`;
             if(element) {
@@ -154,6 +159,10 @@ button {
        }
        function deleteMessage(msg,element){
     	   document.getElementById("msg").innerHTML = ``;
+       }
+       
+       function backToInfo(){
+    	   location.href='/customer/info';
        }
        
    </script>

@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@environment.getProperty('path.urlPath')"
+	var="urlPath" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,7 +109,7 @@ label {
 </style>
 </head>
 <body>
-<!-- ----------------------------------------------------------------------------------------Modal(FindID)-------------------------------------------------------------------------------
+	<!-- ----------------------------------------------------------------------------------------Modal(FindID)-------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
@@ -140,7 +143,7 @@ label {
 				</div>
 			</div>
 		</div>
-<!-- ----------------------------------------------------------------------------------------Modal(FindPWD)-------------------------------------------------------------------------------
+		<!-- ----------------------------------------------------------------------------------------Modal(FindPWD)-------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 		<div id="modal-findPW">
@@ -148,10 +151,10 @@ label {
 				<form id="findPWForm">
 					<h3 id="title">メールアドレスを入力してください。</h3>
 					<div style="text-align: center; height: 70px;">
-						<input type="text" id="c_id" name="c_id" value=""
-							placeholder="E-MAIL" autofocus
-							style="width: 320px; height: 50px;"> <input type="hidden"
-							name="toURL" value="${param.toURL}">
+						<input type="hidden" id="urlPath" value="${urlPath}"> <input
+							type="text" id="c_id" name="c_id" value="" placeholder="E-MAIL"
+							autofocus style="width: 320px; height: 50px;"> <input
+							type="hidden" name="toURL" value="${param.toURL}">
 					</div>
 					<div style="height: 50px;">
 						<button onclick="findPW()" style="margin: auto; width: 330px;">認証メール発送</button>
@@ -166,26 +169,33 @@ label {
 				</div>
 			</div>
 		</div>
-<!-- ----------------------------------------------------------------------------------------Login-------------------------------------------------------------------------------
+		<!-- ----------------------------------------------------------------------------------------Login-------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->		
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 		<div class="LoginDiv">
 			<div class="title">
 				<h1>LogIn</h1>
 			</div>
 			<div class="title">
-				<h3 id="loginMsg" style="color:red;">${param.msg}</h3>
+				<h3 id="notify" style="color: red;">${param.notify}</h3>
 			</div>
 			<div class="form">
-				<form action="/login/login" method="post" id="f" oninput="LoginCheck()">
+				<form action="/login/login" method="post" id="f"
+					onsubmit="return LoginCheck()">
 					<input type="hidden" name="toURL" value="${toURL}" />
 					<p>
-						<input type="text" name="c_id" id="loginC_id" value="${cookie.c_id.value}"
-							placeholder="E-MAIL" autofocus>
+						<label class="signLabel" for="loginC_id">メールアドレス</label>
 					</p>
 					<p>
-						<input type="password" name="c_pwd" id="c_pwd" placeholder="パスワード"> <br>
-						<font color="white" id="emptycheck"></font>
+						<input type="text" name="c_id" id="loginC_id"
+							value="${cookie.c_id.value}" placeholder="E-MAIL" autofocus>
+					</p>
+					<p>
+						<label class="signLabel" for="c_pwd">パスワード</label>
+					</p>
+					<p>
+						<input type="password" name="c_pwd" id="c_pwd" placeholder="パスワード">
+						<br> <font color="white" id="emptycheck"></font>
 					</p>
 					<p>
 						<input type="submit" value="LogIn"> <br> <input
@@ -199,8 +209,9 @@ label {
 			<div class="joinQ">
 				<a href="/register/signup">新規登録</a> <br /> <a
 					id="modal_open_btn_findID">IDを忘れた方</a> | <a
-					id="modal_open_btn_findPW">パスワードを忘れた方</a> | <a href="/">メインページへ
-				</a>
+					id="modal_open_btn_findPW">パスワードを忘れた方</a> 
+					<br/>
+					<a href="/">メインへ</a>
 			</div>
 		</div>
 	</div>
