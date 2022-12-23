@@ -38,6 +38,9 @@ public class RegisterController {
 	// -------------------mail confirm
 	@GetMapping("/confirm")
 	public String confirmCustomer(@RequestParam String c_id) {
+		if(c_id.equals("used")) {
+			return "usedMailToken";
+		}
 		rs.compleMailCheck(c_id);
 		return "completeRegister";
 	}

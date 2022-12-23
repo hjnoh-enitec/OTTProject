@@ -26,6 +26,9 @@ public class TokenService {
 	}
 	public String confirmToken(String t_id) {
 		Token token = tr.findById(t_id).get();
+		if((token.getT_isExpired()).equals("T")) {
+			return "used";
+		}
 		token.useToken();
 		tr.save(token);
 		return token.getC_id();
