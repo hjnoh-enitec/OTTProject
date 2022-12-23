@@ -10,10 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.enitec.form.FindForm;
 import com.enitec.service.FindService;
+import com.enitec.service.TokenService;
 
 @Controller
 @RequestMapping("/find")
@@ -21,7 +23,8 @@ public class FindController {
 
 	@Autowired
 	private FindService fs;
-
+	@Autowired
+	private TokenService tk;
 	
 	@PostMapping("id")
 	@ResponseBody
@@ -41,7 +44,11 @@ public class FindController {
 	}
 
 	@GetMapping("/confirm")
-	public String movePasswordUpdate(String c_id, Model model) {
+	public String movePasswordUpdate(String t_id, Model model) {
+		String c_id = tk.confirmToken(t_id);
+		if(c_id.equals("used")) {
+			return "usedMailToken";
+		}
 		model.addAttribute("c_id",c_id);
 		return "customer/passwordUpdate";
 	}
