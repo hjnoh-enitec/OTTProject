@@ -18,7 +18,6 @@ let seasonSel;
 let episodes;
 let contentId;
 let s_value;
-let historyCnt;
 const urlPath = document.getElementById("urlPath").value;
 window.onload = function() {
 	//modal

@@ -8,7 +8,27 @@ const c_pwd = document.getElementById("c_pwd");
 const loginMsg = document.getElementById("loginMsg");
 const mailRegex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 const urlPath = document.getElementById("urlPath").value;
-
+function LoginCheck() {
+	const loginC_id = document.getElementById("loginC_id");
+	if (loginC_id.value == "") {
+		loginMsg.innerHTML = 'メールを入力してください。';
+		loginMsg.style.display = "flex";
+		return false;
+	}
+	else if (mailRegex.test(loginC_id.value) == false) {
+		loginMsg.innerHTML = 'メールの形式が正しくありません。';
+		loginMsg.style.display = "flex";
+		return false;
+	}
+	else if (c_pwd.value.length < 4) {
+		loginMsg.innerHTML = '4文字以上のパスワードを入力してください';
+		loginMsg.style.display = "flex";
+		return false;
+	}
+	loginMsg.innerHTML = '';
+	mailRegex.style = "none";
+	return true;
+}
 function findID() {
 	findIdForm.setAttribute("onsubmit", "return doAction()");
 	findIdForm.setAttribute("method", "post");
