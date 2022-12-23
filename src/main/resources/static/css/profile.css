@@ -203,7 +203,7 @@ img.profileImg {
 
 body#profilebody {
 	color: white;
-	background-color: black;
+	background-color: rgb(20, 20, 20);
 }
 
 p#logo {
@@ -225,7 +225,7 @@ div#profile-aria {
 p#tv {
 	width: 100%;
 	text-align: center;
-	font-size: 48px;
+	font-size: 55px;
 	margin-bottom: 10px;
 	margin-left: 25px;
 }
@@ -234,7 +234,7 @@ p#tv {
 	float: right;
 }
 
-li#profilrselect {
+li#profileSelect {
 	float: left;
 	list-style: none;
 	margin: 10px;
@@ -250,7 +250,7 @@ div#profile {
 div#profile-card {
 	width: 150px;
 	height: 150px;
-	background: white;
+	background: gray;
 }
 
 p#profile-card {
@@ -284,4 +284,28 @@ img#fileUpload {
 	width: 150px;
 	height: 150px;
 	object-fit: contain;
+}
+
+#settingbtn{
+	width:250px; 
+	height: 50px; 
+	font-size:19px;
+}
+
+#settingbtn{
+	width:250px; 
+	height: 50px; 
+	font-size:22px;
+	background-color: rgb(20, 20, 20);
+	color:gray;
+	border-color: gray;
+}
+
+#settingbtn:hover{
+	width:250px; 
+	height: 50px; 
+	font-size:22px;
+	background-color: rgb(20, 20, 20);
+	color:white;
+	border-color: white;
 }

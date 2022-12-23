@@ -125,7 +125,6 @@ function formCheck() {
 		return false;
 	}
 
-
 	alert(c_id.value + "にメールを発送しました。");
 	return true;
 }

@@ -17,6 +17,7 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Register</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="icon" href="/img/logo.png">
 </head>
 <body>
 	<section class="LoginSection">
@@ -53,16 +54,14 @@
 					<br />
 					<label class="signLabel" id="c_phoneLabel" for="c_phone">携帯番号</label>
 					<br />
-					<input class="input-field" type="text" id="c_phone"
-						name="c_phone" id="c_phone" placeholder="`-`なし　例）09012345678"
-						 maxlength="11">
+					<input class="input-field" type="text" id="c_phone" name="c_phone"
+						id="c_phone" placeholder="`-`なし　例）09012345678" maxlength="11">
 					<br />
 					<label class="signLabel" id="c_birthLabel" for="c_birth">生年月日</label>
 					<br />
-					<input class="input-field" type="text" id="c_birth"
-						name="c_birth" id="c_birth" placeholder="例)1990年06月02日 → 19900602"
-						maxlength="8">
-						<div class="msgArea" id="validateMsg"></div>
+					<input class="input-field" type="text" id="c_birth" name="c_birth"
+						id="c_birth" placeholder="例)1990年06月02日 → 19900602" maxlength="8">
+					<div class="msgArea" id="validateMsg"></div>
 					<button type="button" id="submitBtn" onclick="sbm()">新規登録</button>
 					<button type="button" id="backPage" onclick="gomain()">メインページへ</button>
 				</form:form>

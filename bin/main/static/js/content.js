@@ -34,8 +34,22 @@ window.onload = function() {
 	scollWidth = {scollWidth1 : 0,scollWidth2 : 0,scollWidth3 : 0};
 	currentSliderCount = {slideCnt1 : 0,slideCnt2 : 0,slideCnt3 : 0};                              
 	showCount = 10;
-	videoCount = document.getElementsByClassName("slide s1").length;
-	sliderCount = videoCount / showCount;
+	videoCount ={
+		videoCount1 : document.getElementsByClassName("slide s1").length,
+		videoCount2 : document.getElementsByClassName("slide s2").length,
+		videoCount3 : document.getElementsByClassName("slide s3").length
+		
+	} 
+	
+	
+	sliderCount ={
+		sliderCount1 : videoCount["videoCount1"] / showCount,
+		sliderCount2 : videoCount["videoCount2"] / showCount,
+		sliderCount3 : videoCount["videoCount3"] / showCount,
+		
+	} 
+	
+	
 	controlsWidth = 40;
 	content = document.querySelector(".slide");
 	modalContentAvg = document.getElementById("avg");
@@ -58,7 +72,7 @@ window.onload = function() {
 	let videoWidthDiff = (videoWidth * scaling) - videoWidth;
 	let videoHeightDiff = (videoHeight * scaling) - videoHeight;
 	//set sizes
-	sliderFrame.width(windowWidth);
+	sliderFrame.width("100%");
 	sliderContainer.width((videoWidth * videoCount) + videoWidthDiff);
 	sliderContainer.css("top", (videoHeightDiff / 2 - 45));
 	sliderContainer.css("margin-left", (controlsWidth));
@@ -98,7 +112,7 @@ function prev(num) {
 	$(".slider-container.sc" + num).css("left", scollWidth["scollWidth"+num]);
 }
 function next(num) {
-	if (currentSliderCount["slideCnt"+num] >= sliderCount) {
+	if (currentSliderCount["slideCnt"+num] >= sliderCount["sliderCount"+num]) {
 		return false;
 	}
 	scollWidth["scollWidth"+num] += frameWidth;
@@ -245,7 +259,7 @@ function setEpisonde(seasonNum) {
 				episode.setAttribute("class", "episode");
 				let title = document.createElement("h4");
 				title.setAttribute("class", "episodeTitle");
-				title.innerHTML = episodesData[i].name + "(" + episodesData[i].vote_average + ")";
+				title.innerHTML = episodesData[i].name + "(" + Math.round(episodesData[i].vote_average) + ")";
 				title.style.paddingTop = "20px";
 				let tumbNail = document.createElement("img");
 				tumbNail.style.marginLeft = "20px";
@@ -318,7 +332,7 @@ function watchVideo(episodes) {
 	let ct_path = "test.mp4"
 	if (contentId.startsWith('CT')) {
 	} else if(contentId.startsWith('T')) {
-		location.href = urlPath+"/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
+		location.href = "/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
 	}
 	else if (episodes.id!="play") {
 		e_value = episodes.id;
@@ -331,3 +345,17 @@ function watchVideo(episodes) {
 		location.href = urlPath+"/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
 	}
 }
+
+// main page preview영상 랜덤재생
+var preViewVideos = ['zqhU76d690o', 'EzGDPZhPjRA', 'n800hOJmgWo', 'HghrzTldjpc', 'kFqJhAk4Ul0', 'k4xGqY5IDBE', 'rzKcrJ77wBY', 'YLDxwZHRP6o'];
+	
+		var mainPreview = document.getElementById("mainPreview");
+	
+		function choosePreviewVideo(min, max){
+		    var videoNum = Math.floor(Math.random()*(max-min+1));
+		    console.log(videoNum);
+		    return videoNum;
+		}
+	
+		mainPreview.setAttribute("src", "https://www.youtube.com/embed/" + preViewVideos[choosePreviewVideo(0, preViewVideos.length-1)] + "?enablejsapi=1&controls=0&autoplay=1&mute=1");
+		console

@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <title>Login</title>
 <link rel="stylesheet" href="/css/login.css?ver=1">
+<link rel="icon" href="/img/logo.png">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <style>
 #modal-findID {
@@ -131,10 +132,10 @@ label {
 							name="c_phone" id="c_phone" placeholder="ex : 07012345678">
 					</div>
 					<div style="width: 50%; float: left;">
-						<button onclick="findID()">ID探し</button>
+						<button onclick="findID()" type="submit">ID探し</button>
 					</div>
 					<div style="width: 50%; float: right;">
-						<button id="modal_close_btn" onclick="closeFindID()">戻る</button>
+						<button id="modal_close_btn" onclick="closeFindID()" type="button">戻る</button>
 					</div>
 				</form>
 				<br> <br> <br>
@@ -157,10 +158,10 @@ label {
 							type="hidden" name="toURL" value="${param.toURL}">
 					</div>
 					<div style="height: 50px;">
-						<button onclick="findPW()" style="margin: auto; width: 330px;">認証メール発送</button>
+						<button onclick="findPW()" style="margin: auto; width: 330px;" type="submit">認証メール発送</button>
 					</div>
 					<div style="height: 50px;">
-						<button id="modal_close_btn" onclick="closeFindPW()">戻る</button>
+						<button id="modal_close_btn" onclick="closeFindPW()" type="button">戻る</button>
 					</div>
 				</form>
 				<br> <br> <br>
@@ -177,7 +178,8 @@ label {
 				<h1>LogIn</h1>
 			</div>
 			<div class="title">
-				<h3 id="notify" style="color: red;">${param.notify}</h3>
+				<h3 id="loginMsg" style="color: red;">${param.notify}</h3>
+
 			</div>
 			<div class="form">
 				<form action="/login/login" method="post" id="f"
