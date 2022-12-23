@@ -144,6 +144,12 @@
 			msg.innerHTML = 'パスワードには空白は入れません。';
 	   		return false;
 	   	 }
+		if(frm.c_pwd2.value.length < 1){
+			pwd2Label.style.color = "red";
+			frm.c_pwd2.focus();
+			msg.innerHTML = 'パスワードをもう一度入力してください。';
+			return false;
+		}
 		if(frm.c_pwd.value !== frm.c_pwd2.value){
 			pwd2Label.style.color = "red";
 			frm.c_pwd2.focus();
