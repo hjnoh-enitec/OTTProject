@@ -15,6 +15,10 @@ public class RegisterService {
 	CustomerRepository cr;
 
 	
+	public int checkCustomer(String c_id) {
+		return cr.checkCustomer(c_id);
+	}
+	
 	public Customer insertCustomer(Customer customer) {
 		customer.setC_mailcheck("F");
 		customer.setM_code("M0");
