@@ -80,7 +80,7 @@
 	const sbmBtn = document.getElementById("submitBtn");
 	const checkDuplBtn = document.getElementById("checkDuplBtn");
 	const msg = document.getElementById("validateMsg");
-	const urlPath = document.getElementById("urlPath");
+	const urlPath = document.getElementById("urlPath").value;
 	 function idCheck() {
 			const c_id = document.getElementById("c_id");
 			let regex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -118,6 +118,7 @@
 	function sbmvalid() {
 		msg.innerHTML = '';
 		returnColor();
+		const reg = /\s/g;
 		const phoneRex = /^(0[7|8|9][0])([0-9]{4})([0-9]{4})$/;
 		const birthRex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
 		if(frm.c_id.value.length < 1){
@@ -138,6 +139,12 @@
 			msg.innerHTML = 'パスワードは4~20文字の間で入力してください。';
 			return false;
 		}
+		if(frm.c_pwd.value.match(reg)){
+			pwdLabel.style.color = "red";
+			frm.c_pwd.focus();
+			msg.innerHTML = 'パスワードには空白は入れません。';
+	   		return false;
+	   	 }
 		if(frm.c_pwd.value !== frm.c_pwd2.value){
 			pwd2Label.style.color = "red";
 			frm.c_pwd2.focus();
