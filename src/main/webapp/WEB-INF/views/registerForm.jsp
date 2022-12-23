@@ -61,7 +61,7 @@
 					<br />
 					<input class="input-field" type="text" id="c_birth" name="c_birth"
 						id="c_birth" placeholder="例)1990年06月02日 → 19900602" maxlength="8">
-					<div class="msgArea" id="validateMsg"></div>
+					<div class="validateMsg" id="validateMsg" >${param.validateMsg }</div>
 					<button type="button" id="submitBtn" onclick="sbm()">新規登録</button>
 					<button type="button" id="backPage" onclick="gomain()">メインページへ</button>
 				</form:form>
@@ -168,10 +168,22 @@
 			msg.innerHTML = '名前には空白が入れません。';
 			return false;
 		}
+		if(frm.c_phone.value.length < 1){
+			phoneLabel.style.color = "red";
+			frm.c_phone.focus();
+			msg.innerHTML = '携帯電話を入力してください。';
+			return false;
+		}
 		if(!phoneRex.test(frm.c_phone.value)){
 			phoneLabel.style.color = "red";
 			frm.c_phone.focus();
 			msg.innerHTML = '携帯番号ではないです。もう一度確認してください。';
+			return false;
+		}
+		if(frm.c_birth.value.length < 1){
+			birthLabel.style.color = "red";
+			frm.c_birth.focus();
+			msg.innerHTML = '生年月日を入力してください。';
 			return false;
 		}
 		if(!birthRex.test(frm.c_birth.value)){

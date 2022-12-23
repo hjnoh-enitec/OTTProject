@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enitec.service.RegisterService;
 import com.enitec.vo.Customer;
@@ -23,7 +24,12 @@ public class RegisterController {
 	}
 
 	@PostMapping("/signup")
-	public String saveCustomer(Customer customer) {
+	public String saveCustomer(Customer customer, RedirectAttributes redirect) {
+		if(rs.checkCustomer(customer.getC_id()) > 0) {
+			String msg = "会員登録中問題が発生しました。もう一度やり直してください。";
+			redirect.addAttribute("validateMsg", msg);
+			return "redirect:/register/signup";
+		}
 		customer = rs.insertCustomer(customer);
 		System.out.println("hy");
 		return "redirect:/token/signUp?c_id=" + customer.getC_id();
