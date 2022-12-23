@@ -18,6 +18,7 @@ let seasonSel;
 let episodes;
 let contentId;
 let s_value;
+let historyCnt;
 const urlPath = document.getElementById("urlPath").value;
 window.onload = function() {
 	//modal
@@ -34,8 +35,22 @@ window.onload = function() {
 	scollWidth = {scollWidth1 : 0,scollWidth2 : 0,scollWidth3 : 0};
 	currentSliderCount = {slideCnt1 : 0,slideCnt2 : 0,slideCnt3 : 0};                              
 	showCount = 10;
-	videoCount = document.getElementsByClassName("slide s1").length;
-	sliderCount = videoCount / showCount;
+	videoCount ={
+		videoCount1 : document.getElementsByClassName("slide s1").length,
+		videoCount2 : document.getElementsByClassName("slide s2").length,
+		videoCount3 : document.getElementsByClassName("slide s3").length
+		
+	} 
+	
+	
+	sliderCount ={
+		sliderCount1 : videoCount["videoCount1"] / showCount,
+		sliderCount2 : videoCount["videoCount2"] / showCount,
+		sliderCount3 : videoCount["videoCount3"] / showCount,
+		
+	} 
+	
+	
 	controlsWidth = 40;
 	content = document.querySelector(".slide");
 	modalContentAvg = document.getElementById("avg");
@@ -98,7 +113,7 @@ function prev(num) {
 	$(".slider-container.sc" + num).css("left", scollWidth["scollWidth"+num]);
 }
 function next(num) {
-	if (currentSliderCount["slideCnt"+num] >= sliderCount) {
+	if (currentSliderCount["slideCnt"+num] >= sliderCount["sliderCount"+num]) {
 		return false;
 	}
 	scollWidth["scollWidth"+num] += frameWidth;
@@ -245,7 +260,7 @@ function setEpisonde(seasonNum) {
 				episode.setAttribute("class", "episode");
 				let title = document.createElement("h4");
 				title.setAttribute("class", "episodeTitle");
-				title.innerHTML = episodesData[i].name + "(" + episodesData[i].vote_average + ")";
+				title.innerHTML = episodesData[i].name + "(" + Math.round(episodesData[i].vote_average) + ")";
 				title.style.paddingTop = "20px";
 				let tumbNail = document.createElement("img");
 				tumbNail.style.marginLeft = "20px";
