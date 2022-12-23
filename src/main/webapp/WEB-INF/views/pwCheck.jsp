@@ -69,7 +69,9 @@
 	<div id="msg">
 		${param.msg}
 	</div>
-						<input type="hidden" id="urlPath" value="${urlPath}">
+
+	<input type="hidden" id="urlPath" value="${urlPath}">
+
 	<input type="hidden" name="c_id" value="${c_id}">
 	<input type="password" name="c_pwd" placeholder="パスワード">
 	<button>提出</button>
@@ -79,7 +81,12 @@
 		const urlPath = document.getElementById("urlPath");
 		let url;
 		function move() {
-			history.go(-1);
+
+			//history.go(-1);
+
+			url = "/customer/info";
+			location.href = urlPath + url;
+
 		}
 	
 		function formCheck(frm) {

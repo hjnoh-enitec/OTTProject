@@ -54,6 +54,7 @@
 		</div>
 	</div>
 	<div style="text-align: center;">
+		<input type="hidden" id="urlPath" value="${urlPath}">
 		<iframe width="99%" height="1100px" id="mainPreview"
 			src="https://www.youtube.com/embed/zqhU76d690o?enablejsapi=1&controls=0&autoplay=1&mute=1"
 			frameborder="0"></iframe>
@@ -64,27 +65,27 @@
 				<c:if test="${fn:length(playedList) ne 0}">
 					<h1 class="slideTitle" style="float: left;">視聴中のコンテンツ - ${profile.pf_name}</h1>
 					<div class="slider-frame sf3">
-					<div class="btn prev bp3" onclick="prev(3)" style="color:white;">P<br>R<br>E<br>V</div>
-					<div class="btn next bn3" onclick="next(3)" style="color:white;">N<br>E<br>X<br>T</div>
-						<div class="slider-container sc3" id="sc1">
-							<c:forEach items="${playedList}" var="playedList">
-								<c:if test="${playedList.e_number ne '-1'}">
-									<c:if test="${playedList.e_code eq null}">
-										<img class="slide s3" id="${playedList.ct_code}"
-											onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_number}','${playedList.s_number}','${playedList.path}')"
-											src="${playedList.imgPath}">
+						<div class="btn prev bp3" onclick="prev(3)" style="color:white;">P<br>R<br>E<br>V</div>
+						<div class="btn next bn3" onclick="next(3)" style="color:white;">N<br>E<br>X<br>T</div>
+							<div class="slider-container sc3" id="sc1">
+								<c:forEach items="${playedList}" var="playedList">
+									<c:if test="${playedList.e_number ne '-1'}">
+										<c:if test="${playedList.e_code eq null}">
+											<img class="slide s3" id="${playedList.ct_code}"
+												onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_number}','${playedList.s_number}','${playedList.path}')"
+												src="${playedList.imgPath}">
+										</c:if>
+										<c:if test="${playedList.e_code ne null}">
+											<img class="slide s3" id="${playedList.ct_code}"
+												onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
+												src="${playedList.imgPath}">
+										</c:if>
 									</c:if>
-									<c:if test="${playedList.e_code ne null}">
+									<c:if test="${playedList.e_number eq '-1'}">
 										<img class="slide s3" id="${playedList.ct_code}"
 											onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
 											src="${playedList.imgPath}">
 									</c:if>
-								</c:if>
-								<c:if test="${playedList.e_number eq '-1'}">
-									<img class="slide s3" id="${playedList.ct_code}"
-										onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
-										src="${playedList.imgPath}">
-								</c:if>
 	
 							</c:forEach>
 						</div>

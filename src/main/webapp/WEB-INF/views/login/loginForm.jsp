@@ -178,15 +178,21 @@ label {
 				<h1>LogIn</h1>
 			</div>
 			<div class="title">
-				<h3 id="loginMsg" style="color: red;">${param.notify}</h3>
+				<h3 id="notify" style="color: red;">${param.notify}</h3>
 			</div>
 			<div class="form">
 				<form action="/login/login" method="post" id="f"
-					oninput="LoginCheck()">
+					onsubmit="return LoginCheck()">
 					<input type="hidden" name="toURL" value="${toURL}" />
+					<p>
+						<label class="signLabel" for="loginC_id">メールアドレス</label>
+					</p>
 					<p>
 						<input type="text" name="c_id" id="loginC_id"
 							value="${cookie.c_id.value}" placeholder="E-MAIL" autofocus>
+					</p>
+					<p>
+						<label class="signLabel" for="c_pwd">パスワード</label>
 					</p>
 					<p>
 						<input type="password" name="c_pwd" id="c_pwd" placeholder="パスワード">
@@ -204,7 +210,9 @@ label {
 			<div class="joinQ">
 				<a href="/register/signup">新規登録</a> <br /> <a
 					id="modal_open_btn_findID">IDを忘れた方</a> | <a
-					id="modal_open_btn_findPW">パスワードを忘れた方</a> | <a href="/">戻る</a>
+					id="modal_open_btn_findPW">パスワードを忘れた方</a> 
+					<br/>
+					<a href="/">メインへ</a>
 			</div>
 		</div>
 	</div>

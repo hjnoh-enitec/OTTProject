@@ -18,7 +18,7 @@ let seasonSel;
 let episodes;
 let contentId;
 let s_value;
-const urlPath = document.getElementById("urlPath");
+const urlPath = document.getElementById("urlPath").value;
 window.onload = function() {
 	//modal
 	modal = document.getElementById("modal");
@@ -318,21 +318,17 @@ function watchVideo(episodes) {
 	let ct_path = "test.mp4"
 	if (contentId.startsWith('CT')) {
 	} else if(contentId.startsWith('T')) {
-		//location.href = urlPath+"/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
 		location.href = "/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
 	}
 	else if (episodes.id!="play") {
 		e_value = episodes.id;
 		hidePlayBtn();
 		if (contentId.startsWith('T')) {
-			//location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
-			location.href = "/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
+			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
 		}
-		//location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
-		location.href = "/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
+		location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
 	} else {
-		//location.href = urlPath+"/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
-		location.href = "/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
+		location.href = urlPath+"/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
 	}
 }
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.enitec.vo.Mail;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @Service
 @Slf4j
+@Component
 public class MailService {
 	@Value("${path.urlPath}")
 	private String urlPath;
