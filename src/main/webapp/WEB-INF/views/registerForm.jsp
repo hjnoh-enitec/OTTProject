@@ -162,6 +162,12 @@
 			msg.innerHTML = 'お客様のお名前を入力してください。';
 			return false;
 		}
+		if(frm.c_name.value.match(reg)){
+			nameLabel.style.color = "red";
+			frm.c_name.focus();
+			msg.innerHTML = '名前には空白が入れません。';
+			return false;
+		}
 		if(!phoneRex.test(frm.c_phone.value)){
 			phoneLabel.style.color = "red";
 			frm.c_phone.focus();
