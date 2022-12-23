@@ -118,13 +118,18 @@ function formCheck() {
 	if (c_id.value == "") {
 		msg_pw.innerHTML = 'メールを入力してください。';
 		return false;
-	}
-
-	if (mailRegex.test(c_id.value) == false) {
+	}else if(mailRegex.test(c_id.value) == false) {
 		msg_pw.innerHTML = 'メールの形式が正しくありません。';
 		return false;
+	}else{
+		msg_pw.innerHTML = "";
+		alert(c_id.value + "にメールを発送しました。\r\nもしメールが届かなかったら、入力したメールアドレスまたは迷惑メールを確認してください。");
+		return true;
 	}
+}
 
-	alert(c_id.value + "にメールを発送しました。");
-	return true;
+function onlyNumber(object){
+	if(object.value.length > object.maxLength){
+		object.value = object.value.slice(0, object.maxLength);
+	}
 }

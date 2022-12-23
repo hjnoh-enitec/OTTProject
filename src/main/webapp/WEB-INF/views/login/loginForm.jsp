@@ -107,9 +107,15 @@ label {
 #title-findID {
 	font-size: 25px;
 }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 </style>
 </head>
-<body>
+<body oncopy="return false" oncut="return false" onpaste="return false">
 	<!-- ----------------------------------------------------------------------------------------Modal(FindID)-------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
@@ -121,15 +127,15 @@ label {
 					<div id="title-findID">Find ID</div>
 					<div style="height: 70px;">
 						<label for="">名前</label> <input class="input-field" type="text"
-							name="c_name" id="c_name" placeholder="ex : 動画太郎">
+							name="c_name" id="c_name" placeholder="ex : 動画太郎" maxlength="20">
 					</div>
 					<div style="height: 70px;">
-						<label for="">生年月日</label> <input class="input-field" type="text"
-							name="c_birth" id="c_birth" placeholder="ex : 20220101">
+						<label for="">生年月日</label> <input class="input-field" type="number"
+							name="c_birth" id="c_birth" placeholder="ex : 20220101" oninput="onlyNumber(this)" maxlength="8" min="0" max="99999999">
 					</div>
 					<div style="height: 70px;">
-						<label for="">電話番号</label> <input class="input-field" type="text"
-							name="c_phone" id="c_phone" placeholder="ex : 07012345678">
+						<label for="">電話番号</label> <input class="input-field" type="number"
+							name="c_phone" id="c_phone" placeholder="ex : 07012345678" oninput="onlyNumber(this)" maxlength="11" min="0" max="99999999999">
 					</div>
 					<div style="width: 50%; float: left;">
 						<button onclick="findID()" type="submit">ID探し</button>
@@ -190,13 +196,13 @@ label {
 					</p>
 					<p>
 						<input type="text" name="c_id" id="loginC_id"
-							value="${cookie.c_id.value}" placeholder="E-MAIL" autofocus>
+							value="${cookie.c_id.value}" placeholder="E-MAIL" autofocus maxlength="30">
 					</p>
 					<p>
 						<label class="signLabel" for="c_pwd">パスワード</label>
 					</p>
 					<p>
-						<input type="password" name="c_pwd" id="c_pwd" placeholder="パスワード">
+						<input type="password" name="c_pwd" id="c_pwd" placeholder="パスワード" maxlength="20">
 						<br> <font color="white" id="emptycheck"></font>
 					</p>
 					<p>
