@@ -37,7 +37,7 @@ public class ProfileController {
 	public String moveProfilePage(String toURL, HttpServletRequest request, HttpServletResponse res, Model model) {
 		HttpSession session = request.getSession();
 		if (!Session.checkLogin(session)) {
-			return "redirect:/";
+			return "redirect:/login/login";
 		}
 		String c_id = session.getAttribute(Session.LOGIN_CUSTOMER).toString();
 		List<Profile> profileList = ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
@@ -66,7 +66,7 @@ public class ProfileController {
 	public String selectedCustomerProfile(SelectProfileForm spf, HttpSession session, HttpServletResponse res,
 			Model model) {
 		if (!Session.checkLogin(session)) {
-			return "redirect:/";
+			return "redirect:/login/login";
 		}
 		Profile profile = ps.findById(spf.getPf_code());
 		session.setAttribute(Session.SELECT_PROFILE, profile);
@@ -77,7 +77,7 @@ public class ProfileController {
 	public String createProfile(CreateProfileForm createProfileForm, HttpSession session, HttpServletResponse res,
 			MultipartFile fileUpload) {
 		if (!Session.checkLogin(session)) {
-			return "redirect:/";
+			return "redirect:/login/login";
 		}
 		Profile profile = new Profile();
 		String profilePath = "";
