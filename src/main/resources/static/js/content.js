@@ -320,8 +320,9 @@ function watchVideo(episodes) {
 	let ct_path = "test.mp4"
 	if (contentId.startsWith('CT')) {
 
-	} else if(contentId.startsWith('T')) {
-		location.href = "/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
+	} else if (contentId.startsWith('T')) {
+		location.href = urlPath + "/content/watch?ct_code=" + contentId + "&ct_path=" + episodes.value;
+
 	}
 	else if (episodes.id != "play") {
 		e_value = episodes.id;

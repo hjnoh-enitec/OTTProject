@@ -76,6 +76,9 @@ public class ProfileController {
 	@PostMapping("/create")
 	public String createProfile(CreateProfileForm createProfileForm, HttpSession session, HttpServletResponse res,
 			MultipartFile fileUpload) {
+		if (!Session.checkLogin(session)) {
+			return "redirect:/";
+		}
 		Profile profile = new Profile();
 		String profilePath = "";
 		String thumbnailPath = "";
