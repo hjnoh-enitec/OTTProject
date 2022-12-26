@@ -20,8 +20,12 @@
 
 </head>
 <body>
+<<<<<<< HEAD
 
 	<input type="hidden" id="urlPath" value="${urlPath}">
+=======
+<input type="hidden" id="urlPath" value="${urlPath}">
+>>>>>>> 087380a21262258fec94bd000c73446677d87e89
 	<!-- 윈도우 전체 -->
 	<div id="modal" class="modal-overlay">
 		<!-- 모달 컨텐츠 -->
@@ -141,10 +145,16 @@
 		</div>
 
 	</div>
+<<<<<<< HEAD
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/js/content.js"></script>
 
+=======
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/content.js"></script>
+>>>>>>> 087380a21262258fec94bd000c73446677d87e89
 </body>
 </html>
