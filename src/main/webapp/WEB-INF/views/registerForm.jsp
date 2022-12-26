@@ -17,6 +17,7 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Register</title>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="icon" href="/img/logo.png">
 </head>
 <body>
 	<section class="LoginSection">
@@ -53,16 +54,14 @@
 					<br />
 					<label class="signLabel" id="c_phoneLabel" for="c_phone">携帯番号</label>
 					<br />
-					<input class="input-field" type="text" id="c_phone"
-						name="c_phone" id="c_phone" placeholder="`-`なし　例）09012345678"
-						 maxlength="11">
+					<input class="input-field" type="text" id="c_phone" name="c_phone"
+						id="c_phone" placeholder="`-`なし　例）09012345678" maxlength="11">
 					<br />
 					<label class="signLabel" id="c_birthLabel" for="c_birth">生年月日</label>
 					<br />
-					<input class="input-field" type="text" id="c_birth"
-						name="c_birth" id="c_birth" placeholder="例)1990年06月02日 → 19900602"
-						maxlength="8">
-						<div class="msgArea" id="validateMsg"></div>
+					<input class="input-field" type="text" id="c_birth" name="c_birth"
+						id="c_birth" placeholder="例)1990年06月02日 → 19900602" maxlength="8">
+					<div class="validateMsg" id="validateMsg" >${param.validateMsg }</div>
 					<button type="button" id="submitBtn" onclick="sbm()">新規登録</button>
 					<button type="button" id="backPage" onclick="gomain()">メインページへ</button>
 				</form:form>
@@ -118,6 +117,7 @@
 	function sbmvalid() {
 		msg.innerHTML = '';
 		returnColor();
+		const reg = /\s/g;
 		const phoneRex = /^(0[7|8|9][0])([0-9]{4})([0-9]{4})$/;
 		const birthRex = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
 		if(frm.c_id.value.length < 1){
@@ -138,6 +138,18 @@
 			msg.innerHTML = 'パスワードは4~20文字の間で入力してください。';
 			return false;
 		}
+		if(frm.c_pwd.value.match(reg)){
+			pwdLabel.style.color = "red";
+			frm.c_pwd.focus();
+			msg.innerHTML = 'パスワードには空白は入れません。';
+	   		return false;
+	   	 }
+		if(frm.c_pwd2.value.length < 1){
+			pwd2Label.style.color = "red";
+			frm.c_pwd2.focus();
+			msg.innerHTML = 'パスワードをもう一度入力してください。';
+			return false;
+		}
 		if(frm.c_pwd.value !== frm.c_pwd2.value){
 			pwd2Label.style.color = "red";
 			frm.c_pwd2.focus();
@@ -150,10 +162,28 @@
 			msg.innerHTML = 'お客様のお名前を入力してください。';
 			return false;
 		}
+		if(frm.c_name.value.match(reg)){
+			nameLabel.style.color = "red";
+			frm.c_name.focus();
+			msg.innerHTML = '名前には空白が入れません。';
+			return false;
+		}
+		if(frm.c_phone.value.length < 1){
+			phoneLabel.style.color = "red";
+			frm.c_phone.focus();
+			msg.innerHTML = '携帯電話を入力してください。';
+			return false;
+		}
 		if(!phoneRex.test(frm.c_phone.value)){
 			phoneLabel.style.color = "red";
 			frm.c_phone.focus();
 			msg.innerHTML = '携帯番号ではないです。もう一度確認してください。';
+			return false;
+		}
+		if(frm.c_birth.value.length < 1){
+			birthLabel.style.color = "red";
+			frm.c_birth.focus();
+			msg.innerHTML = '生年月日を入力してください。';
 			return false;
 		}
 		if(!birthRex.test(frm.c_birth.value)){

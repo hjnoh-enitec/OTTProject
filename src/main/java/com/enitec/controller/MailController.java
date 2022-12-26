@@ -27,9 +27,9 @@ public class MailController {
 	}
 	@GetMapping("/findPwd")
 	public String sendFindPwdMail(@RequestParam String t_id, @RequestParam String c_id, Model model) {
-		url ="/find/confirm?c_id="+c_id+"&";
+		url ="/find/confirm";
 		subject = "「OTT」パスワードの変更をご案内いたします";
-		ms.sendMail(t_id, c_id,url,subject);
+		ms.sendMail(t_id,c_id,url,subject);
 
 		return "redirect:/login/login";
 

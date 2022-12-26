@@ -28,7 +28,6 @@ let episodes = document.getElementById("episodes");
 let playBtn = document.getElementById("play");
 let contentId;
 let s_value;
-let historyCnt;
 const urlPath = document.getElementById("urlPath").value;
 window.onload = function() {
 	let win = $(window);
@@ -51,9 +50,13 @@ window.onload = function() {
 	let videoWidthDiff = (videoWidth * scaling) - videoWidth;
 	let videoHeightDiff = (videoHeight * scaling) - videoHeight;
 	//set sizes
+<<<<<<< HEAD
 	sliderFrame1.width(windowWidth);
 	sliderFrame2.width(windowWidth);
 	sliderFrame3.width(windowWidth);
+=======
+	sliderFrame.width("100%");
+>>>>>>> 7014bb4fb1475b4a336fa737bde26eb954a4b17d
 	sliderContainer.width((videoWidth * videoCount) + videoWidthDiff);
 	sliderContainer.css("top", (videoHeightDiff / 2 - 45));
 	sliderContainer.css("margin-left", (controlsWidth));
@@ -312,8 +315,13 @@ function watchVideo(episodes) {
 	let e_value = "";
 	let ct_path = "test.mp4"
 	if (contentId.startsWith('CT')) {
+<<<<<<< HEAD
 	} else if (contentId.startsWith('T')) {
 		location.href = urlPath + "/content/watch?ct_code=" + contentId + "&ct_path=" + episodes.value;
+=======
+	} else if(contentId.startsWith('T')) {
+		location.href = "/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
+>>>>>>> 7014bb4fb1475b4a336fa737bde26eb954a4b17d
 	}
 	else if (episodes.id != "play") {
 		e_value = episodes.id;
@@ -326,3 +334,17 @@ function watchVideo(episodes) {
 		location.href = urlPath + "/content/watch?ct_code=" + contentId + "&ct_path=" + ct_path;
 	}
 }
+
+// main page preview영상 랜덤재생
+var preViewVideos = ['zqhU76d690o', 'EzGDPZhPjRA', 'n800hOJmgWo', 'HghrzTldjpc', 'kFqJhAk4Ul0', 'k4xGqY5IDBE', 'rzKcrJ77wBY', 'YLDxwZHRP6o'];
+	
+		var mainPreview = document.getElementById("mainPreview");
+	
+		function choosePreviewVideo(min, max){
+		    var videoNum = Math.floor(Math.random()*(max-min+1));
+		    console.log(videoNum);
+		    return videoNum;
+		}
+	
+		mainPreview.setAttribute("src", "https://www.youtube.com/embed/" + preViewVideos[choosePreviewVideo(0, preViewVideos.length-1)] + "?enablejsapi=1&controls=0&autoplay=1&mute=1");
+		console

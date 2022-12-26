@@ -9,47 +9,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>OTTProject - User</title>
+<title>OTTProject - UserInfo</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-	<style>
-		* { box-sizing:border-box; }
-		a { text-decoration: none; }
-		#main {
-			width:500px;
-			height:600px;
-			display : flex;
-			flex-direction: column;
-			align-items:center;
-			position : absolute;
-			top:50%;
-			left:50%;
-			transform: translate(-50%, -50%) ;
-			border: 1px solid rgb(89,117,196);
-			border-radius: 10px;
-		}
-		input[type='text'], input[type='password'] {
-			width: 200px;
-			height: 40px;
-			border : 1px solid rgb(89,117,196);
-			border-radius:5px;
-			padding: 0 10px;
-			margin-bottom: 10px;
-		}
-		button {
-			background-color: rgb(89,117,196);
-			color : white;
-			width:100px;
-			height:50px;
-			font-size: 17px;
-			border : none;
-			border-radius: 5px;
-			margin : 20px 0 30px 0;
-		}
-		#title {
-			font-size : 50px;
-			margin: 40px 0 30px 0;
-		}
-	</style>
+<link rel="stylesheet" href="/css/customerInfo.css"/>
+<link rel="shortcut icon" href="/img/logo.png">
 </head>
 <body>
 <%@ include file="/jsp/home/header.jsp"%>
@@ -118,33 +81,25 @@
 				</c:if>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<input type="submit" onclick="javascript: form.action='/modify/pwCheck'" value="会員情報修正">
-				</td>
-				<td>
-					<input type="submit" onclick="javascript: form.action='/customer/modifyMembership'" value="メンバーシップ申込＆修正">
-				</td>
-				<td>
-				
-					<c:if test="${customer.m_code == null || customer.m_autopay == 'F'}">
-						<input type="submit" value="メンバーシップ脱退" id="quitMembership" disabled="disabled">
-					</c:if>
-				
-					<c:if test="${customer.m_code != null && customer.m_autopay == 'T'}">
-						<input type="submit" onclick="javascript: form.action='/customer/withdrwal'" value="メンバーシップ脱退" id="quitMembership">
-					</c:if>
-				</td>
-			</tr>
-
 		</table>
-		
+		<p><p>
+			<div style="text-align: center;">
+				<div style="margin-bottom: 10px;"><input type="submit" onclick="javascript: form.action='http://localhost:8000/modify/pwCheck'" value="会員情報修正"></div>
+				<div style="margin-bottom: 10px;"><input type="submit" onclick="javascript: form.action='/customer/modifyMembership'" value="メンバーシップ契約＆修正"></div>
+				<div style="margin-bottom: 10px;">
+					<c:if test="${customer.m_code == null || customer.m_autopay == 'F'}">
+					<input type="submit" value="メンバーシップ脱退" id="quitMembership" disabled="disabled">
+				</c:if>
+					
+				<c:if test="${customer.m_code != null && customer.m_autopay == 'T'}">
+					<input type="submit" onclick="javascript: form.action='/customer/withdrwal'" value="メンバーシップ解約" id="quitMembership">
+				</c:if>
+				</div>
+			</div>
 		</form>
 	</div>
 
-	<script>
-	
-	</script>
+	<script src="/js/customerInfo.js"></script>
 	
 </body>
 </html>

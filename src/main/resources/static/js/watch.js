@@ -1,4 +1,3 @@
-
 const ct_code = document.getElementById("ct_code").value;
 const e_code = document.getElementById("e_code").value;
 const s_code = document.getElementById("s_code").value;
@@ -26,7 +25,7 @@ const header = document.getElementById("header");
 window.onload = beforePlayVideo();
 function beforePlayVideo() {
 	if (h_close_at > 1) {
-		let playVideoFromStopped = confirm("続けて観ますか");
+		let playVideoFromStopped = confirm("続けて観ますか？");
 		if (playVideoFromStopped) {
 			// 마지막 종료 시점부터 시작
 			videoPlayer.currentTime = h_close_at;
@@ -36,7 +35,6 @@ function beforePlayVideo() {
 	}
 }
 
-
 // 뒤로가기 버튼
 function onVideo() {
 	btn.style.display = "flex";
@@ -44,7 +42,6 @@ function onVideo() {
 function outVideo() {
 	btn.style.display = "none";
 }
-
 
 videoPlayer.setAttribute("src", filePath);
 

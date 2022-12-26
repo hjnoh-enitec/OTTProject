@@ -1,11 +1,16 @@
-
+w
 body{
+<<<<<<< HEAD
+	width : 100%;
+=======
+>>>>>>> 30f9c16dea58d1c30e5819df24c9724a295d74b9
 	height: 100%;
 }
 .catalog {
 	width :100%;
 	position: absolute;
 	top: 600px;
+	width : 97%;
 }
 
 .slideTitle {
@@ -52,7 +57,7 @@ body{
 }
 
 .slider-frame .btn.next {
-	right: 50px;
+	right: 0px;
 }
 
 .slider-frame .slider-container {

@@ -33,6 +33,7 @@
 <title>OTTProject</title>
 <style type="text/css">
 </style>
+<link rel="icon" href="/img/logo.png">
 </head>
 <body>
 	<input type="hidden" class="toURL" id="toURL" name="toURL"
