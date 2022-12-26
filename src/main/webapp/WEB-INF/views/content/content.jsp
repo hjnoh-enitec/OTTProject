@@ -19,10 +19,6 @@
 <title>contentPage</title>
 </head>
 <body>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/js/content.js"></script>
-
 	<!-- 윈도우 전체 -->
 	<div id="modal" class="modal-overlay">
 		<!-- 모달 컨텐츠 -->
@@ -58,7 +54,7 @@
 	<div>
 		<input type="hidden" id="urlPath" value="${urlPath}">
 		<iframe width="100%" height="800px" id="mainPreview"
-			src="https://www.youtube.com/embed/zqhU76d690o?enablejsapi=1&controls=0&autoplay=1&mute=1"
+			src="https://www.youtube.com/embed/YOIJOJsUkUg?enablejsapi=1&controls=0&autoplay=1&mute=1"
 			frameborder="0"></iframe>
 		<div class="catalog">
 			<input type="hidden" id="pf_code" name="pf_code"
@@ -127,5 +123,8 @@
 		</div>
 
 	</div>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/content.js"></script>
 </body>
 </html>

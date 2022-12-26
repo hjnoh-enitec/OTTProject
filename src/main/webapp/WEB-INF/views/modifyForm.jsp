@@ -83,9 +83,7 @@ button {
 	<form:form id="frm" action="/modify/save" method="post"
 		onsubmit="return pwCheck(this)">
 		<div class="title">ユーザ情報修正</div>
-		<div id="msg" class="msg">
-			<form:errors path="pwd" />
-		</div>
+		<div id="msg" class="msg"></div>
 		<label for="">ID</label>
 		<input class="input-field noChange" type="text" name="c_id"
 			value="${customer.c_id}" readonly="readonly">
