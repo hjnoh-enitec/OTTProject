@@ -51,9 +51,13 @@ window.onload = function() {
 	let videoHeightDiff = (videoHeight * scaling) - videoHeight;
 	//set sizes
 
-	sliderFrame1.width(windowWidth);
-	sliderFrame2.width(windowWidth);
-	sliderFrame3.width(windowWidth);
+	sliderFrame1.width("100%");
+	sliderFrame2.width("100%");
+	sliderFrame3.width("100%");
+	
+	if(videoCount["videoCount3"]<10){
+		document.querySelector(".next.bn3").style.display="none";
+	}
 
 	sliderContainer.width((videoWidth * videoCount) + videoWidthDiff);
 	sliderContainer.css("top", (videoHeightDiff / 2 - 45));
