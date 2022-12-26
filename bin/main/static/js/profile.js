@@ -41,7 +41,7 @@ function createProfile() {
 		alert('使用するニックネームを入力してください。');
 		return false;
 	}
-	if(pf_name.value.match(reg)){
+	if (pf_name.value.match(reg)) {
 		alert('プロフィール名に空白は入力できません。');
 		return false;
 	}
@@ -95,6 +95,10 @@ function accept(index) {
 		alert('ニックネームを入力してください。（ニックネームは1～１０文字までです）');
 		return false;
 	}
+	if(showProfileName.value.match(reg)){
+			alert('プロフィール名に空白は入力できません。');
+			return false;
+	}
 	updateBtn.style.display = 'block';
 	acceptBtn.style.display = 'none';
 	cancelBtn.style.display = 'none';
@@ -146,19 +150,17 @@ function updateProfile(index) {
 	let deletebtn = document.getElementById("profileDeleteBtn" + index);
 	let form = document.getElementById("fileUploadform" + index);
 	let data = new FormData(form);
-	let pf_name = document.getElementById("pf_name"+index);
+	let pf_name = document.getElementById("pf_name" + index);
 	let file = document.getElementById("fileUpload" + index);
 	let pathPoint = file.value.lastIndexOf('.');
 	let filePoint = file.value.substring(pathPoint + 1, file.length);
 	let fileType = filePoint.toLowerCase();
 	if (fileType !== 'jpg' && fileType !== 'png' && fileType !== "") {
 		alert('イメージはjpgまたはpngファイルでお願いします。');
-	} 
+	}
 	else {
-		if(pf_name.value.match(reg)){
-			alert('プロフィール名に空白は入力できません。');
-		}else{
-			if (window.confirm("変更事項を保存しますか？")) {
+
+		if (window.confirm("変更事項を保存しますか？")) {
 			$.ajax({
 				type: 'POST',
 				enctype: 'multipart/form-data',
@@ -183,9 +185,9 @@ function updateProfile(index) {
 		}
 		updatebtn.style.display = 'none';
 		deletebtn.style.display = 'block';
-	}			
-		}
-		
+	}
+
+
 }
 function deleteProfile(index) {
 	if (window.confirm("本当に削除しますか？")) {
@@ -206,7 +208,7 @@ function deleteProfile(index) {
 				}
 			},
 			error: function() {
-				location.href='/';
+				location.href = '/';
 			}
 		})
 	}
