@@ -88,15 +88,10 @@ input[type="number"]::-webkit-inner-spin-button {
 <body　oncopy="return false" oncut="return false" onpaste="return false">
 	<form:form id="frm" action="/modify/save" method="post"
 		onsubmit="return pwCheck(this)">
-<<<<<<< HEAD
-		<div class="title">ユーザ情報修正</div>
-		<div id="msg" class="msg"></div>
-=======
 		<div class="title">会員情報修正</div>
 		<div id="msg" class="msg">
 			<form:errors path="pwd" />
 		</div>
->>>>>>> 7014bb4fb1475b4a336fa737bde26eb954a4b17d
 		<label for="">ID</label>
 		<input class="input-field noChange" type="text" name="c_id"
 			value="${customer.c_id}" readonly="readonly">

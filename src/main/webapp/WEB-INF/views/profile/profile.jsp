@@ -92,7 +92,7 @@
 						</div>
 						<div class="profileUpdateDelete">
 							<button class="update" id="profileUpdateBtn${status.index }"
-								onclick="updateProfile(${status.index})">確認</button>
+								 onclick="updateProfile(${status.index})">確認</button>
 							<button class="delete" id="profileDeleteBtn${status.index }"
 								onclick="deleteProfile(${status.index})">削除</button>
 						</div>
