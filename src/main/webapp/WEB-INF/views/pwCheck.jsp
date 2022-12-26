@@ -63,7 +63,7 @@
 		}
 	</style>
 </head>
-<body>
+<body　oncopy="return false" oncut="return false" onpaste="return false">
 	<form action ="<c:url value="/modify/modify"/>" method="post" onsubmit="return formCheck(this);">
 	<h3 id="title">パスワードを<br>入力してください</h3>
 	<div id="msg">
@@ -73,7 +73,7 @@
 	<input type="hidden" id="urlPath" value="${urlPath}">
 
 	<input type="hidden" name="c_id" value="${c_id}">
-	<input type="password" name="c_pwd" placeholder="パスワード">
+	<input type="password" name="c_pwd" placeholder="パスワード" maxlength="20">
 	<button>提出</button>
 	<button type="button" onclick="move()">キャンセル</button>
 	</form>
@@ -81,12 +81,7 @@
 		const urlPath = document.getElementById("urlPath");
 		let url;
 		function move() {
-
-			//history.go(-1);
-
-			url = "/customer/info";
-			location.href = urlPath + url;
-
+			history.go(-1);
 		}
 	
 		function formCheck(frm) {

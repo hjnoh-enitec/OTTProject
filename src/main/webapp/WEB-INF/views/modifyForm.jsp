@@ -18,8 +18,8 @@
 }
 
 form {
-	width: 400px;
-	height: 600px;
+	width: 450px;
+	height: 750px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -38,6 +38,7 @@ form {
 	border-radius: 5px;
 	padding: 0 10px;
 	margin-bottom: 10px;
+	font-size: 20px;
 }
 
 label {
@@ -76,13 +77,18 @@ button {
 .noChange {
 	background-color: rgba(0, 0, 0, 0.25);
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 </style>
 <title>Register</title>
 </head>
-<body>
+<body　oncopy="return false" oncut="return false" onpaste="return false">
 	<form:form id="frm" action="/modify/save" method="post"
 		onsubmit="return pwCheck(this)">
-		<div class="title">ユーザ情報修正</div>
+		<div class="title">会員情報修正</div>
 		<div id="msg" class="msg">
 			<form:errors path="pwd" />
 		</div>
@@ -101,9 +107,9 @@ button {
 		<label for="">生年月日</label>
 		<input class="input-field noChange" type="text" name="c_birth"
 			value="${customer.c_birth}" readonly="readonly">
-		<label for="">携帯</label>
-		<input class="input-field" type="text" name="c_phone"
-			value="${customer.c_phone}" maxlength="11">
+		<label for="">携帯番号</label>
+		<input class="input-field" type="number" name="c_phone"
+			value="${customer.c_phone}" maxlength="11" min="0" max="99999999999" oninput="onlyNumber(this)" >
 		<input type="hidden" name="c_mailcheck"
 			value="${customer.c_mailcheck}">
 		<button type="submit">修正</button>
@@ -151,6 +157,7 @@ button {
 			}     	   
    	   return true;
      }
+	 
        function setMessage(msg, element){
             document.getElementById("msg").innerHTML = `<i class="fa fa-exclamation-circle"> ${'${msg}'}</i>`;
             if(element) {
@@ -164,6 +171,12 @@ button {
        function backToInfo(){
     	   location.href='/customer/info';
        }
+       
+       function onlyNumber(object){
+    		if(object.value.length > object.maxLength){
+    			object.value = object.value.slice(0, object.maxLength);
+    		}
+    	}
        
    </script>
 </body>
