@@ -38,7 +38,7 @@
 					<div class='profile-card' id='profile-image'>
 						<img src='/img/baseImage/basicProfileImage.jpg' id='fileUpload' />
 						<p><p><p>
-						<input type='file' name='fileUpload' accept='.jpg,.png'
+						<input type='file' id="pf_img" name='fileUpload' accept='.jpg,.png'
 						onchange='setProfile(event)' />
 					</div>
 					
@@ -166,6 +166,5 @@
 
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="/js/profile.js"></script>
-
 </body>
 </html>

@@ -32,8 +32,16 @@ function setProfile(event) {
 
 function createProfile() {
 	let pf_name = document.getElementById("pf_name");
+	let file = document.getElementById("pf_img");
+	let pathPoint = file.value.lastIndexOf('.');
+	let filePoint = file.value.substring(pathPoint+1,file.length);
+	let fileType = filePoint.toLowerCase();
 	if(pf_name == '' || pf_name === undefined || pf_name.value.length == 0){
 		alert('使用するニックネームを入力してください。');
+		return false;
+	}
+	if(fileType !== 'jpg' && fileType !== 'png' && fileType !== ""){
+		alert('イメージはjpgまたはpngファイルでお願いします。');
 		return false;
 	}
 	$('#createProfile').submit();
