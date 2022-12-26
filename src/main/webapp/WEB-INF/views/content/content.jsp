@@ -20,10 +20,9 @@
 
 </head>
 <body>
-<<<<<<< HEAD
-=======
+
 <input type="hidden" id="urlPath" value="${urlPath}">
->>>>>>> 7014bb4fb1475b4a336fa737bde26eb954a4b17d
+
 	<!-- 윈도우 전체 -->
 	<div id="modal" class="modal-overlay">
 		<!-- 모달 컨텐츠 -->
@@ -58,13 +57,8 @@
 	</div>
 	<div style="text-align: center;">
 		<input type="hidden" id="urlPath" value="${urlPath}">
-<<<<<<< HEAD
-		<iframe width="100%" height="800px" id="mainPreview"
-			src="https://www.youtube.com/embed/YOIJOJsUkUg?enablejsapi=1&controls=0&autoplay=1&mute=1"
-=======
 		<iframe width="99%" height="1100px" id="mainPreview"
 			src="https://www.youtube.com/embed/zqhU76d690o?enablejsapi=1&controls=0&autoplay=1&mute=1"
->>>>>>> 7014bb4fb1475b4a336fa737bde26eb954a4b17d
 			frameborder="0"></iframe>
 		<div class="catalog">
 			<input type="hidden" id="pf_code" name="pf_code"
@@ -135,16 +129,10 @@
 		</div>
 
 	</div>
-<<<<<<< HEAD
+
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/js/content.js"></script>
-=======
-	
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/js/content.js"></script>
-	
->>>>>>> 7014bb4fb1475b4a336fa737bde26eb954a4b17d
+
 </body>
 </html>
