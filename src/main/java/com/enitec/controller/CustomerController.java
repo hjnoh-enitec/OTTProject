@@ -34,7 +34,7 @@ public class CustomerController {
 	@GetMapping("/info")
 	public String customerinfo(HttpSession session, Model model) {
 		if (!Session.checkLogin(session)) {
-			return "error";
+			return "redirect:/login/login";
 		}
 		String c_id = session.getAttribute("c_id").toString();
 		Customer customer = getCustomerInfo(c_id);
