@@ -55,7 +55,9 @@ window.onload = function() {
 	sliderFrame2.width("100%");
 	sliderFrame3.width("100%");
 	
+	// 프로필의 시청 기록에 기록된 영상이 10 종류 미만일 시 next,prev 버튼 안 나옴
 	if(videoCount["videoCount3"]<10){
+		document.querySelector(".prev.bp3").style.display="none";
 		document.querySelector(".next.bn3").style.display="none";
 	}
 
@@ -334,15 +336,14 @@ function watchVideo(episodes) {
 }
 
 // main page preview영상 랜덤재생
-var preViewVideos = ['zqhU76d690o', 'EzGDPZhPjRA', 'n800hOJmgWo', 'HghrzTldjpc', 'kFqJhAk4Ul0', 'k4xGqY5IDBE', 'rzKcrJ77wBY', 'YLDxwZHRP6o'];
+let preViewVideos = ['zqhU76d690o', 'EzGDPZhPjRA', 'n800hOJmgWo', 'HghrzTldjpc', 'kFqJhAk4Ul0', 'k4xGqY5IDBE', 'rzKcrJ77wBY', 'YLDxwZHRP6o'];
 	
-		var mainPreview = document.getElementById("mainPreview");
+		let mainPreview = document.getElementById("mainPreview");
 	
 		function choosePreviewVideo(min, max){
-		    var videoNum = Math.floor(Math.random()*(max-min+1));
+		    let videoNum = Math.floor(Math.random()*(max-min+1));
 		    console.log(videoNum);
 		    return videoNum;
 		}
 	
 		mainPreview.setAttribute("src", "https://www.youtube.com/embed/" + preViewVideos[choosePreviewVideo(0, preViewVideos.length-1)] + "?enablejsapi=1&controls=0&autoplay=1&mute=1");
-		console
