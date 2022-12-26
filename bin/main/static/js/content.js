@@ -50,13 +50,10 @@ window.onload = function() {
 	let videoWidthDiff = (videoWidth * scaling) - videoWidth;
 	let videoHeightDiff = (videoHeight * scaling) - videoHeight;
 	//set sizes
-	sliderFrame1.width(windowWidth);
-	sliderFrame2.width(windowWidth);
-	sliderFrame3.width(windowWidth);
-<<<<<<< HEAD
+	sliderFrame1.width("100%");
+	sliderFrame2.width("100%");
+	sliderFrame3.width("100%");
 
-=======
->>>>>>> 087380a21262258fec94bd000c73446677d87e89
 	sliderContainer.width((videoWidth * videoCount) + videoWidthDiff);
 	sliderContainer.css("top", (videoHeightDiff / 2 - 45));
 	sliderContainer.css("margin-left", (controlsWidth));
@@ -317,10 +314,7 @@ function watchVideo(episodes) {
 	if (contentId.startsWith('CT')) {
 	} else if (contentId.startsWith('T')) {
 		location.href = urlPath + "/content/watch?ct_code=" + contentId + "&ct_path=" + episodes.value;
-<<<<<<< HEAD
 
-=======
->>>>>>> 087380a21262258fec94bd000c73446677d87e89
 	}
 	else if (episodes.id != "play") {
 		e_value = episodes.id;
@@ -335,9 +329,9 @@ function watchVideo(episodes) {
 }
 
 // main page preview영상 랜덤재생
-var preViewVideos = ['zqhU76d690o', 'EzGDPZhPjRA', 'n800hOJmgWo', 'HghrzTldjpc', 'kFqJhAk4Ul0', 'k4xGqY5IDBE', 'rzKcrJ77wBY', 'YLDxwZHRP6o'];
+let preViewVideos = ['zqhU76d690o', 'EzGDPZhPjRA', 'n800hOJmgWo', 'HghrzTldjpc', 'kFqJhAk4Ul0', 'k4xGqY5IDBE', 'rzKcrJ77wBY', 'YLDxwZHRP6o'];
 	
-		var mainPreview = document.getElementById("mainPreview");
+		let mainPreview = document.getElementById("mainPreview");
 	
 		function choosePreviewVideo(min, max){
 		    var videoNum = Math.floor(Math.random()*(max-min+1));

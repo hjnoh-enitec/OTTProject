@@ -1,22 +1,22 @@
-var today = new Date();
-var thisYear = today.getFullYear();
+let today = new Date();
+let thisYear = today.getFullYear();
 
-var phone = document.getElementById("phone");
+let phone = document.getElementById("phone");
 if (phone.value.length == 11) {
-	var phoneFirst = phone.value.substr(0, 3) + "-";
-	var phoneSecond = phone.value.substr(3, 4) + "-";
-	var phoneThird = phone.value.substr(7, 4);
+	let phoneFirst = phone.value.substr(0, 3) + "-";
+	let phoneSecond = phone.value.substr(3, 4) + "-";
+	let phoneThird = phone.value.substr(7, 4);
 
 	phone.value = phoneFirst + phoneSecond + phoneThird;
 } else {
 	phone.value = "ERROR!";
 }
 
-var birth = document.getElementById("birth");
+let birth = document.getElementById("birth");
 if (birth.value.length == 8) {
-	var year = birth.value.substr(0, 4);
-	var month = "";
-	var day = "";
+	let year = birth.value.substr(0, 4);
+	let month = "";
+	let day = "";
 
 	if (birth.value.charAt(4) == 0) {
 		month = birth.value.substr(5, 1);
