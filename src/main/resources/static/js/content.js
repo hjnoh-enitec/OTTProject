@@ -1,61 +1,39 @@
-let scaling;                                      
-let currentSliderCount;                             
-let videoCount;										
-let showCount;
-let sliderCount;
-let controlsWidth;
-let scollWidth;
+let scaling = 1.50;
+let currentSliderCount = { slideCnt1: 0, slideCnt2: 0, slideCnt3: 0 };
+let videoCount = {
+	videoCount1: document.getElementsByClassName("slide s1").length,
+	videoCount2: document.getElementsByClassName("slide s2").length,
+	videoCount3: document.getElementsByClassName("slide s3").length
+}
+let showCount = 10;
+let sliderCount = {
+	sliderCount1: (videoCount["videoCount1"] / showCount)-1,
+	sliderCount2: (videoCount["videoCount2"] / showCount)-1,
+	sliderCount3: (videoCount["videoCount3"] / showCount)-1,
+
+};
+let controlsWidth = 40;
+let scollWidth = { scollWidth1: 0, scollWidth2: 0, scollWidth3: 0 };
 let frameWidth;
-let content;
-let modal;
-let modalContentTitle;
-let modalContentPreview;
-let modalContentOverview;
-let modalContentAvg;
-let modalWindow;
-let playBtn;
-let seasonSel;
-let episodes;
+let content = document.querySelector(".slide");
+let modal = document.getElementById("modal");
+let modalContentTitle = document.getElementById("contentTitle");
+let modalContentPreview = document.getElementById("contentPreview");
+let modalContentOverview = document.getElementById("overview");
+let modalContent = document.getElementById("content");
+let modalContentAvg = document.getElementById("avg");
+let modalWindow = document.getElementById("modalWindow");
+let seasonSel = document.getElementById("seasonSelect");
+let episodes = document.getElementById("episodes");
+let playBtn = document.getElementById("play");
 let contentId;
 let s_value;
 const urlPath = document.getElementById("urlPath").value;
 window.onload = function() {
-	//modal
-	modal = document.getElementById("modal");
-	modalContentTitle = document.getElementById("contentTitle");
-	modalContentPreview = document.getElementById("contentPreview");
-	modalContentOverview = document.getElementById("overview");
-	modalContent = document.getElementById("content");
-	modalWindow = document.getElementById("modalWindow");
-	seasonSel = document.getElementById("seasonSelect");
-	episodes = document.getElementById("episodes");
-	//slideFrame
-	scaling = 1.50;
-	scollWidth = {scollWidth1 : 0,scollWidth2 : 0,scollWidth3 : 0};
-	currentSliderCount = {slideCnt1 : 0,slideCnt2 : 0,slideCnt3 : 0};                              
-	showCount = 10;
-	videoCount ={
-		videoCount1 : document.getElementsByClassName("slide s1").length,
-		videoCount2 : document.getElementsByClassName("slide s2").length,
-		videoCount3 : document.getElementsByClassName("slide s3").length
-		
-	} 
-	
-	
-	sliderCount ={
-		sliderCount1 : videoCount["videoCount1"] / showCount,
-		sliderCount2 : videoCount["videoCount2"] / showCount,
-		sliderCount3 : videoCount["videoCount3"] / showCount,
-		
-	} 
-	
-	
-	controlsWidth = 40;
-	content = document.querySelector(".slide");
-	modalContentAvg = document.getElementById("avg");
-	playBtn = document.getElementById("play");
 	let win = $(window);
-	let sliderFrame = $(".slider-frame");
+	let sliderFrame1 = $(".slider-frame.sf1");
+	let sliderFrame2 = $(".slider-frame.sf2");
+	let sliderFrame3 = $(".slider-frame.sf3");
 	let sliderContainer = $(".slider-container");
 	let slide = $(".slide");
 	//counts
@@ -72,7 +50,13 @@ window.onload = function() {
 	let videoWidthDiff = (videoWidth * scaling) - videoWidth;
 	let videoHeightDiff = (videoHeight * scaling) - videoHeight;
 	//set sizes
+<<<<<<< HEAD
+	sliderFrame1.width(windowWidth);
+	sliderFrame2.width(windowWidth);
+	sliderFrame3.width(windowWidth);
+=======
 	sliderFrame.width("100%");
+>>>>>>> 7014bb4fb1475b4a336fa737bde26eb954a4b17d
 	sliderContainer.width((videoWidth * videoCount) + videoWidthDiff);
 	sliderContainer.css("top", (videoHeightDiff / 2 - 45));
 	sliderContainer.css("margin-left", (controlsWidth));
@@ -103,24 +87,24 @@ function prev(num) {
 	if (currentSliderCount["slideCnt"+num] == 0) {
 		return false;
 	}
-	scollWidth["scollWidth"+num] -= frameWidth;
+	scollWidth["scollWidth" + num] -= frameWidth;
 	$('.slider-container.sc' + num).animate({
-		left: - scollWidth["scollWidth"+num]
+		left: - scollWidth["scollWidth" + num]
 	}, 300, function() {
-		currentSliderCount["slideCnt"+num]--;
+		currentSliderCount["slideCnt" + num]--;
 	});
-	$(".slider-container.sc" + num).css("left", scollWidth["scollWidth"+num]);
+	$(".slider-container.sc" + num).css("left", scollWidth["scollWidth" + num]);
 }
 function next(num) {
-	if (currentSliderCount["slideCnt"+num] >= sliderCount["sliderCount"+num]) {
+	if (currentSliderCount["slideCnt" + num] >= sliderCount["sliderCount" + num]) {
 		return false;
 	}
-	scollWidth["scollWidth"+num] += frameWidth;
+	scollWidth["scollWidth" + num] += frameWidth;
 	$('.slider-container.sc' + num).animate({
-		left: - scollWidth["scollWidth"+num]
+		left: - scollWidth["scollWidth" + num]
 	}, 300, function() {
-		console.log(scollWidth["scollWidth"+num]);
-		currentSliderCount["slideCnt"+num]++;
+		console.log(scollWidth["scollWidth" + num]);
+		currentSliderCount["slideCnt" + num]++;
 	});
 }
 let baseURL;
@@ -288,15 +272,15 @@ function clickHistory(clickedContent, h_close_at, e_value, s_value, path) {
 	contentId = clickedContent.id;
 	if (isAPI(clickedContent.id)) {
 		if (e_value == undefined && s_value == undefined) {
-			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path ;
+			location.href = urlPath + "/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at + "&ct_path=" + path;
 		} else {
-			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = urlPath + "/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value + "&h_close_at=" + h_close_at + "&ct_path=" + path;
 		}
 	} else {
 		if (e_value == undefined && s_value == undefined) {
-			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = urlPath + "/content/watch?ct_code=" + contentId + "&h_close_at=" + h_close_at + "&ct_path=" + path;
 		} else {
-			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value + "&h_close_at=" + h_close_at+"&ct_path=" + path;
+			location.href = urlPath + "/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value + "&h_close_at=" + h_close_at + "&ct_path=" + path;
 		}
 	}
 }
@@ -319,30 +303,35 @@ function clickdbImg(content, ct_title, ct_info, ct_star, ct_path) {
 		modalContentTitle.innerHTML = ct_title;
 		modalContentAvg.innerHTML = ct_star;
 		const video = document.createElement("video");
-		video.setAttribute("src", urlPath+"/video/M1/" + ct_path)
+		video.setAttribute("src", urlPath + "/video/M1/" + ct_path)
 		modalContentPreview.appendChild(video);
 		modal.style.display = "flex";
 		modalContent.setAttribute("onmouseover", "displayPlayBtn()");
 		modalContent.setAttribute("onmouseout", "hidePlayBtn()");
-		playBtn.setAttribute("value",ct_path)
+		playBtn.setAttribute("value", ct_path)
 	}
 }
 function watchVideo(episodes) {
 	let e_value = "";
 	let ct_path = "test.mp4"
 	if (contentId.startsWith('CT')) {
+<<<<<<< HEAD
+	} else if (contentId.startsWith('T')) {
+		location.href = urlPath + "/content/watch?ct_code=" + contentId + "&ct_path=" + episodes.value;
+=======
 	} else if(contentId.startsWith('T')) {
 		location.href = "/content/watch?ct_code=" + contentId+ "&ct_path="+ episodes.value;
+>>>>>>> 7014bb4fb1475b4a336fa737bde26eb954a4b17d
 	}
-	else if (episodes.id!="play") {
+	else if (episodes.id != "play") {
 		e_value = episodes.id;
 		hidePlayBtn();
 		if (contentId.startsWith('T')) {
-			location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value+ "&ct_path="+ ct_path;
+			location.href = urlPath + "/content/watch?ct_code=" + contentId + "&e_code=" + e_value + "&s_code=" + s_value + "&ct_path=" + ct_path;
 		}
-		location.href = urlPath+"/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value+ "&ct_path="+ ct_path;
+		location.href = urlPath + "/content/watch?ct_code=" + contentId + "&e_number=" + e_value + "&s_number=" + s_value + "&ct_path=" + ct_path;
 	} else {
-		location.href = urlPath+"/content/watch?ct_code=" + contentId+ "&ct_path="+ ct_path;
+		location.href = urlPath + "/content/watch?ct_code=" + contentId + "&ct_path=" + ct_path;
 	}
 }
 
