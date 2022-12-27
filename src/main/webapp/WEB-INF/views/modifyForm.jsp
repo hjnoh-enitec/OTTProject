@@ -85,7 +85,7 @@ input[type="number"]::-webkit-inner-spin-button {
 </style>
 <title>Register</title>
 </head>
-<body　oncopy="return false" oncut="return false" onpaste="return false">
+<body>
 	<form:form id="frm" action="/modify/save" method="post"
 		onsubmit="return pwCheck(this)">
 		<div class="title">会員情報修正</div>
@@ -97,10 +97,10 @@ input[type="number"]::-webkit-inner-spin-button {
 			value="${customer.c_id}" readonly="readonly">
 		<label for="">パスワード</label>
 		<input class="input-field" type="password" name="c_pwd"
-			placeholder="パスワード" maxlength="20">
+			placeholder="パスワード" maxlength="20" oncopy="return false" oncut="return false" onpaste="return false">
 		<label for="">パスワード再入力</label>
 		<input class="input-field" type="password" name="c_pwd2"
-			placeholder="再入力してください" maxlength="20">
+			placeholder="再入力してください" maxlength="20" oncopy="return false" oncut="return false" onpaste="return false">
 		<label for="">名前</label>
 		<input class="input-field noChange" type="text" name="c_name"
 			value="${customer.c_name}" readonly="readonly">
