@@ -150,7 +150,6 @@ function updateProfile(index) {
 	let deletebtn = document.getElementById("profileDeleteBtn" + index);
 	let form = document.getElementById("fileUploadform" + index);
 	let data = new FormData(form);
-	let pf_name = document.getElementById("pf_name" + index);
 	let file = document.getElementById("fileUpload" + index);
 	let pathPoint = file.value.lastIndexOf('.');
 	let filePoint = file.value.substring(pathPoint + 1, file.length);
@@ -170,16 +169,16 @@ function updateProfile(index) {
 				contentType: false,
 				cache: false,
 				success: function(data) {
-					if (data == 0) {
+					if (data == 1) {
 
 						window.location.reload();
 					}
 					else {
-						alert('修正に失敗しました。');
+						location.href = '/login/login';
 					}
 				},
 				error: function() {
-					location.href = '/';
+					location.href = '/login/login';
 				}
 			});
 		}
@@ -204,11 +203,11 @@ function deleteProfile(index) {
 					location.href = '/profile/select';
 				}
 				else {
-					alert('削除に失敗しました。');
+					location.href = '/login/login';
 				}
 			},
 			error: function() {
-				location.href = '/';
+				location.href = '/login/login';
 			}
 		})
 	}
