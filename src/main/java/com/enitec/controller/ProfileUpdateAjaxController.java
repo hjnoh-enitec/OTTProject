@@ -28,12 +28,15 @@ public class ProfileUpdateAjaxController {
 	@PostMapping("/update")
 	@ResponseBody
 	public int updateProfile(@RequestParam("fileUpload") MultipartFile uploadfile,@RequestParam("pf_code")String pf_code,@RequestParam("pf_name")String pf_name,HttpSession session){
+		if(!Session.checkLogin(session)) {
+			return 0;
+		}
 		Profile profile = ps.findById(pf_code);
 		profile.setPf_name(pf_name);
 		if(!uploadfile.isEmpty()) {
 			String fileName = uploadfile.getOriginalFilename();
 			if(!fss.uploadFile(uploadfile, fileName)) {
-				return 1;
+				return 0;
 			}else {
 				File beforeProfile = new File(fss.getFilePathRoot() + fss.getProfile() + profile.getPf_path());
 				File beforeThumbnail = new File(fss.getFilePathRoot() + fss.getThumbnail() + profile.getPf_thumbnail_path());
@@ -41,14 +44,14 @@ public class ProfileUpdateAjaxController {
 					if(beforeProfile.delete()) {
 						System.out.println("delete before profile");
 					}else {
-						return 1;
+						return 0;
 					}
 				}
 				if(beforeThumbnail.exists()) {
 					if(beforeThumbnail.delete()) {
 						System.out.println("delete before thumbnail");
 					}else {
-						return 1;	
+						return 0;	
 					}
 				}
 				profile.setPf_path(fss.getProfile()+fileName);
@@ -60,12 +63,13 @@ public class ProfileUpdateAjaxController {
 			session.setAttribute(Session.SELECT_PROFILE, ps.findById(pf_code));
 		}
 		session.setAttribute(Session.CUSTOMER_PROFILE_LIST, ps.getProfileDataBase(session.getAttribute(Session.LOGIN_CUSTOMER).toString()));
-		return 0;
+		return 1;
 	}
 	
 	@PostMapping("/delete")
 	@ResponseBody
 	public int deleteProfile(@RequestParam("pf_code")String pf_code,HttpSession session) {
+		if(Session.checkLogin(session)) {
 			boolean check = ps.deleteById(pf_code);
 			if(check) {
 				int profileCount = ps.getProfileCount(session.getAttribute(Session.LOGIN_CUSTOMER).toString());
@@ -80,6 +84,8 @@ public class ProfileUpdateAjaxController {
 				}
 				return 0;
 			}
-			return -1;
+			 
+		}
+		return -1;
 	}
 }
