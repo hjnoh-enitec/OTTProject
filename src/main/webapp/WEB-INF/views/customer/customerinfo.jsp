@@ -84,7 +84,7 @@
 		</table>
 		<p><p>
 			<div style="text-align: center;">
-				<div style="margin-bottom: 10px;"><input type="submit" onclick="javascript: form.action='http://localhost:8000/modify/pwCheck'" value="会員情報修正"></div>
+				<div style="margin-bottom: 10px;"><input type="submit" onclick="javascript: form.action='http://localhost:8000/modify/modify'" value="会員情報修正"></div>
 				<div style="margin-bottom: 10px;"><input type="submit" onclick="javascript: form.action='/customer/modifyMembership'" value="メンバーシップ契約＆修正"></div>
 				<div style="margin-bottom: 10px;">
 					<c:if test="${customer.m_code == null || customer.m_autopay == 'F'}">

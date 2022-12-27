@@ -23,7 +23,7 @@ public class ModifyController {
 	@Autowired
 	private CustomerService ms;
 
-	@GetMapping("/pwCheck")
+	@GetMapping("/modify")
 	public String pwCheck(HttpSession session, HttpServletRequest req) {
 		if (session.getAttribute("c_id") == null) {
 			return "redirect:/login/login?toURL=" + req.getRequestURL();
