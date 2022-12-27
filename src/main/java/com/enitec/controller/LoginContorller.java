@@ -70,7 +70,9 @@ public class LoginContorller {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		if(Session.checkSession(session)) {
+			session.invalidate();	
+		}
 		return "redirect:/";
 	}
 

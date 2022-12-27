@@ -20,9 +20,18 @@
 
 </head>
 <body>
+<<<<<<< HEAD
 
 <input type="hidden" id="urlPath" value="${urlPath}">
 
+=======
+<<<<<<< HEAD
+
+	<input type="hidden" id="urlPath" value="${urlPath}">
+=======
+<input type="hidden" id="urlPath" value="${urlPath}">
+>>>>>>> 087380a21262258fec94bd000c73446677d87e89
+>>>>>>> 18982b2da7f81d4fdd453a55cae6e49e669759d4
 	<!-- 윈도우 전체 -->
 	<div id="modal" class="modal-overlay">
 		<!-- 모달 컨텐츠 -->
@@ -65,30 +74,35 @@
 				value="${profile.pf_code}">
 			<c:if test="${profile ne null}">
 				<c:if test="${fn:length(playedList) ne 0}">
-					<h1 class="slideTitle" style="float: left;">視聴中のコンテンツ - ${profile.pf_name}</h1>
+					<h1 class="slideTitle" style="float: left;">視聴中のコンテンツ -
+						${profile.pf_name}</h1>
 					<div class="slider-frame sf3">
-						<div class="btn prev bp3" onclick="prev(3)" style="color:white;">P<br>R<br>E<br>V</div>
-						<div class="btn next bn3" onclick="next(3)" style="color:white;">N<br>E<br>X<br>T</div>
-							<div class="slider-container sc3" id="sc1">
-								<c:forEach items="${playedList}" var="playedList">
-									<c:if test="${playedList.e_number ne '-1'}">
-										<c:if test="${playedList.e_code eq null}">
-											<img class="slide s3" id="${playedList.ct_code}"
-												onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_number}','${playedList.s_number}','${playedList.path}')"
-												src="${playedList.imgPath}">
-										</c:if>
-										<c:if test="${playedList.e_code ne null}">
-											<img class="slide s3" id="${playedList.ct_code}"
-												onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
-												src="${playedList.imgPath}">
-										</c:if>
+						<div class="btn prev bp3" onclick="prev(3)" style="color: white;">
+							P<br>R<br>E<br>V
+						</div>
+						<div class="btn next bn3" onclick="next(3)" style="color: white;">
+							N<br>E<br>X<br>T
+						</div>
+						<div class="slider-container sc3" id="sc1">
+							<c:forEach items="${playedList}" var="playedList">
+								<c:if test="${playedList.e_number ne '-1'}">
+									<c:if test="${playedList.e_code eq null}">
+										<img class="slide s3" id="${playedList.ct_code}"
+											onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_number}','${playedList.s_number}','${playedList.path}')"
+											src="${playedList.imgPath}">
 									</c:if>
-									<c:if test="${playedList.e_number eq '-1'}">
+									<c:if test="${playedList.e_code ne null}">
 										<img class="slide s3" id="${playedList.ct_code}"
 											onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
 											src="${playedList.imgPath}">
 									</c:if>
-	
+								</c:if>
+								<c:if test="${playedList.e_number eq '-1'}">
+									<img class="slide s3" id="${playedList.ct_code}"
+										onclick="clickHistory(this,'${playedList.h_close_at}','${playedList.e_code}','${playedList.s_code}','${playedList.path}')"
+										src="${playedList.imgPath}">
+								</c:if>
+
 							</c:forEach>
 						</div>
 					</div>
@@ -96,8 +110,12 @@
 			</c:if>
 			<h1 class="slideTitle" style="float: left;">映画ランキング</h1>
 			<div class="slider-frame sf1">
-				<div class="btn prev bp1" onclick="prev(1)" style="color:white;">P<br>R<br>E<br>V</div>
-				<div class="btn next bn1" onclick="next(1)" style="color:white;">N<br>E<br>X<br>T</div>
+				<div class="btn prev bp1" onclick="prev(1)" style="color: white;">
+					P<br>R<br>E<br>V
+				</div>
+				<div class="btn next bn1" onclick="next(1)" style="color: white;">
+					N<br>E<br>X<br>T
+				</div>
 				<div class="slider-container sc1" id="sc1">
 					<c:forEach items="${dbMoiveList}" var="dbMoiveList">
 						<img class="slide s1" id="${dbMoiveList.ct_code}"
@@ -116,8 +134,12 @@
 			</div>
 			<h1 class="slideTitle" style="float: left;">TVランキング</h1>
 			<div class="slider-frame sf2">
-				<div class="btn prev bp2" onclick="prev(2)" style="color:white;">P<br>R<br>E<br>V</div>
-				<div class="btn next bn2" onclick="next(2)" style="color:white;">N<br>E<br>X<br>T</div>
+				<div class="btn prev bp2" onclick="prev(2)" style="color: white;">
+					P<br>R<br>E<br>V
+				</div>
+				<div class="btn next bn2" onclick="next(2)" style="color: white;">
+					N<br>E<br>X<br>T
+				</div>
 				<div class="slider-container sc2" id="sc2">
 					<c:forEach items="${myList}" var="myList">
 						<img class="slide s2" id="${myList.ct_code}"
@@ -129,10 +151,22 @@
 		</div>
 
 	</div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 18982b2da7f81d4fdd453a55cae6e49e669759d4
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/js/content.js"></script>
 
+<<<<<<< HEAD
+=======
+=======
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/content.js"></script>
+>>>>>>> 087380a21262258fec94bd000c73446677d87e89
+>>>>>>> 18982b2da7f81d4fdd453a55cae6e49e669759d4
 </body>
 </html>

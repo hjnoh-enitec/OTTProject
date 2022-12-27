@@ -11,6 +11,11 @@ public interface Session {
 	
 	String CUSTOMER_PROFILE_LIST ="profileList";
 	
+	
+	public static boolean checkSession(HttpSession session) {
+		return session !=null;
+	}
+	
 	public static boolean checkLogin(HttpSession session) {
 		return session !=null && session.getAttribute(LOGIN_CUSTOMER) != null;
 	}
