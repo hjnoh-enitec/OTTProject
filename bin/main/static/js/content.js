@@ -49,8 +49,6 @@ window.onload = function() {
 	let videoHeight = 300;
 	let videoWidthDiff = (videoWidth * scaling) - videoWidth;
 	let videoHeightDiff = (videoHeight * scaling) - videoHeight;
-	//set sizes
-<<<<<<< HEAD
 
 	sliderFrame1.width("100%");
 	sliderFrame2.width("100%");
@@ -61,12 +59,7 @@ window.onload = function() {
 		document.querySelector(".prev.bp3").style.display="none";
 		document.querySelector(".next.bn3").style.display="none";
 	}
-=======
-	sliderFrame1.width("100%");
-	sliderFrame2.width("100%");
-	sliderFrame3.width("100%");
->>>>>>> 18982b2da7f81d4fdd453a55cae6e49e669759d4
-
+	
 	sliderContainer.width((videoWidth * videoCount) + videoWidthDiff);
 	sliderContainer.css("top", (videoHeightDiff / 2 - 45));
 	sliderContainer.css("margin-left", (controlsWidth));
